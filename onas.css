@@ -1,0 +1,71 @@
+
+/* O nás page - premium styled */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #2b4162, #6ca6c1, #c45baa, #f6ae2d);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #f6ae2d;
+  text-shadow: 0 0 10px #f6ae2d, 0 0 20px #f6ae2d;
+  margin-bottom: 1rem;
+  animation: fadeInUp 1s ease-in-out forwards;
+  opacity: 0;
+}
+
+p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: #ffffff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+  animation: fadeInUp 1s 0.4s ease-in-out forwards;
+  opacity: 0;
+}
+
+.highlight {
+  color: #f6ae2d;
+  font-weight: 600;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glowing underline for section title */
+h1::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  margin: 1rem auto 0;
+  background: #f6ae2d;
+  box-shadow: 0 0 20px #f6ae2d;
+  border-radius: 2px;
+}
