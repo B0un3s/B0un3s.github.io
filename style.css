@@ -516,17 +516,19 @@ body.dark .service-card {
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
-
 .open-hours {
   list-style: none;
   padding: 0;
   margin: 0;
   font-size: 1.1rem;
+  width: 100%;
 }
 
 .open-hours li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 2rem; /* <<< MEZERA MEZI DÍLY */
   padding: 0.5rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -534,6 +536,24 @@ body.dark .service-card {
 .open-hours li:last-child {
   border-bottom: none;
 }
+
+.open-hours .day {
+  flex: 1;
+  text-align: left;
+  min-width: 120px;
+}
+
+.open-hours .time {
+  flex: 1;
+  text-align: right;
+}
+
+.open-hours .time.closed {
+  color: #ff5f5f;
+  font-weight: bold;
+  text-shadow: 0 0 8px #ff5f5f;
+}
+
 .map-link {
   display: inline-block;
   padding: 0.6rem 1.2rem; /* smaller padding */
