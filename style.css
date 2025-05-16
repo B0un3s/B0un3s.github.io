@@ -329,3 +329,46 @@ body.dark .service-card {
   .cta-btn { padding: 0.8rem 1.5rem; }
   .service-card { padding: 2rem; }
 }
+.onas-section {
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.onas-card {
+  background: rgba(28, 28, 28, 0.65);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+  animation: fadeInUp 1s ease forwards;
+  text-align: left;
+}
+
+.onas-card h2,
+.onas-card h3 {
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.onas-card p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+}
+
+.onas-card ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.onas-card ul li {
+  margin-bottom: 0.8rem;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
