@@ -423,5 +423,5 @@ body.dark .service-card {
 
 .cenik-list li {
   justify-content: space-between;
-  gap: 1rem; 
+  gap: 0.5rem; 
 }
