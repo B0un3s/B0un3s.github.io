@@ -551,7 +551,7 @@ body.dark .service-card {
 .open-hours .time.closed {
   color: #ff5f5f;
   font-weight: bold;
-  text-shadow: 0 0 8px #ff5f5f;
+  text-shadow: 0 0 12px #ff5f5f;
 }
 
 .map-link {
