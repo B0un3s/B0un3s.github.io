@@ -1,44 +1,43 @@
+
 :root {
-  /* Base Palette Overrides */
   --color-primary: var(--indigo-dye);
   --color-secondary: var(--air-superiority-blue);
   --color-accent: var(--hunyadi-yellow);
   --color-light: #ffffff;
   --color-dark: #1c1c1c;
   --duration: 0.3s;
-
-  /* Indigo Dye Palette */
   --indigo-dye: #2b4162ff;
   --sky-magenta: #c45baaff;
   --air-superiority-blue: #6ca6c1ff;
   --hunyadi-yellow: #f6ae2dff;
-
-  /* Gradient Directions */
   --gradient-top: linear-gradient(0deg, var(--indigo-dye), var(--sky-magenta), var(--air-superiority-blue), var(--hunyadi-yellow));
   --gradient-diagonal-45: linear-gradient(45deg, var(--indigo-dye), var(--sky-magenta), var(--air-superiority-blue), var(--hunyadi-yellow));
   --gradient-radial: radial-gradient(circle at center, var(--indigo-dye), var(--sky-magenta), var(--air-superiority-blue), var(--hunyadi-yellow));
 }
 
-/* -------------------------------------------------- */
-/* Global & Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
   transition: background var(--duration), color var(--duration), transform var(--duration);
+  max-width: 100%;
 }
 
-/* Base Background */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--gradient-diagonal-45);
-  background-size: 400% 400%;
+  background-size: 200% 200%;
   animation: gradientBG 20s ease infinite;
   color: var(--color-light);
-  overflow-x: hidden;
   position: relative;
 }
+
 body::after {
   content: '';
   position: fixed;
@@ -47,9 +46,10 @@ body::after {
   opacity: 0.05;
   animation: bgPulse 12s ease-in-out infinite alternate;
   pointer-events: none;
+  max-width: 100vw;
+  overflow: hidden;
 }
 
-/* Animations */
 @keyframes gradientBG {
   0%,100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -59,7 +59,6 @@ body::after {
   to { opacity: 0.1; }
 }
 
-/* Scroll Progress Bar */
 #progress {
   position: fixed;
   top: 0;
@@ -71,8 +70,6 @@ body::after {
   z-index: 1000;
 }
 
-/* -------------------------------------------------- */
-/* Navbar */
 .navbar {
   position: sticky;
   top: 0;
@@ -95,6 +92,8 @@ body::after {
 .navbar nav ul {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
 }
 .navbar nav ul li a {
@@ -141,8 +140,6 @@ body::after {
   color: var(--color-dark);
 }
 
-/* -------------------------------------------------- */
-/* Hero Section */
 .hero {
   position: relative;
   text-align: center;
@@ -205,8 +202,6 @@ body::after {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* -------------------------------------------------- */
-/* Services Section */
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -217,7 +212,6 @@ body::after {
 .service-card {
   position: relative;
   padding: 2.5rem;
-  /* Darker background for better text contrast */
   background: rgba(28, 28, 28, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 30px;
@@ -239,8 +233,6 @@ body::after {
   line-height: 1.6;
 }
 
-/* -------------------------------------------------- */
-/* Main & Lists */
 main h2 {
   color: var(--color-accent);
   text-align: center;
@@ -256,8 +248,6 @@ main ul {
   align-items: center;
 }
 
-/* -------------------------------------------------- */
-/* About Page */
 main p {
   max-width: 680px;
   margin: 1.5rem auto;
@@ -265,8 +255,6 @@ main p {
   font-size: 1.15rem;
 }
 
-/* -------------------------------------------------- */
-/* Contacts */
 .social-icon img {
   width: 90px;
   height: 90px;
@@ -277,8 +265,6 @@ main p {
   transform: rotate(15deg) scale(1.15);
 }
 
-/* -------------------------------------------------- */
-/* Footer */
 footer {
   padding: 2.5rem 1rem;
   text-align: center;
@@ -297,7 +283,7 @@ footer p {
 }
 .eshop-frame {
   width: 100%;
-  height: 300px;      /* nebo podle potřeby */
+  height: 300px;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.4);
   border: none;
@@ -307,10 +293,18 @@ footer p {
 }
 @media (max-width: 600px) {
   .eshop-frame { height: 200px; }
+  .hero h2 { font-size: 2.5rem; }
+  .cta-btn { padding: 0.8rem 1.5rem; }
+  .service-card { padding: 2rem; }
+
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    text-align: center;
+  }
 }
 
-/* -------------------------------------------------- */
-/* Dark Mode */
 body.dark {
   background: #111;
 }
@@ -320,12 +314,4 @@ body.dark footer {
 }
 body.dark .service-card {
   background: rgba(20,20,20,0.5);
-}
-
-/* -------------------------------------------------- */
-/* Responsive */
-@media (max-width: 600px) {
-  .hero h2 { font-size: 2.5rem; }
-  .cta-btn { padding: 0.8rem 1.5rem; }
-  .service-card { padding: 2rem; }
 }
