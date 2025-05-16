@@ -413,12 +413,15 @@ body.dark .service-card {
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
 }
 
-.cenik-list li:last-child {
-  border-bottom: none;
+.cenik-list li span:first-child {
+  text-align: left;
 }
 
-.cenik-list .permanentka {
-  font-weight: 600;
-  color: var(--color-accent);
-  text-shadow: 0 0 10px var(--color-accent);
+.cenik-list li span:last-child {
+  text-align: right;
+}
+
+.cenik-list li {
+  justify-content: space-between;
+  gap: 1rem; 
 }
