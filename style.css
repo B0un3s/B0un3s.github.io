@@ -536,18 +536,19 @@ body.dark .service-card {
 }
 .map-link {
   display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.2rem; /* smaller padding */
+  font-size: 0.95rem;     /* slightly smaller text */
   font-weight: 600;
   color: var(--color-dark);
   background: var(--color-accent);
   border-radius: 30px;
   text-decoration: none;
-  box-shadow: 0 0 15px var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .map-link:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px var(--color-accent), 0 0 40px var(--color-accent);
+  box-shadow: 0 0 20px var(--color-accent), 0 0 30px var(--color-accent);
 }
+
