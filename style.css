@@ -484,3 +484,70 @@ body.dark .service-card {
   color: var(--color-accent);
   text-shadow: 0 0 10px var(--color-accent);
 }
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.map-box,
+.open-box {
+  background: rgba(28, 28, 28, 0.7);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  border-radius: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: var(--color-light);
+}
+
+.map-box h3,
+.open-box h3 {
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.map-frame iframe {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.open-hours {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.open-hours li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.open-hours li:last-child {
+  border-bottom: none;
+}
+.map-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  background: var(--color-accent);
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 0 15px var(--color-accent);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.map-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px var(--color-accent), 0 0 40px var(--color-accent);
+}
