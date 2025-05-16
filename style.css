@@ -425,3 +425,62 @@ body.dark .service-card {
   justify-content: space-between;
   gap: 0.5rem; 
 }
+.kontakty-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kontakty-title {
+  font-size: 3rem;
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+  margin-bottom: 2rem;
+}
+
+.contact-card {
+  background: rgba(28, 28, 28, 0.7);
+  backdrop-filter: blur(15px);
+  padding: 2rem 3rem;
+  border-radius: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.contact-item img {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 10px var(--color-accent));
+  transition: transform 0.3s ease;
+}
+
+.contact-item img:hover {
+  transform: scale(1.1);
+}
+
+.contact-item a {
+  color: var(--color-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.contact-item a:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent);
+}
