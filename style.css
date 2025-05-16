@@ -372,3 +372,53 @@ body.dark .service-card {
   line-height: 1.7;
   font-size: 1.1rem;
 }
+.cenik-section {
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.cenik-title {
+  font-size: 3rem;
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+  margin-bottom: 1rem;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.cenik-card {
+  background: rgba(28, 28, 28, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 25px;
+  padding: 2rem 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 600px;
+}
+
+.cenik-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cenik-list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+.cenik-list li:last-child {
+  border-bottom: none;
+}
+
+.cenik-list .permanentka {
+  font-weight: 600;
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent);
+}
