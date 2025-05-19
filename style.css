@@ -571,4 +571,31 @@ body.dark .service-card {
   transform: scale(1.05);
   box-shadow: 0 0 20px var(--color-accent), 0 0 30px var(--color-accent);
 }
+.theme-toggle {
+  display: none !important;
+}
+/* …tu máš svoje existující styly… */
+
+/* permanent dark mode override */
+body.dark {
+  background: #111 !important;         /* čistá tmavá barva */
+  background-image: none !important;   /* žádný gradient/obrázek */
+  animation: none !important;          /* zrušíme plynulé přebarvování */
+  color: #e0e0e0 !important;           /* světlý text */
+}
+
+/* jednotná tmavá pozadí pro sekce */
+body.dark header,
+body.dark .navbar,
+body.dark footer,
+body.dark .service-card,
+body.dark .onas-card,
+body.dark .cenik-card,
+body.dark .contact-card,
+body.dark .map-box,
+body.dark .open-box {
+  background: rgba(28,28,28,0.85) !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
 
