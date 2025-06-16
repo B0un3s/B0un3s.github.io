@@ -1,53 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Coming Soon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solarium Hranice</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      margin: 0;
-      background-color: #0e0e0e;
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5em;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #aaa;
-      max-width: 500px;
-    }
-
-    .loader {
-      border: 6px solid #333;
-      border-top: 6px solid #f1c40f;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin-top: 2em;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
-<body>
-  <h1>⚙️ Site Not Ready</h1>
-  <p>We're still working on something awesome. Hang tight and check back soon!</p>
-  <div class="loader"></div>
+<body class="dark">
+  <header>
+    <div class="navbar">
+      <h1>Solarium Hranice</h1>
+      <button id="theme-toggle" class="theme-toggle">🌞</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2>Vítejte v Solarium Hranice</h2>
+    <p>Zažijte sluneční dotek po celý rok.</p>
+    <a href="rezervace.html" class="cta-btn">Připravujeme</a>
+  </section>
+
+  <section class="services">
+    <a href="onas.html" class="service-card">
+      <h3>O nás</h3>
+      <p>Dopřejte si luxusní opalování v našem moderním soláriu.</p>
+    </a>
+    <a href="cenik.html" class="service-card">
+      <h3>Ceník</h3>
+      <p>Podívejte se na naše výhodné ceny a balíčky.</p>
+    </a>
+    <a href="kontakty.html" class="service-card">
+      <h3>Kontakty</h3>
+      <p>Jak se s námi spojit?</p>
+    </a>
+  </section>
+    
+
+  <footer>
+    <p>&copy; 2025 Solarium Hranice. Všechna práva vyhrazena.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
