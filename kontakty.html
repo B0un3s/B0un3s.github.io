@@ -2,71 +2,62 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kontakty | Solarium Hranice</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark">
+  <div class="parallax-bg"></div>
+  <div class="blur-circle blue"></div>
+  <div class="blur-circle purple"></div>
+
   <header class="navbar">
-    <h1>Solarium Hranice</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home"></a></li>
-        <li><a href="onas.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/help.png" alt="About Us"></a></li>
-        <li><a href="cenik.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/price-tag.png" alt="Ceník"></a></li>
-        <li><a href="kontakty.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Contact"></a></li>
-      </ul>
+    <h1 class="glow">Solárium Hranice</h1>
+    <nav class="nav-icons">
+      <a href="index.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/home.png" alt="Home"></a>
+      <a href="onas.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/help.png" alt="About Us"></a>
+      <a href="cenik.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/price-tag.png" alt="Ceník"></a>
+      <a href="kontakty.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/phone.png" alt="Contact"></a>
+      <a href="rezervace.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/shopping-cart.png" alt="E-shop"></a>
     </nav>
-    <button id="theme-toggle" class="theme-toggle">🌞</button>
   </header>
 
-  <main class="kontakty-section">
-    <h2 class="kontakty-title">Kontakt</h2>
+  <main class="cenik-section">
+    <section class="hero-card">
+      <h2 class="cenik-title">Kontakty</h2>
+      <p class="hero-sub">Zůstaň ve spojení – napiš nám, sleduj nás, nebo rovnou zavolej!</p>
+    </section>
 
-    <div class="contact-card">
-      <div class="contact-item">
-        <img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram">
-        <a href="https://www.instagram.com/hranicesolarium/" target="_blank">@SolariumHranice</a>
-      </div>
-      <div class="contact-item">
-        <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook">
-        <a href="https://www.facebook.com/profile.php?id=61576212632543" target="_blank">Solarium Hranice</a>
-      </div>
-      <div class="contact-item">
-        <img src="https://img.icons8.com/fluency/48/phone.png" alt="Telefon">
-        <a href="tel:+420736701777">+420 736 701 777</a>
-      </div>
-      <div class="contact-item">
-        <img src="https://img.icons8.com/fluency/48/secured-letter.png" alt="Email">
-        <a href="mailto:solariumhranice@gmail.com">solariumhranice@gmail.com</a>
-      </div>
-    </div>
+    <section class="service-card">
+      <ul class="cenik-list">
+        <li><img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram"><a href="https://www.instagram.com/hranicesolarium/" target="_blank">@SolariumHranice</a></li>
+        <li><img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook"><a href="https://www.facebook.com/profile.php?id=61576212632543" target="_blank">Solarium Hranice</a></li>
+        <li><img src="https://img.icons8.com/fluency/48/phone.png" alt="Telefon"><a href="tel:+420736701777">+420 736 701 777</a></li>
+        <li><img src="https://img.icons8.com/fluency/48/secured-letter.png" alt="Email"><a href="mailto:solariumhranice@gmail.com">solariumhranice@gmail.com</a></li>
+      </ul>
+    </section>
 
-    <div class="kontakt-grid">
-      <!-- LEVÁ STRANA: Mapy -->
-      <div class="map-box">
-          <h3>📍 Kde nás najdeš</h3>
-            <p class="patro-info">🛗 Najdete nás ve 2. patře OC Koloseum</p>
-            <a href="https://www.google.com/maps/place/Koloseum+Hranice/@49.5529017,17.7333316,17z/data=!3m1!4b1!4m6!3m5!1s0x4713bbfc6eaf71eb:0x19a380ebf481fa31!8m2!3d49.5529017!4d17.7359065!16s%2Fg%2F1tf46wrg?hl=en&entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoASAFQAw%3D%3D" 
-             target="_blank" class="map-link">
-            Otevřít v Google Maps
-  </a>
-      </div>
+    <section class="service-card">
+      <h3 style="text-align:center">📍 Kde nás najdeš</h3>
+      <p class="patro-info" style="text-align:center">🛗 Najdete nás ve 2. patře OC Koloseum</p>
+      <p style="text-align:center">
+        <a href="https://www.google.com/maps/place/Koloseum+Hranice/@49.5529017,17.7333316,17z" 
+          target="_blank" class="map-link">Otevřít v Google Maps</a>
+      </p>
+    </section>
 
-      <!-- PRAVÁ STRANA: Otevírací doba -->
-      <div class="open-box">
-        <h3>🕒 Otevírací doba</h3>
-          <ul class="open-hours">
-            <li><span class="day">Pondělí</span><span class="time">08:00 – 18:00</span></li>
-            <li><span class="day">Úterý</span><span class="time">08:00 – 18:00</span></li>
-              <li><span class="day">Středa</span><span class="time">08:00 – 18:00</span></li>
-              <li><span class="day">Čtvrtek</span><span class="time">08:00 – 18:00</span></li>
-              <li><span class="day">Pátek</span><span class="time">08:00 – 18:00</span></li>
-              <li><span class="day">Sobota</span><span class="time">08:00 – 12:00</span></li>
-              <li><span class="day">Neděle</span><span class="time closed">Zavřeno</span></li>
-          </ul>
-
-      </div>
-    </div>
+    <section class="service-card">
+      <h3 style="text-align:center">🕒 Otevírací doba</h3>
+      <ul class="cenik-list">
+        <li><span>Pondělí</span><span>08:00 – 18:00</span></li>
+        <li><span>Úterý</span><span>08:00 – 18:00</span></li>
+        <li><span>Středa</span><span>08:00 – 18:00</span></li>
+        <li><span>Čtvrtek</span><span>08:00 – 18:00</span></li>
+        <li><span>Pátek</span><span>08:00 – 18:00</span></li>
+        <li><span>Sobota</span><span>08:00 – 12:00</span></li>
+        <li><span>Neděle</span><span class="closed">Zavřeno</span></li>
+      </ul>
+    </section>
   </main>
 
   <footer>
