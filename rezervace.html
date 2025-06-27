@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rezervace permanentek | Solárium Hranice</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <div class="blur-circle blue"></div>
+  <div class="blur-circle purple"></div>
+
+  <header class="navbar">
+    <h1 class="glow">Solárium Hranice</h1>
+    <nav class="nav-icons">
+      <a href="index.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/home.png" alt="Home"></a>
+      <a href="onas.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/help.png" alt="About Us"></a>
+      <a href="cenik.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/price-tag.png" alt="Ceník"></a>
+      <a href="kontakty.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/phone.png" alt="Contact"></a>
+      <a href="rezervace.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/shopping-cart.png" alt="E-shop"></a>
+    </nav>
+  </header>
+
+  <main class="cenik-section">
+    <div class="hero-card">
+      <h2 class="cenik-title">Rezervace permanentek</h2>
+      <form id="reservation-form" style="max-width:500px; margin:2rem auto; display:flex; flex-direction:column; gap:1rem;">
+        <label>Jméno a příjmení
+          <input type="text" name="fullname" required placeholder="Jan Novák">
+        </label>
+        <label>Email
+          <input type="email" name="email" required placeholder="email@example.com">
+        </label>
+        <label>Telefon
+          <input type="tel" name="phone" required placeholder="+420 123 456 789">
+        </label>
+        <label>Typ permanentky
+          <select name="type" required>
+            <option value="10-vstupu">10 vstupů – 1 499 Kč</option>
+            <option value="mesicni">Měsíční – 2 499 Kč</option>
+            <option value="rocni">Roční – 9 999 Kč</option>
+          </select>
+        </label>
+        <button type="submit" class="cta-btn">Rezervovat</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Solárium Hranice. Všechna práva vyhrazena.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('reservation-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Děkujeme za rezervaci! Do 24 hodin Vás budeme kontaktovat.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
