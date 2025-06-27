@@ -2,38 +2,47 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ceník | Solarium Hranice</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark">
-  <header class="navbar">
-    <h1>Solarium Hranice</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home"> </a></li>
-            <li><a href="onas.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/help.png" alt="About Us"> </a></li>
-            <li><a href="cenik.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/price-tag.png" alt="Ceník"> </a></li>
-            <li><a href="kontakty.html"><img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Contact"> </a></li>
-        </ul>
-    </nav>
-    <button id="theme-toggle" class="theme-toggle">🌞</button>
-</header>
-<main class="cenik-section">
-  <h2 class="cenik-title">Ceník</h2>
+  <div class="parallax-bg"></div>
+  <div class="blur-circle blue"></div>
+  <div class="blur-circle purple"></div>
 
-  <div class="cenik-card">
-    <ul class="cenik-list">
-      <li><span>1 minuta</span><span> 15 Kč</span></li>
-      <li><span>20 minut</span><span> 300 Kč</span></li>
-      <li><span>50 minut</span><span> 750 Kč</span></li>
-      <li><span>100 minut</span><span> 1500 Kč</span></li>
-      <li class="permanentka"><span>Připravujeme</span></li>
-    </ul>
-  </div>
-</main>
- <footer>
+    <header class="navbar">
+    <h1 class="glow">Solárium Hranice</h1>
+    <nav class="nav-icons">
+      <a href="index.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/home.png" alt="Home"></a>
+      <a href="onas.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/help.png" alt="About Us"></a>
+      <a href="cenik.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/price-tag.png" alt="Ceník"></a>
+      <a href="kontakty.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/phone.png" alt="Contact"></a>
+      <a href="rezervace.html"><img src="https://img.icons8.com/ios-filled/50/FFD700/shopping-cart.png" alt="E-shop"></a>
+    </nav>
+  </header>
+
+  <main class="cenik-section">
+    <section class="hero-card">
+      <h2 class="cenik-title">Ceník</h2>
+      <p class="hero-sub">Vyber si balíček, který ti nejvíc vyhovuje. Čím víc minut, tím výhodnější cena.</p>
+    </section>
+
+    <section class="service-card">
+      <ul class="cenik-list">
+        <li><span>1 minuta</span><span>15 Kč</span></li>
+        <li><span>20 minut</span><span>300 Kč</span></li>
+        <li><span>50 minut</span><span>750 Kč</span></li>
+        <li><span>100 minut</span><span>1500 Kč</span></li>
+        <li class="permanentka"><span>Připravujeme</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
     <p>&copy; 2025 Solarium Hranice. Všechna práva vyhrazena.</p>
   </footer>
+
   <script src="js/script.js"></script>
 </body>
 </html>
