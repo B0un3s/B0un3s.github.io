@@ -202,3 +202,63 @@ footer {
   bottom: -150px;
   right: -150px;
 }
+/* --- CENÍK STYL --- */
+.cenik-section {
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.cenik-title {
+  font-size: 2.6rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--hunyadi-yellow, #FFD700);
+  text-shadow: 0 0 10px #FFD700;
+}
+
+.hero-sub {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem 3rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.cenik-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.cenik-list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.4rem;
+  color: white;
+}
+
+.cenik-list .permanentka {
+  text-align: center;
+  font-style: italic;
+  justify-content: center;
+  opacity: 0.6;
+  font-size: 1.1rem;
+}
