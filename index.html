@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Solarium Hranice</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 </head>
 <body class="dark">
+  <!-- Background atmos -->
   <div class="parallax-bg"></div>
   <div class="blur-circle blue"></div>
   <div class="blur-circle purple"></div>
 
-  <!-- Bannery po stranách -->
+  <!-- Bannery po stranách (clean glow-card) -->
   <div class="side-banners">
-    <a href="cenik.html" class="banner-link left">
-      <img src="img/Akce1.png" alt="Happy Glow Hours – Akce 1" class="banner left">
+    <a href="cenik.html" class="banner-wrap left">
+      <div class="banner-frame">
+        <img src="./Img/Akce1.png" alt="Permanentka – akce 1" loading="lazy">
+      </div>
     </a>
-    <a href="rezervace1.html" class="banner-link right">
-      <img src="img/Akce2.png" alt="Happy Glow Hours – Akce 2" class="banner right">
+    <a href="rezervace1.html" class="banner-wrap right">
+      <div class="banner-frame">
+        <img src="./Img/Akce2.png" alt="Permanentka – akce 2" loading="lazy">
+      </div>
     </a>
   </div>
 
+  <!-- Nav -->
   <header class="navbar">
     <h1 class="glow">Solarium Hranice</h1>
   </header>
 
+  <!-- Hero -->
   <main class="cenik-section">
-    <div class="cenik-card hero-card" style="text-align: center">
+    <div class="cenik-card hero-card" style="text-align:center">
       <h2 class="cenik-title">Vítejte v Solarium Hranice</h2>
       <p class="hero-sub">Zažijte sluneční dotek po celý rok.</p>
       <a href="rezervace1.html" class="cta-btn">Rezervuj si záři ☀️</a>
     </div>
 
+    <!-- 3 karty -->
     <div class="services-grid">
       <div class="service-card">
         <h3><a href="onas.html">O nás</a></h3>
@@ -49,6 +57,7 @@
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Solarium Hranice. Všechna práva vyhrazena.</p>
   </footer>
