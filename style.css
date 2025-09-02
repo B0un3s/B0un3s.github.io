@@ -202,6 +202,7 @@ footer {
   bottom: -150px;
   right: -150px;
 }
+
 /* --- CENÍK STYL --- */
 .cenik-section {
   padding: 4rem 2rem;
@@ -262,6 +263,7 @@ footer {
   opacity: 0.6;
   font-size: 1.1rem;
 }
+
 /* 2 sloupce vedle sebe na desktopu, stack na mobilu */
 .cenik-grid{
   display: grid;
@@ -282,4 +284,35 @@ footer {
 
 @media (max-width: 800px){
   .cenik-grid{ grid-template-columns: 1fr; }
+}
+
+/* === SIDE BANNERS === */
+.side-banners .banner {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  z-index: 99;
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  filter: drop-shadow(0 0 12px rgba(255,215,0,.35));
+}
+
+.side-banners .banner.left { left: 16px; }
+.side-banners .banner.right { right: 16px; }
+
+.side-banners .banner:hover {
+  transform: translateY(-50%) scale(1.04);
+  opacity: 1;
+}
+
+/* Responsivita pro bannery */
+@media (max-width: 1200px){
+  .side-banners .banner{ width: 160px; }
+}
+@media (max-width: 992px){
+  .side-banners .banner{ width: 130px; opacity: .9; }
+}
+@media (max-width: 768px){
+  .side-banners{ display: none; }
 }
