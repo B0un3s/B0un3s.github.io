@@ -1,166 +1,486 @@
-/* === GLOBAL === */
+/* =========================
+   PEAK STYLE — Solárium Hranice
+   light/dark + brandable + FX
+   ========================= */
+
+/* ---------- TOKENS ---------- */
+:root{
+  --bg:#ffffff; --text:#0b0e13; --muted:#6b7280;
+  --surface:#f8fafc; --surface-2:#ffffff; --border:#e5e7eb;
+  --accent:#f59e0b; --brand-rgb:245,158,11; /* sunrise */
+  --radius:18px; --radius-sm:12px;
+
+  --shadow-1: 0 10px 24px rgba(17,24,39,.08), 0 1px 0 rgba(17,24,39,.04) inset;
+  --shadow-2: 0 22px 46px rgba(17,24,39,.14), 0 2px 0 rgba(17,24,39,.05) inset;
+  --ring: 0 0 0 3px rgba(245,158,11,.26);
+
+  --spot:.26; --ripple:.28;
+  color-scheme: light;
+}
+:root[data-theme="dark"]{
+  --bg:#0b0e13; --text:#eef2f7; --muted:#9aa2ad;
+  --surface:#0f131a; --surface-2:#0b0e13; --border:#1b2230;
+  --accent:#fbbf24; --brand-rgb:251,191,36; /* sunrise/dark */
+
+  --shadow-1: 0 10px 24px rgba(0,0,0,.36), 0 1px 0 rgba(255,255,255,.03) inset;
+  --shadow-2: 0 22px 50px rgba(0,0,0,.55), 0 2px 0 rgba(255,255,255,.03) inset;
+  --ring: 0 0 0 3px rgba(251,191,36,.32);
+
+  --spot:.18; --ripple:.36;
+  color-scheme: dark;
+}
+
+/* brand variants (toggle přes data-brand) */
+:root[data-brand="sunrise"]{ --accent:#f59e0b; --brand-rgb:245,158,11 }
+:root[data-theme="dark"][data-brand="sunrise"]{ --accent:#fbbf24; --brand-rgb:251,191,36 }
+:root[data-brand="bronze"]{ --accent:#c97a3d; --brand-rgb:201,122,61 }
+:root[data-theme="dark"][data-brand="bronze"]{ --accent:#db8746; --brand-rgb:219,135,70 }
+:root[data-brand="tan"]{ --accent:#ffb86b; --brand-rgb:255,184,107 }
+:root[data-theme="dark"][data-brand="tan"]{ --accent:#ffc98a; --brand-rgb:255,201,138 }
+:root[data-brand="uv"]{ --accent:#8b5cf6; --brand-rgb:139,92,246 }
+:root[data-theme="dark"][data-brand="uv"]{ --accent:#a78bfa; --brand-rgb:167,139,250 }
+
+/* ---------- BASE ---------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth}
 body{
-  font-family:'Orbitron',sans-serif;
   margin:0;
-  background:linear-gradient(135deg,#0d0d0d,#1a1a1a);
-  color:#f5f5f5;
-  overflow-x:hidden;
-  scroll-behavior:smooth;
-}
-
-.parallax-bg{
-  position:fixed; width:200%; height:200%;
-  top:-50%; left:-50%; z-index:-1;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,sans-serif;
   background:
-    radial-gradient(#FFD70033,transparent 60%),
-    repeating-linear-gradient(45deg,#FFD70011 0px,#FFD70011 1px,transparent 2px,transparent 4px);
-  animation:rotateBG 60s linear infinite;
-  opacity:.12; filter:blur(10px);
+    radial-gradient(1100px 700px at 50% -10%, rgb(var(--brand-rgb)/.06) 0%, transparent 70%),
+    radial-gradient(1000px 700px at 50% 110%, rgb(var(--brand-rgb)/.05) 0%, transparent 72%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.55;
 }
-@keyframes rotateBG{0%{transform:rotate(0) scale(1)}100%{transform:rotate(360deg) scale(1.2)}}
+img{max-width:100%; display:block}
+a{color:inherit; text-decoration:none}
+a:focus-visible{outline:none; box-shadow:var(--ring); border-radius:10px}
+.container{ width:min(1120px,92%); margin-inline:auto }
 
-/* === HEADER === */
+.skip{ position:absolute; left:-9999px; top:auto }
+.skip:focus{ left:12px; top:12px; background:var(--text); color:var(--bg); padding:.55rem .8rem; border-radius:10px; box-shadow:var(--shadow-1) }
+
+/* ---------- FX LAYERS ---------- */
+.fx-spot{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background: radial-gradient(340px 260px at var(--mx,50%) var(--my,20%),
+    rgb(var(--brand-rgb)/var(--spot)), transparent 65%);
+  mix-blend-mode:multiply; transition:opacity .2s ease; opacity:1;
+}
+.scrollbar{
+  position:fixed; left:0; top:0; height:3px; width:100%; z-index:50;
+  transform-origin:0 50%; transform:scaleX(0);
+  background: linear-gradient(90deg, rgb(var(--brand-rgb)/.25), rgb(var(--brand-rgb)/.9));
+  box-shadow: 0 6px 16px rgb(var(--brand-rgb)/.35);
+  opacity:0; transition:opacity .2s ease;
+}
+
+/* ---------- TYPO ---------- */
+.h1{ font-size:clamp(28px,4.4vw,52px); letter-spacing:-.02em; font-weight:900; margin:0 0 .6rem }
+.h2{ font-size:clamp(22px,3.4vw,36px); letter-spacing:-.01em; font-weight:800; margin:0 0 1.1rem }
+.h3{ font-size:clamp(18px,2.4vw,22px); font-weight:800; margin:.1rem 0 .45rem }
+.h4{ font-size:clamp(16px,2.2vw,20px); font-weight:800; margin:1rem 0 .6rem }
+.lead{ font-size:clamp(16px,2.1vw,18px); color:var(--muted); margin:0 auto 1.1rem; max-width:60ch }
+
+/* gradient “solar” heading */
+.h-accent{
+  background:linear-gradient(90deg,
+    color-mix(in oklab, var(--accent) 94%, #fff 8%),
+    color-mix(in oklab, var(--accent) 70%, #000 10%));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* ---------- LAYOUT ---------- */
+.section{ padding:64px 0 }
+.hero{
+  padding-top:92px; padding-bottom:56px; position:relative; z-index:1;
+  background:linear-gradient(180deg, color-mix(in oklab, var(--surface-2) 88%, transparent), transparent);
+  border-bottom:1px solid var(--border);
+}
+.ta-center{text-align:center}
+.mt-2{margin-top:.75rem} .mt-3{margin-top:1.5rem}
+
+/* grids */
+.grid{ display:grid; gap:18px; align-items:stretch }
+.grid-2{ grid-template-columns:repeat(2, minmax(0,1fr)) }
+.grid-3{ grid-template-columns:repeat(3, minmax(0,1fr)) }
+@media (max-width:900px){ .grid-2,.grid-3{ grid-template-columns:1fr } }
+
+/* ---------- NAVBAR ---------- */
 .navbar{
-  padding:2rem; text-align:center;
-  background:rgba(0,0,0,.2);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #FFD70033;
+  position:sticky; top:0; z-index:20;
+  border-bottom:1px solid var(--border);
+  background:color-mix(in oklab, var(--bg) 85%, transparent);
+  backdrop-filter:saturate(140%) blur(6px);
+  transition:box-shadow .2s ease, background .2s ease, border-color .2s ease;
 }
-.glow{
-  font-size:2.5rem; color:#FFD700;
-  text-shadow:0 0 10px #FFD700,0 0 20px #FFA500;
-  animation:flicker 3s infinite;
+.navbar.is-scrolled{ box-shadow:var(--shadow-1); background:color-mix(in oklab, var(--bg) 92%, transparent) }
+.nav-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0 }
+.brand{ font-weight:900; letter-spacing:.2px }
+.nav{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center }
+.nav a{
+  color:var(--muted); font-weight:600; padding:6px 10px; border-radius:10px; position:relative;
+  transition:background .15s ease, color .15s ease;
 }
-@keyframes flicker{
-  0%,19%,21%,23%,25%,54%,56%,100%{opacity:1}
-  20%,22%,24%,55%{opacity:.6}
+.nav a:hover{ color:var(--text); background:rgb(var(--brand-rgb)/.08) }
+.nav a::after{
+  content:""; position:absolute; left:10%; right:90%; bottom:-6px; height:2px; border-radius:999px;
+  background:linear-gradient(90deg, rgb(var(--brand-rgb)/0), rgb(var(--brand-rgb)/.55), rgb(var(--brand-rgb)/0));
+  transition:right .22s ease;
+}
+.nav a:hover::after{ right:10% }
+.nav a.active{ color:var(--text) }
+.nav a.active::after{ right:10% }
+
+/* ---------- CARDS ---------- */
+.card{
+  background:linear-gradient(180deg,
+    color-mix(in oklab, var(--surface) 96%, transparent),
+    color-mix(in oklab, var(--surface) 86%, transparent));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px 16px;
+  box-shadow:var(--shadow-1);
+  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease, background .18s ease;
+  will-change: transform;
+  transform-style:preserve-3d;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-2);
+  border-color:color-mix(in oklab, var(--border) 65%, var(--accent) 35%) }
+.card-accent{
+  border-color:color-mix(in oklab, var(--border) 70%, var(--accent) 20%);
+  box-shadow:0 12px 32px rgb(var(--brand-rgb)/.18), var(--shadow-1);
+}
+/* glass variant */
+.card.glass{
+  backdrop-filter: blur(12px) saturate(170%);
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 10px 28px rgba(0,0,0,.42), 0 0 24px rgba(var(--brand-rgb),.22);
 }
 
-/* === HERO === */
-.hero-card{
-  background:radial-gradient(circle at top left,#FFD70022,transparent);
-  animation:pulseShadow 4s infinite;
-  padding:4rem 2rem; border-radius:20px; margin:2rem;
-  box-shadow:0 0 40px rgba(255,215,0,.2);
-  transition:background .3s ease; backdrop-filter:blur(10px);
+/* list (ceník) */
+.list{ list-style:none; padding:0; margin:0; font-variant-numeric:tabular-nums }
+.list li{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 6px; border-bottom:1px dashed var(--border);
 }
-@keyframes pulseShadow{
-  0%,100%{box-shadow:0 0 20px #FFD700,0 0 40px #FFA500 inset}
-  50%{box-shadow:0 0 40px #FFA500,0 0 80px #FFD700 inset}
-}
-.hero-sub{font-size:1.2rem;color:#ccc;text-shadow:0 0 5px #FFD70044}
+.list li:last-child{ border-bottom:none }
+.list .muted{ justify-content:center; color:var(--muted); font-style:italic; border-bottom:none }
+.list li span:last-child{ font-weight:800; color: color-mix(in oklab, var(--text) 75%, var(--accent) 25%) }
 
-.cta-btn{
-  display:inline-block; margin-top:2rem; padding:1rem 2.5rem;
-  border-radius:999px; background:linear-gradient(90deg,#FFD700,#FFA500);
-  color:#fff; font-weight:bold; letter-spacing:1px; text-decoration:none;
-  box-shadow:0 0 10px #FFA500,0 0 20px #FFD700;
-  transition:transform .3s ease, box-shadow .3s ease; position:relative; overflow:hidden;
-}
-.cta-btn::before{
-  content:""; position:absolute; inset:0; left:-100%;
-  background:rgba(255,255,255,.2); transform:skewX(-45deg); transition:left .6s;
-}
-.cta-btn:hover::before{left:100%}
-.cta-btn:hover{transform:scale(1.1); box-shadow:0 0 20px #FFA500,0 0 40px #FFD700}
-
-/* === SERVICES === */
-.services-grid{
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:2rem; margin:4rem 2rem;
-}
-.service-card{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.1);
-  padding:2rem; border-radius:20px; text-align:center;
-  backdrop-filter:blur(12px);
-  box-shadow:0 0 30px rgba(255,215,0,.1);
-  transition:transform .4s, box-shadow .4s, border .4s;
+/* ---------- BUTTONS + RIPPLE ---------- */
+.actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px }
+.btn{
   position:relative; overflow:hidden;
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  height:46px; padding:0 18px; border-radius:12px; border:1px solid var(--border);
+  background:linear-gradient(180deg, color-mix(in oklab, var(--surface) 96%, transparent),
+                                      color-mix(in oklab, var(--surface) 86%, transparent));
+  color:var(--text); font-weight:800; text-decoration:none;
+  box-shadow:var(--shadow-1);
+  transition:transform .08s ease, background .15s, border-color .15s, box-shadow .15s, opacity .15s;
 }
-.service-card::after{
-  content:""; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
-  background:conic-gradient(from 180deg,#FFD70022,#FFA50011,transparent);
-  animation:spin 20s linear infinite; z-index:-1;
+.btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow-2) }
+.btn:active{ transform:translateY(0) scale(.98) }
+.btn:focus-visible{ outline:none; box-shadow:var(--shadow-2), var(--ring) }
+.btn-primary{
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--accent) 92%, #fff 10%),
+    color-mix(in oklab, var(--accent) 88%, #000 8%));
+  color:#111; border-color:transparent;
+  box-shadow:0 10px 28px rgb(var(--brand-rgb)/.22), var(--shadow-1);
 }
-@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-.service-card:hover{transform:translateY(-5px) scale(1.03); box-shadow:0 0 50px rgba(255,215,0,.3); border:1px solid #FFD700}
-.service-card h3 a{color:#FFD700; font-size:1.5rem; text-decoration:none; text-shadow:0 0 5px #FFD70088}
-.service-card p{color:#ccc}
+.btn-primary:hover{ box-shadow:0 16px 40px rgb(var(--brand-rgb)/.26), var(--shadow-2) }
+.btn-ghost{ background:transparent; border-color:var(--border) }
+.btn-icon{ width:40px; height:40px; padding:0; border-radius:10px; background:var(--surface); box-shadow:var(--shadow-1) }
 
-/* === FOOTER === */
-footer{
-  text-align:center; padding:2rem;
-  background:rgba(0,0,0,.3); backdrop-filter:blur(10px);
-  font-size:.9rem; color:#888; border-top:1px solid #FFD70033;
+/* ripple */
+.ripple{
+  position:absolute; left:var(--x); top:var(--y);
+  width:12px; height:12px; border-radius:999px;
+  transform:translate(-50%,-50%) scale(0);
+  background: rgb(var(--brand-rgb) / var(--ripple));
+  pointer-events:none; mix-blend-mode: normal;
+  animation:ripple .6s ease forwards;
+}
+@keyframes ripple{ to{ transform:translate(-50%,-50%) scale(18); opacity:0 } }
+
+/* ---------- FAQ ---------- */
+.faq{
+  background:linear-gradient(180deg, color-mix(in oklab, var(--surface) 96%, transparent),
+                                      color-mix(in oklab, var(--surface) 86%, transparent));
+  border:1px solid var(--border); border-radius:var(--radius);
+  padding:12px 14px; max-width:820px; margin:12px auto; box-shadow:var(--shadow-1);
+  transition:box-shadow .18s ease, background .18s ease, border-color .18s ease;
+  overflow:clip;
+}
+.faq[open]{ box-shadow:var(--shadow-2) }
+.faq summary{ cursor:pointer; font-weight:800 }
+.faq summary::-webkit-details-marker{ display:none }
+.faq-a{
+  color:var(--muted); margin-top:8px;
+  max-height:0; opacity:0; transition:max-height .25s ease, opacity .25s ease;
+}
+.faq[open] .faq-a{ max-height:260px; opacity:1 }
+
+/* ---------- CONTACTS (peak clean) ---------- */
+.contact-card{ padding:0; overflow:hidden }
+.contact-list{ list-style:none; margin:0; padding:0 }
+.contact-row{
+  display:grid; grid-template-columns:36px 1fr; align-items:center; gap:12px;
+  padding:14px 16px; border-bottom:1px dashed var(--border);
+  color:var(--text);
+}
+.contact-row:last-child{ border-bottom:none }
+.contact-ico{
+  width:36px; height:36px; display:grid; place-items:center; border-radius:10px;
+  background:linear-gradient(180deg, rgb(var(--brand-rgb)/.18), rgb(var(--brand-rgb)/.05));
+  box-shadow:0 2px 10px rgb(var(--brand-rgb)/.18) inset;
+}
+.contact-row a{ text-decoration:none; color:inherit }
+.contact-row:hover{
+  background:linear-gradient(90deg, rgb(var(--brand-rgb)/.08), transparent);
 }
 
-/* === EXTRAS === */
-.blur-circle{
-  position:fixed; width:400px; height:400px; border-radius:50%;
-  filter:blur(100px); z-index:-1;
+/* “Kde nás najdeš” box */
+.location-card .lead{ color:var(--text); font-weight:800 }
+.map-link{
+  display:inline-flex; align-items:center; gap:.5rem; font-weight:800;
+  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
 }
-.blur-circle.blue{background:#FFD700; top:-150px; left:-150px}
-.blur-circle.purple{background:#FFA500; bottom:-150px; right:-150px}
+.map-link:hover{ text-decoration:underline }
 
-/* --- CENÍK STYL --- */
-.cenik-section{
-  padding:4rem 2rem; display:flex; flex-direction:column; align-items:center; color:#fff;
+/* ---------- FOOTER ---------- */
+.footer{
+  border-top:1px solid var(--border);
+  padding:24px 0 40px;
+  background:linear-gradient(180deg, transparent, color-mix(in oklab, var(--surface) 85%, transparent));
+  box-shadow:0 -6px 18px rgba(0,0,0,.04);
+  backdrop-filter:saturate(120%) blur(4px);
+  text-align:center;
 }
-.cenik-title{
-  font-size:2.6rem; text-align:center; margin-bottom:.5rem;
-  color:var(--hunyadi-yellow,#FFD700); text-shadow:0 0 10px #FFD700;
+.business-info{
+  margin:14px auto 0; padding:14px 16px; max-width:920px;
+  border:1px solid var(--border); border-radius:var(--radius-sm);
+  color:var(--muted);
+  background:linear-gradient(180deg, color-mix(in oklab, var(--surface) 96%, transparent),
+                                      color-mix(in oklab, var(--surface) 86%, transparent));
 }
-.hero-sub{font-size:1.2rem; text-align:center; color:#ccc; margin-bottom:2rem}
 
-.cenik-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:1.2rem}
-.cenik-list li{
-  display:flex; justify-content:space-between; font-size:1.4rem;
-  border-bottom:1px solid rgba(255,255,255,.1); padding-bottom:.4rem; color:#fff;
+/* ---------- REVEAL + GLOW ---------- */
+.reveal{
+  opacity:0; transform:translateY(8px) scale(.98);
+  filter:saturate(.95);
+  transition:transform .55s cubic-bezier(.2,.7,.2,1), opacity .55s, filter .55s;
+  will-change: transform, opacity, filter;
 }
-.cenik-list .permanentka{text-align:center; font-style:italic; justify-content:center; opacity:.6; font-size:1.1rem}
+.reveal.in{ opacity:1; transform:none; filter:none }
 
-.cenik-grid{
-  display:grid; grid-template-columns:repeat(2,minmax(280px,1fr));
-  gap:2rem; width:100%; max-width:1100px; margin:0 auto;
+.glow-reveal{
+  background: linear-gradient(90deg, var(--accent), #fff, var(--accent));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  background-size: 200% auto;
+  animation: glowSlide 7s linear infinite;
 }
-.cenik-grid .service-card{width:auto !important; max-width:520px; margin:0 !important; height:100%}
-@media (max-width:800px){.cenik-grid{grid-template-columns:1fr}}
+@keyframes glowSlide{ 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
 
-/* === SIDE BANNERS (clean glow-card) === */
-.side-banners{position:relative; z-index:10}
-.banner-wrap{
-  position:fixed; top:50%; transform:translateY(-50%);
-  text-decoration:none; pointer-events:auto;
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:720px){
+  .section{ padding:48px 0 }
+  .navbar .nav{ gap:10px }
+  .btn{ height:44px }
+  .contact-row{ grid-template-columns:32px 1fr; padding:12px 14px }
+  .contact-ico{ width:32px; height:32px; border-radius:8px }
 }
-.banner-wrap.left{ left:clamp(10px,2vw,24px)}
-.banner-wrap.right{ right:clamp(10px,2vw,24px)}
 
-.banner-frame{
-  position:relative; padding:10px; border-radius:18px;
-  background:linear-gradient(180deg,rgba(255,215,0,.10),rgba(255,165,0,.08));
-  border:1px solid rgba(255,215,0,.25);
-  box-shadow:0 10px 30px rgba(0,0,0,.45), 0 0 24px rgba(255,215,0,.22), inset 0 0 12px rgba(255,215,0,.15);
-  backdrop-filter:blur(6px);
-  transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
-  animation:breathe 4.5s ease-in-out infinite;
-}
-.banner-frame::before{
-  content:""; position:absolute; inset:-18px; border-radius:26px;
-  background:radial-gradient(closest-side,rgba(255,215,0,.22),transparent 70%);
-  filter:blur(12px); z-index:-1;
-}
-.banner-frame img{
-  display:block; width:clamp(140px,16vw,240px); height:auto;
-  border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.5);
-}
-.banner-wrap:hover .banner-frame{
-  transform:translateY(-2px);
-  box-shadow:0 16px 40px rgba(0,0,0,.55), 0 0 34px rgba(255,215,0,.30), inset 0 0 18px rgba(255,215,0,.22);
-}
-@keyframes breathe{0%,100%{filter:saturate(1) brightness(1)}50%{filter:saturate(1.08) brightness(1.06)}}
+/* =========================
+   PEAK LUXE v2 — add-on
+   (kompatibilní s tvým CSS)
+   ========================= */
 
-/* Responsivita bannerů */
-@media (max-width:1200px){ .banner-frame img{ width:clamp(120px,18vw,200px) } }
-@media (max-width:992px){  .banner-frame img{ width:120px } }
-@media (max-width:820px){  .side-banners{ display:none } }
+/* ---  A) Globální jemné doladění typografie a linků --- */
+:root{
+  --link: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
+  --hair: color-mix(in oklab, var(--border) 70%, var(--accent) 12%);
+}
+
+a{ color: var(--link); text-decoration: none; }
+a:hover{ color: color-mix(in oklab, var(--link) 75%, var(--accent) 25%); }
+a.link-underline{
+  position:relative; text-decoration:none; color:inherit;
+}
+a.link-underline::after{
+  content:""; position:absolute; left:0; right:100%; bottom:-2px; height:2px; border-radius:999px;
+  background: linear-gradient(90deg, rgb(var(--brand-rgb)/0), rgb(var(--brand-rgb)/.55), rgb(var(--brand-rgb)/0));
+  transition:right .25s ease;
+}
+a.link-underline:hover::after{ right:0; }
+
+/* ---  B) HERO – aura, jemné rays, lux border --- */
+.hero{
+  position:relative;
+  border-bottom: 1px solid var(--hair);
+}
+.hero::before,
+.hero::after{
+  content:""; position:absolute; inset: -6% 0 auto 0; height: 40%;
+  pointer-events:none; z-index:0;
+}
+.hero::before{
+  background:
+    radial-gradient(800px 320px at 50% 0%, rgb(var(--brand-rgb)/.13), transparent 60%),
+    radial-gradient(800px 260px at 50% 100%, rgb(var(--brand-rgb)/.08), transparent 70%);
+  filter: blur(6px);
+}
+.hero::after{
+  mask:
+    conic-gradient(from 0deg, #0000 0 20deg, #000 20deg 22deg),
+    conic-gradient(from 60deg, #0000 0 20deg, #000 20deg 22deg),
+    conic-gradient(from 120deg, #0000 0 20deg, #000 20deg 22deg);
+  -webkit-mask-composite: destination-over;
+  mask-composite: add;
+  background: radial-gradient(closest-side, rgb(var(--brand-rgb)/.08), transparent 70%);
+  opacity:.5; filter: blur(8px);
+}
+
+/* ---  C) Nadpis s noblesním gradientem (plynulý, ne „gaming“) --- */
+.h1.h-accent{
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--accent) 92%, #fff 6%),
+    color-mix(in oklab, var(--accent) 70%, #000 10%));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.h1.h-accent.glow-reveal{
+  background-size: 200% auto; animation: luxeSlide 9s linear infinite;
+}
+@keyframes luxeSlide{
+  0%{ background-position: 0% 50% } 100%{ background-position: 200% 50% }
+}
+
+/* ---  D) Karty – glass + subtilní outline + měkčí stíny --- */
+.card{
+  border: 1px solid var(--hair);
+  box-shadow:
+    0 8px 28px rgba(0,0,0,.10),
+    0 1px 0 rgba(255,255,255,.03) inset;
+}
+.card.glass{
+  backdrop-filter: blur(12px) saturate(170%);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.06));
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.40),
+    0 0 20px rgba(var(--brand-rgb), .18);
+}
+
+/* ---  E) CTA „sheen“ – tiché světlo projede přes button --- */
+.btn-sheen{
+  position:relative; overflow:hidden; isolation:isolate;
+}
+.btn-sheen::after{
+  content:""; position:absolute; top:-120%; left:-20%; width:40%; height:340%;
+  background: linear-gradient( to right, transparent 0%, rgba(255,255,255,.35) 50%, transparent 100%);
+  transform: rotate(18deg); filter: blur(8px); opacity:0;
+  transition: opacity .2s ease;
+}
+.btn-sheen:hover::after{ opacity: .9; animation: sheenMove 1.2s ease forwards; }
+@keyframes sheenMove{
+  0%{ transform: translateX(0) rotate(18deg); }
+  100%{ transform: translateX(260%) rotate(18deg); }
+}
+
+/* ---  F) Kontakty – řádky s ikon-pill a čistými dividers --- */
+.contact-card{ padding: 6px; }
+.contact-list{ list-style:none; padding:0; margin:0; }
+.contact-row{
+  display:grid; grid-template-columns:38px 1fr; align-items:center; gap:14px;
+  padding:14px 16px; border-bottom:1px dashed var(--hair);
+  color:var(--text); transition: background .2s ease, transform .2s ease;
+}
+.contact-row:last-child{ border-bottom:none; }
+.contact-ico{
+  width:38px; height:38px; display:grid; place-items:center; border-radius:12px;
+  background: linear-gradient(180deg, rgb(var(--brand-rgb)/.20), rgb(var(--brand-rgb)/.06));
+  box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 2px 8px rgb(var(--brand-rgb)/.22);
+  font-size:18px;
+}
+.contact-row:hover{
+  background: linear-gradient(90deg, rgb(var(--brand-rgb)/.08), transparent);
+  transform: translateY(-1px);
+}
+.contact-row a{ color: inherit; text-decoration: none; }
+.contact-row a.link-underline{ color: inherit; }
+
+/* ---  G) Sekce „Kde nás najdeš“ – krásný map link --- */
+.map-link{
+  display:inline-flex; align-items:center; gap:.55rem; font-weight:800;
+  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
+  padding:.2rem .1rem; border-radius:10px;
+}
+.map-link:hover{ text-decoration:underline; }
+
+/* ---  H) Footer – decentní zlato, ne kýč --- */
+.footer{
+  border-top: 1px solid var(--hair);
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--surface) 86%, transparent));
+}
+.business-info{
+  border: 1px solid var(--hair);
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--surface) 96%, transparent),
+    color-mix(in oklab, var(--surface) 86%, transparent));
+  color: var(--muted);
+}
+
+/* ---  I) Responzivně jemněji --- */
+@media (max-width: 840px){
+  .contact-row{ grid-template-columns:34px 1fr; padding:12px 14px; }
+  .contact-ico{ width:34px; height:34px; border-radius:10px; font-size:16px; }
+}
+
+/* === CENÍK — centrování + pevný grid (ADD-ON) === */
+#cenik .h2 { text-align:center; }
+
+/* 2 karty vycentrované uprostřed, auto-fit pro responsivitu */
+#cenik .grid.grid-2{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+  justify-content:center;       /* zarovná celý grid doprostřed */
+  align-items:stretch;
+  gap:24px;
+}
+
+/* karta ceniku – plná výška, hezčí vnitřní layout */
+#cenik .card{
+  max-width:420px;
+  margin:0 auto;                /* jistota centrování, když je jen 1 sloupec */
+  display:flex;
+  flex-direction:column;
+  text-align:center;
+}
+
+/* podnadpis (specifikace strojů) – jemně utlumený, ale čitelný */
+#cenik h5{
+  margin:.2rem 0 .6rem;
+  color: color-mix(in oklab, var(--text) 60%, var(--muted) 40%);
+  font-weight:800;
+}
+
+/* seznam cen – hezky čitelný i na mobilu */
+#cenik .list li{
+  padding:14px 8px;
+  border-bottom:1px dashed var(--hair);
+}
+#cenik .list li span:last-child{
+  font-weight:900;
+  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
+}
+
+/* drobný responsivní dotek */
+@media (max-width: 420px){
+  #cenik .grid.grid-2{ gap:18px; }
+  #cenik .card{ border-radius:16px; }
+}
