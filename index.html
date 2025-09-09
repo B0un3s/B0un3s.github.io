@@ -1,75 +1,151 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-theme="light" data-brand="sunrise">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Solarium Hranice</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solárium Hranice — Peak Experience</title>
+  <meta name="description" content="Futuristické opálení s maximálním komfortem. Jasný ceník. Rychlý kontakt. Koloseum, Hranice." />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 </head>
-<body class="dark">
-  <!-- Background atmos -->
-  <div class="parallax-bg"></div>
-  <div class="blur-circle blue"></div>
-  <div class="blur-circle purple"></div>
+<body>
+  <a class="skip" href="#main">Přeskočit na obsah</a>
 
-  <!-- Bannery po stranách (clean glow-card) -->
-  <div class="side-banners">
-    <a href="cenik.html" class="banner-wrap left">
-      <div class="banner-frame">
-        <img src="./img/Akce1.png" alt="Permanentka – akce 1" loading="lazy">
-      </div>
-    </a>
-    <a href="rezervace1.html" class="banner-wrap right">
-      <div class="banner-frame">
-        <img src="./img/Akce2.png" alt="Permanentka – akce 2" loading="lazy">
-      </div>
-    </a>
-  </div>
+  <!-- FX -->
+  <div class="fx-spot" aria-hidden="true"></div>
+  <div class="scrollbar" aria-hidden="true"></div>
 
-  <!-- Nav -->
+  <!-- NAV -->
   <header class="navbar">
-    <h1 class="glow">Solarium Hranice</h1>
+    <div class="container nav-row">
+      <a class="brand" href="#top">☀ Solárium Hranice</a>
+      <nav class="nav" aria-label="Hlavní navigace">
+        <a href="#onas">O&nbsp;nás</a>
+        <a href="#sluzby">Služby</a>
+        <a href="#cenik">Ceník</a>
+        <a href="#faq">FAQ</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="btn btn-icon" aria-label="Přepnout téma">🌓</button>
+      </div>
+    </div>
   </header>
 
-  <!-- Hero -->
-  <main class="cenik-section">
-    <div class="cenik-card hero-card" style="text-align:center">
-      <h2 class="cenik-title">Vítejte v Solarium Hranice</h2>
-      <p class="hero-sub">Zažijte sluneční dotek po celý rok.</p>
-      <a href="rezervace1.html" class="cta-btn">Rezervuj si záři ☀️</a>
-    </div>
+  <main id="main">
+    <!-- HERO -->
+    <section id="top" class="section hero">
+      <div class="container ta-center">
+        <h1 class="h1 h-accent glow-reveal">Moderní opálení. Peak zážitek.</h1>
+        <p class="lead reveal">Luxusní prostředí, férové ceny a dokonalý výsledek.</p>
+        <div class="actions reveal">
+          <a class="btn btn-primary" href="#cenik">💳 Zobrazit ceník</a>
+          <a class="btn btn-ghost" href="tel:+420123456789">📞 Zavolat</a>
+        </div>
+      </div>
+    </section>
 
-    <!-- 3 karty -->
-    <div class="services-grid">
-      <div class="service-card">
-        <h3><a href="onas.html">O nás</a></h3>
-        <p>Dopřej si luxusní opalování v moderním prostředí.</p>
+    <!-- O NÁS -->
+    <section id="onas" class="section">
+      <div class="container">
+        <h2 class="h2 ta-center reveal">Proč my?</h2>
+        <div class="grid grid-3">
+          <article class="card reveal">
+            <h3 class="h3">✨ Upřímně</h3>
+            <p>Lokální vibe bez marketingových triků. Jen férový servis.</p>
+          </article>
+          <article class="card reveal">
+            <h3 class="h3">🛡 Bezpečně</h3>
+            <p>Doporučení podle fototypu a stavu pokožky. Kůže je priorita.</p>
+          </article>
+          <article class="card reveal">
+            <h3 class="h3">🧼 Čistě</h3>
+            <p>Dezinfekce a hygienické standardy na top úrovni.</p>
+          </article>
+        </div>
       </div>
-      <div class="service-card">
-        <h3><a href="cenik.html">Ceník</a></h3>
-        <p>Podívej se na výhodné ceny a balíčky.</p>
+    </section>
+
+    <!-- SLUŽBY -->
+    <section id="sluzby" class="section">
+      <div class="container">
+        <h2 class="h2 ta-center reveal">Služby</h2>
+        <div class="grid grid-2">
+          <article class="card reveal glass">
+            <h3 class="h3">🌞 Ve stoje</h3>
+            <p>Rovnoměrné, rychlé a ideální pro express návštěvy.</p>
+          </article>
+          <article class="card reveal glass">
+            <h3 class="h3">🌙 Vleže</h3>
+            <p>Relax, komfort a možnost jemného ladění odstínu.</p>
+          </article>
+        </div>
       </div>
-      <div class="service-card">
-        <h3><a href="kontakty.html">Kontakty</a></h3>
-        <p>Jak se k nám dostat? Klikni pro více info.</p>
+    </section>
+
+    <!-- CENÍK -->
+    <section id="cenik" class="section">
+      <div class="container">
+        <h2 class="h2 ta-center reveal">Ceník</h2>
+        <div class="grid grid-2">
+          <article class="card reveal">
+            <h3 class="h4 ta-center">Horizontální solárium (19 Kč / minuta)</h3>
+                <h5> Turbo Power: 51× Tan Tube 160 W, 4× 520 W, 13× 25 W</h5>
+            <ul class="list">
+              <li><span>1 min</span><span>18 Kč</span></li>
+              <li><span>20 min</span><span>360 Kč</span></li>
+              <li><span>100 + 20 min zdarma</span><span>1500 Kč</span></li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <h3 class="h4 ta-center">Vertikální solárium (18 Kč / minuta)</h3>
+              <h5> Turbo Power: 51× Tan Tube 160 W, 4× 520 W, 13× 25 W</h5>
+            <ul class="list">
+              <li><span>1 min</span><span>19 Kč</span></li>
+              <li><span>20 min</span><span>380 Kč</span></li>
+              <li><span>100 + 20 min zdarma</span><span>1500 Kč</span></li>
+            </ul>
+          </article>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="container">
+        <h2 class="h2 ta-center reveal">FAQ</h2>
+        <details class="faq reveal"><summary>Kolik minut je ideál?</summary><div class="faq-a">Začínáme opatrně, podle fototypu. Na místě nastavíme přesně.</div></details>
+        <details class="faq reveal"><summary>Musím se objednávat?</summary><div class="faq-a">Není nutné, ale zavolej pro jistotu.</div></details>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt" class="section">
+      <div class="container ta-center">
+        <h2 class="h2 reveal">Kontakt</h2>
+        <article class="card reveal">
+          <p>📍 Koloseum, Hranice</p>
+          <p>📞 <a href="tel:+420123456789">+420 123 456 789</a></p>
+          <p>✉ <a href="mailto:info@solariumhranice.com">info@solariumhranice.com</a></p>
+        </article>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer -->
-<footer>
-  <p>&copy; 2025 Solarium Hranice. Všechna práva vyhrazena.</p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 Solárium Hranice</p>
+    <div class="business-info">
+      <p><strong>Podnikatel:</strong> František Kuča</p>
+      <p><strong>Sídlo:</strong> Třída 1. Máje 1901 Hranice</p>
+      <p><strong>IČO:</strong> 22601121</p>
+      <p><em>Zapsán v živnostenském rejstříku vedeném Městským úřadem Hranice.</em></p>
+    </div>
+  </footer>
 
-  <div class="business-info">
-    <p><strong>Podnikatel:</strong> František Kuča</p>
-    <p><strong>Sídlo:</strong> Hranice III-Velká 62, 753 01 Hranice</p>
-    <p><strong>IČO:</strong> 22601121</p>
-    <p><em>Zapsán v živnostenském rejstříku vedeném Městským úřadem Hranice.</em></p>
-  </div>
-</footer>
-
-
-  <script src="js/script.js"></script>
+  <script src="./app.js" defer></script>
 </body>
 </html>
