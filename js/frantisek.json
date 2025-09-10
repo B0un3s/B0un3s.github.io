@@ -3,21 +3,21 @@
     {
       "id": "open_hours",
       "all": ["otev"],
-      "any": ["hodin", "provozn", "kdy", "dnes", "vikend", "sobot", "nede"],
+      "any": ["hodin", "provozn", "kdy", "dnes", "dneska", "vikend", "sobot", "nede", "otevir", "otevren"],
       "not": [],
       "answer": "Jsme otevřeni od pondělí do pátku 8:00–18:00, v sobotu 8:00–12:00. V neděli zavřeno."
     },
     {
       "id": "close_time",
       "all": ["zavir"],
-      "any": ["kdy", "v kolik", "cas", "hodin"],
+      "any": ["kdy", "kolik", "cas", "hodin"],
       "not": [],
       "answer": "V pracovní dny zavíráme v 18:00, v sobotu ve 12:00. Neděle je zavřeno."
     },
     {
       "id": "hours_variants",
       "all": ["provozn"],
-      "any": ["doba", "hodin", "otev"],
+      "any": ["doba", "hodin", "otev", "otevir", "otevren"],
       "not": [],
       "answer": "Provozní doba: Po–Pá 8:00–18:00, So 8:00–12:00, Ne zavřeno."
     },
@@ -75,21 +75,21 @@
     {
       "id": "contact",
       "all": ["kontakt"],
-      "any": ["telefon", "email", "adresa"],
+      "any": ["telefon", "email", "adresa", "cislo", "mail"],
       "not": [],
       "answer": "Adresa: Koloseum, Třída 1. Máje 1901, Hranice • 📞 +420 736 701 777 • ✉ info@solariumhranice.com"
     },
     {
       "id": "location",
       "all": [],
-      "any": ["kde", "najd", "adresa", "poloha", "map", "dostan", "koloseum", "hranice", "trida", "maje"],
+      "any": ["kde", "najd", "adresa", "poloha", "map", "mapa", "dostan", "kudy", "koloseum", "hranice", "trida", "maje", "sidl", "sidlo", "sidlite", "ulic"],
       "not": [],
       "answer": "Najdete nás v Koloseu, Třída 1. Máje 1901, Hranice. Mapa: https://www.google.com/maps/place/Solárium+Hranice/"
     },
     {
       "id": "how_to_get",
       "all": ["dostan"],
-      "any": ["k vam", "jak", "cesta", "kudy"],
+      "any": ["jak", "cest", "kudy", "najd"],
       "not": [],
       "answer": "Jsme v budově Koloseum v Hranicích, nedaleko centra. Parkování je u budovy."
     },
@@ -213,7 +213,7 @@
     {
       "id": "capacity",
       "all": ["voln"],
-      "any": ["máte", "mate", "je"],
+      "any": ["mate", "je"],
       "not": [],
       "answer": "Kapacitu obvykle máme, doporučujeme ověřit telefonicky."
     },
@@ -256,7 +256,7 @@
     {
       "id": "visit_duration",
       "all": ["doba", "navstev"],
-      "any": ["jak dlouho", "typicky", "obvykle"],
+      "any": ["jak", "dlouh", "typick", "obvykl"],
       "not": [],
       "answer": "Jedna návštěva obvykle trvá 5–15 minut dle fototypu."
     },
@@ -321,7 +321,7 @@
     {
       "id": "after_sun",
       "all": ["after", "sun"],
-      "any": ["gel", "mleko", "po opal"],
+      "any": ["gel", "mlek", "po", "opal"],
       "not": [],
       "answer": "Po opalování doporučujeme gely a mléka After Sun."
     },
@@ -393,7 +393,7 @@
     {
       "id": "intervals",
       "all": ["interval"],
-      "any": ["jak casto", "t ydne", "1–2", "2–3"],
+      "any": ["jak", "casto", "tydn"],
       "not": [],
       "answer": "Doporučujeme 1–2 návštěvy týdně podle reakce pokožky."
     },
@@ -494,21 +494,21 @@
     {
       "id": "facebook",
       "all": ["facebook"],
-      "any": ["stranka", "profil"],
+      "any": ["strank", "profil"],
       "not": [],
       "answer": "Najdete nás také na Facebooku."
     },
     {
       "id": "phone",
-      "all": ["telefon", "cislo"],
-      "any": ["volat", "zavolat"],
+      "all": ["telefon"],
+      "any": ["cislo", "volat", "zavolat"],
       "not": [],
       "answer": "Telefon: +420 736 701 777."
     },
     {
       "id": "email",
-      "all": ["email", "mail"],
-      "any": ["adresa", "kontakt"],
+      "all": ["email"],
+      "any": ["adresa", "kontakt", "mail"],
       "not": [],
       "answer": "E-mail: info@solariumhranice.com."
     },
@@ -537,7 +537,7 @@
     {
       "id": "hair_salon_neighbor",
       "all": ["kader"],
-      "any": ["vedle", "blizko"],
+      "any": ["vedle", "blizk"],
       "not": [],
       "answer": "V sousedství je Kadeřnictví Diana Kučová."
     },
@@ -551,7 +551,7 @@
     {
       "id": "alcohol",
       "all": ["alkohol"],
-      "any": ["opily", "vliv"],
+      "any": ["opil", "vliv"],
       "not": [],
       "answer": "Nedoporučujeme návštěvu solária pod vlivem alkoholu."
     },
@@ -615,7 +615,7 @@
     {
       "id": "visit_price_generic",
       "all": ["kolik", "stoj"],
-      "any": ["navstev", "cenik"],
+      "any": ["navstev", "cenik", "cena"],
       "not": [],
       "answer": "Cena závisí na minutách (Horizontální 19 Kč/min, Vertikální 18 Kč/min)."
     },
@@ -643,14 +643,14 @@
     {
       "id": "tan_duration",
       "all": ["vydrz"],
-      "any": ["opal", "jak dlouho"],
+      "any": ["opal", "jak", "dlouh"],
       "not": [],
       "answer": "Opálení obvykle vydrží 2–4 týdny dle péče o pokožku."
     },
     {
       "id": "aftercare",
       "all": ["po", "opal"],
-      "any": ["pece", "co delat", "krem"],
+      "any": ["pece", "co", "delat", "krem"],
       "not": [],
       "answer": "Po opalování doporučujeme hydratační péči (After Sun)."
     },
