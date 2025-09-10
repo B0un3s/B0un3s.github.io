@@ -160,15 +160,15 @@
 })();
 
 
-// ====== CHAT „FRANTIŠEK“ — Messenger bublina + JSON znalostní báze ======
+// ====== CHAT „FRANTIŠEK“ — Messenger bublina + Q&A z js/frantisek.json ======
 (() => {
   // ---------- Nastavení ----------
   const BOT_NAME = "František";
   const GREETING = "Dobrý den, jmenuji se František. Jsem virtuální asistent Solária Hranice. S čím vám mohu pomoci?";
-  // Cesta k databázi Q&A (JSON). Vytvoř soubor /js/frantisek.json
+  // Tohle je důležité: čteme PŘÍMO tvůj key→value soubor (ne intentový)
   const KB_URL = "js/frantisek.json";
 
-  // ---------- Injekt CSS (aby to jelo i bez úprav style.css) ----------
+  // ---------- Injekt CSS (nezávislé na style.css) ----------
   const css = `
   #chat-widget{position:fixed;right:20px;bottom:20px;z-index:10000}
   .chat-fab{
@@ -180,7 +180,7 @@
   .chat-fab:hover{transform:translateY(-1px)}
   .chat-panel{
     position:absolute;right:0;bottom:72px;width:min(92vw,360px);max-height:70vh;
-    display:grid;grid-template-rows:auto 1fr auto;border-radius:var(--radius);
+    display:grid;grid-template-rows:auto 1fr auto;border-radius:18px;
     overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-2);
     opacity:0;pointer-events:none;transform:translateY(8px) scale(.98);transition:opacity .18s,transform .18s
   }
@@ -214,12 +214,12 @@
   style.textContent = css;
   document.head.appendChild(style);
 
-  // ---------- Sestav DOM widget ----------
+  // ---------- Sestavení widgetu ----------
   const wrap = document.createElement('div');
   wrap.id = 'chat-widget';
   wrap.innerHTML = `
     <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s ${BOT_NAME}" aria-expanded="false">💬</button>
-    <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s ${BOT_NAME}">
+    <section id="chat-panel" class="chat-panel" aria-hidden="true" role="dialog" aria-label="Chat s ${BOT_NAME}">
       <header class="chat-header">
         <div class="chat-avatar">F</div>
         <div class="chat-title"><strong>${BOT_NAME}</strong><span>Virtuální asistent</span></div>
@@ -227,8 +227,8 @@
       </header>
       <div id="chat-box" class="chat-box"></div>
       <form id="chat-form" class="chat-input-row" autocomplete="off">
-        <input id="chat-input" type="text" placeholder="Napiš zprávu…" aria-label="Zpráva pro ${BOT_NAME}" />
-        <button type="submit" class="btn btn-primary btn-sheen">Odeslat</button>
+        <input id="chat-input" type="text" placeholder="Napište zprávu…" aria-label="Zpráva pro ${BOT_NAME}" />
+        <button type="submit" class="btn btn-primary">Odeslat</button>
       </form>
     </section>
   `;
@@ -243,7 +243,8 @@
   const INPUT = wrap.querySelector('#chat-input');
 
   let greeted = false;
-  let KB = null; // cache JSON
+  let KB = null; // cache frantisek.json
+  let DEFAULT = "Omlouvám se, nerozumím. Můžete se zeptat na otevírací dobu, ceník, služby nebo kontakt.";
 
   // ---------- Ovládání ----------
   function openChat() {
@@ -274,7 +275,7 @@
     return d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
   }
   function escapeHtml(str){
-    return str.replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
+    return (str||"").replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
   }
   function appendMe(text){
     BOX.insertAdjacentHTML('beforeend', `
@@ -311,20 +312,22 @@
     node.querySelector('.chat-bubble').innerHTML = text;
   }
 
-  // ---------- Načtení znalostní báze ----------
+  // ---------- Načtení frantisek.json ----------
   async function loadKB(){
     if (KB) return KB;
     const r = await fetch(KB_URL, { cache: 'no-store' });
     KB = await r.json();
+    // pokud je v souboru "default", vezmeme ho
+    if (KB && typeof KB.default === "string") DEFAULT = KB.default;
     return KB;
   }
 
-  // ---------- Normalizace + skórování shody ----------
+  // ---------- Normalizace + jednoduché skórování pro CZ ----------
   function norm(s){
     return (s || "")
       .toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // bez diakritiky
-      .replace(/[^a-z0-9á-ž\s]/gi,' ') // odstranění symbolů
+      .replace(/[^a-z0-9\s]/g,' ')                   // jen písmena/čísla/mezery
       .replace(/\s+/g,' ')
       .trim();
   }
@@ -336,38 +339,36 @@
     return inter / uni;
   }
   function scoreQuery(query, key){
-    // bonus: přesná/částečná shoda
     const nq = norm(query), nk = norm(key);
     let score = 0;
-    if (nq.includes(nk) || nk.includes(nq)) score += 0.55;
-    // jaccard na tokenech
-    score += jaccard(tokens(nq), tokens(nk)) * 0.7;
-    // délkový bonus pro kratší klíče (aby „cenik“ vyhrál nad dlouhými větami)
-    score += Math.max(0, 0.15 - Math.min(nk.length, 40)/400);
+    if (nq.includes(nk) || nk.includes(nq)) score += 0.55; // částečná/přesná shoda
+    score += jaccard(tokens(nq), tokens(nk)) * 0.7;        // podobnost tokenů
+    score += Math.max(0, 0.15 - Math.min(nk.length, 40)/400); // drobný bonus pro kratší klíče
     return score;
   }
 
+  // ---------- Vyhledání odpovědi v key→value databázi ----------
   async function askFromJSON(userText){
     const db = await loadKB();
     const input = userText || '';
+    // klíče jsou názvy dotazů (např. "otevírací doba", "kolik stojí 20 minut", atd.)
     const keys = Object.keys(db).filter(k => k !== 'default');
     if (!keys.length) return "Databáze odpovědí je prázdná.";
 
-    // najdi nejlepší shodu
     let bestKey = null, bestScore = -1;
     for (const k of keys){
       const s = scoreQuery(input, k);
       if (s > bestScore){ bestScore = s; bestKey = k; }
     }
-    // threshold (když je dotaz úplně mimo)
+
+    // když je dotaz mimo, použij default
     if (bestScore < 0.18){
-      return db.default || "Promiň, nerozumím. Zkus to říct jinak 🙂";
+      return db.default || DEFAULT;
     }
-    return db[bestKey] || db.default || "Promiň, nerozumím. Zkus to říct jinak 🙂";
+    return db[bestKey] || db.default || DEFAULT;
   }
 
   // ---------- Odesílání ----------
-
   FORM.addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = (INPUT.value || '').trim();
