@@ -160,15 +160,14 @@
 })();
 
 
-// ====== CHAT „FRANTIŠEK“ — Messenger bublina + Q&A z js/frantisek.json ======
+// ====== CHAT „FRANTIŠEK“ — Messenger bublina + JSON znalostní báze ======
 (() => {
   // ---------- Nastavení ----------
   const BOT_NAME = "František";
   const GREETING = "Dobrý den, jmenuji se František. Jsem virtuální asistent Solária Hranice. S čím vám mohu pomoci?";
-  // Tohle je důležité: čteme PŘÍMO tvůj key→value soubor (ne intentový)
-  const KB_URL = "js/frantisek.json";
+  const KB_URL = "js/frantisek.json"; // cesta k databázi Q&A
 
-  // ---------- Injekt CSS (nezávislé na style.css) ----------
+  // ---------- Injekt CSS (když by nebylo v hlavním CSS) ----------
   const css = `
   #chat-widget{position:fixed;right:20px;bottom:20px;z-index:10000}
   .chat-fab{
@@ -214,12 +213,12 @@
   style.textContent = css;
   document.head.appendChild(style);
 
-  // ---------- Sestavení widgetu ----------
+  // ---------- Sestavení DOM widgetu ----------
   const wrap = document.createElement('div');
   wrap.id = 'chat-widget';
   wrap.innerHTML = `
     <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s ${BOT_NAME}" aria-expanded="false">💬</button>
-    <section id="chat-panel" class="chat-panel" aria-hidden="true" role="dialog" aria-label="Chat s ${BOT_NAME}">
+    <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s ${BOT_NAME}">
       <header class="chat-header">
         <div class="chat-avatar">F</div>
         <div class="chat-title"><strong>${BOT_NAME}</strong><span>Virtuální asistent</span></div>
@@ -228,7 +227,7 @@
       <div id="chat-box" class="chat-box"></div>
       <form id="chat-form" class="chat-input-row" autocomplete="off">
         <input id="chat-input" type="text" placeholder="Napište zprávu…" aria-label="Zpráva pro ${BOT_NAME}" />
-        <button type="submit" class="btn btn-primary">Odeslat</button>
+        <button type="submit" class="btn btn-primary btn-sheen">Odeslat</button>
       </form>
     </section>
   `;
@@ -243,8 +242,7 @@
   const INPUT = wrap.querySelector('#chat-input');
 
   let greeted = false;
-  let KB = null; // cache frantisek.json
-  let DEFAULT = "Omlouvám se, nerozumím. Můžete se zeptat na otevírací dobu, ceník, služby nebo kontakt.";
+  let KB = null; // cache JSON
 
   // ---------- Ovládání ----------
   function openChat() {
@@ -275,7 +273,7 @@
     return d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
   }
   function escapeHtml(str){
-    return (str||"").replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
+    return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
   }
   function appendMe(text){
     BOX.insertAdjacentHTML('beforeend', `
@@ -312,60 +310,76 @@
     node.querySelector('.chat-bubble').innerHTML = text;
   }
 
-  // ---------- Načtení frantisek.json ----------
+  // ---------- Načtení znalostní báze ----------
   async function loadKB(){
     if (KB) return KB;
     const r = await fetch(KB_URL, { cache: 'no-store' });
+    if (!r.ok) throw new Error(`Nelze načíst ${KB_URL} (${r.status})`);
     KB = await r.json();
-    // pokud je v souboru "default", vezmeme ho
-    if (KB && typeof KB.default === "string") DEFAULT = KB.default;
+    // validace minimální struktury
+    if (!KB || !Array.isArray(KB.intents)) {
+      throw new Error("Neočekávaný formát frantisek.json (chybí pole 'intents').");
+    }
     return KB;
   }
 
-  // ---------- Normalizace + jednoduché skórování pro CZ ----------
+  // ---------- Normalizace (bez diakritiky) + tokenizace ----------
   function norm(s){
-    return (s || "")
+    return String(s || "")
       .toLowerCase()
       .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // bez diakritiky
-      .replace(/[^a-z0-9\s]/g,' ')                   // jen písmena/čísla/mezery
+      .replace(/[^a-z0-9\s]/g,' ') // jen písmena/čísla/mezery
       .replace(/\s+/g,' ')
       .trim();
   }
   function tokens(s){ return norm(s).split(' ').filter(Boolean); }
-  function jaccard(a,b){
-    const A = new Set(a), B = new Set(b);
-    const inter = [...A].filter(x => B.has(x)).length;
-    const uni = new Set([...A, ...B]).size || 1;
-    return inter / uni;
-  }
-  function scoreQuery(query, key){
-    const nq = norm(query), nk = norm(key);
-    let score = 0;
-    if (nq.includes(nk) || nk.includes(nq)) score += 0.55; // částečná/přesná shoda
-    score += jaccard(tokens(nq), tokens(nk)) * 0.7;        // podobnost tokenů
-    score += Math.max(0, 0.15 - Math.min(nk.length, 40)/400); // drobný bonus pro kratší klíče
-    return score;
+
+  // ---------- Intent matcher (all/any/not) ----------
+  function matchIntent(intents, userText){
+    const input = norm(userText || "");
+    const words = tokens(input);
+
+    // Pomocná funkce „obsahuje stem“
+    const hasStem = (stem) => words.some(w => w.includes(stem));
+
+    // 1) přesná pravidla (all/any/not)
+    const exact = intents.find(intent => {
+      const ALL = intent.all || [];
+      const ANY = intent.any || [];
+      const NOT = intent.not || [];
+      const okAll = ALL.every(stem => hasStem(stem));
+      const okAny = ANY.length === 0 || ANY.some(stem => hasStem(stem));
+      const okNot = NOT.some(stem => hasStem(stem));
+      return okAll && okAny && !okNot;
+    });
+    if (exact) return exact;
+
+    // 2) lehký fallback — skórování podle podílu shod (když nic přesného nepadne)
+    let best = null, bestScore = 0;
+    for (const intent of intents){
+      const ALL = intent.all || [];
+      const ANY = intent.any || [];
+      const NOT = intent.not || [];
+      if (NOT.some(stem => hasStem(stem))) continue;
+
+      let score = 0;
+      const allHits = ALL.filter(stem => hasStem(stem)).length;
+      const anyHits = ANY.filter(stem => hasStem(stem)).length;
+
+      if (ALL.length) score += allHits / ALL.length * 0.7;
+      if (ANY.length) score += Math.min(1, anyHits / Math.max(1, Math.ceil(ANY.length * 0.4))) * 0.5;
+
+      if (score > bestScore){ bestScore = score; best = intent; }
+    }
+    if (bestScore >= 0.6) return best; // jen když to dává smysl
+    return null;
   }
 
-  // ---------- Vyhledání odpovědi v key→value databázi ----------
   async function askFromJSON(userText){
     const db = await loadKB();
-    const input = userText || '';
-    // klíče jsou názvy dotazů (např. "otevírací doba", "kolik stojí 20 minut", atd.)
-    const keys = Object.keys(db).filter(k => k !== 'default');
-    if (!keys.length) return "Databáze odpovědí je prázdná.";
-
-    let bestKey = null, bestScore = -1;
-    for (const k of keys){
-      const s = scoreQuery(input, k);
-      if (s > bestScore){ bestScore = s; bestKey = k; }
-    }
-
-    // když je dotaz mimo, použij default
-    if (bestScore < 0.18){
-      return db.default || DEFAULT;
-    }
-    return db[bestKey] || db.default || DEFAULT;
+    const intent = matchIntent(db.intents, userText);
+    if (intent) return intent.answer;
+    return db.default || "Omlouvám se, nerozumím otázce.";
   }
 
   // ---------- Odesílání ----------
@@ -383,4 +397,7 @@
       replaceThinking(thinkingId, `⚠️ Chyba: ${escapeHtml(err.message || String(err))}`);
     }
   });
+
+  // (Volitelné) Otevřít chat automaticky po 6s návštěvy – zakomentováno:
+  // setTimeout(() => { if (!greeted) openChat(); }, 6000);
 })();
