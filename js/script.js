@@ -158,3 +158,228 @@
     );
   }
 })();
+
+
+// ====== CHAT „FRANTIŠEK“ — Messenger bublina + JSON znalostní báze ======
+(() => {
+  // ---------- Nastavení ----------
+  const BOT_NAME = "František";
+  const GREETING = "Dobrý den, jmenuji se František. Jsem virtuální asistent Solária Hranice. S čím vám mohu pomoci?";
+  // Cesta k databázi Q&A (JSON). Vytvoř soubor /js/frantisek.json
+  const KB_URL = "js/frantisek.json";
+
+  // ---------- Injekt CSS (aby to jelo i bez úprav style.css) ----------
+  const css = `
+  #chat-widget{position:fixed;right:20px;bottom:20px;z-index:10000}
+  .chat-fab{
+    width:56px;height:56px;border-radius:999px;border:1px solid var(--border);
+    display:grid;place-items:center;font-size:22px;cursor:pointer;
+    background:linear-gradient(180deg,color-mix(in oklab,var(--surface) 96%,transparent),color-mix(in oklab,var(--surface) 86%,transparent));
+    box-shadow:var(--shadow-2);transition:transform .15s,box-shadow .15s,background .15s
+  }
+  .chat-fab:hover{transform:translateY(-1px)}
+  .chat-panel{
+    position:absolute;right:0;bottom:72px;width:min(92vw,360px);max-height:70vh;
+    display:grid;grid-template-rows:auto 1fr auto;border-radius:var(--radius);
+    overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-2);
+    opacity:0;pointer-events:none;transform:translateY(8px) scale(.98);transition:opacity .18s,transform .18s
+  }
+  #chat-widget[data-open="1"] .chat-panel{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+  .chat-header{
+    display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;
+    padding:10px 12px;border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,color-mix(in oklab,var(--surface) 96%,transparent),color-mix(in oklab,var(--surface) 88%,transparent))
+  }
+  .chat-avatar{
+    width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:900;
+    background:linear-gradient(180deg,rgb(var(--brand-rgb)/.25),rgb(var(--brand-rgb)/.08));
+    box-shadow:0 1px 0 rgba(255,255,255,.06) inset
+  }
+  .chat-title span{display:block;font-size:12px;color:var(--muted)}
+  .chat-box{padding:12px;overflow-y:auto;background:var(--surface-2)}
+  .chat-msg{margin:8px 0;display:grid;gap:6px}
+  .chat-bubble{
+    display:inline-block;padding:8px 10px;border-radius:12px;border:1px solid var(--border);
+    background:var(--surface);max-width:85%
+  }
+  .chat-bubble.me{
+    background:linear-gradient(180deg,color-mix(in oklab,var(--accent) 94%,#fff 12%),color-mix(in oklab,var(--accent) 88%,#000 8%));
+    color:#111;border-color:transparent;justify-self:end
+  }
+  .chat-meta{font-size:11px;color:var(--muted)}
+  .chat-input-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px;border-top:1px solid var(--border);background:var(--surface)}
+  #chat-input{height:42px;border-radius:10px;border:1px solid var(--border);padding:0 12px;background:var(--surface-2);color:var(--text)}
+  `;
+  const style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  // ---------- Sestav DOM widget ----------
+  const wrap = document.createElement('div');
+  wrap.id = 'chat-widget';
+  wrap.innerHTML = `
+    <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s ${BOT_NAME}" aria-expanded="false">💬</button>
+    <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s ${BOT_NAME}">
+      <header class="chat-header">
+        <div class="chat-avatar">F</div>
+        <div class="chat-title"><strong>${BOT_NAME}</strong><span>Virtuální asistent</span></div>
+        <button id="chat-close" class="btn btn-icon" aria-label="Zavřít chat">✕</button>
+      </header>
+      <div id="chat-box" class="chat-box"></div>
+      <form id="chat-form" class="chat-input-row" autocomplete="off">
+        <input id="chat-input" type="text" placeholder="Napiš zprávu…" aria-label="Zpráva pro ${BOT_NAME}" />
+        <button type="submit" class="btn btn-primary btn-sheen">Odeslat</button>
+      </form>
+    </section>
+  `;
+  document.body.appendChild(wrap);
+
+  const W = wrap;
+  const FAB = wrap.querySelector('#chat-fab');
+  const PANEL = wrap.querySelector('#chat-panel');
+  const CLOSE = wrap.querySelector('#chat-close');
+  const BOX = wrap.querySelector('#chat-box');
+  const FORM = wrap.querySelector('#chat-form');
+  const INPUT = wrap.querySelector('#chat-input');
+
+  let greeted = false;
+  let KB = null; // cache JSON
+
+  // ---------- Ovládání ----------
+  function openChat() {
+    W.setAttribute('data-open', '1');
+    FAB.setAttribute('aria-expanded', 'true');
+    PANEL.setAttribute('aria-hidden', 'false');
+    INPUT?.focus();
+    if (!greeted) {
+      greeted = true;
+      appendBot(GREETING);
+    }
+  }
+  function closeChat() {
+    W.removeAttribute('data-open');
+    FAB.setAttribute('aria-expanded', 'false');
+    PANEL.setAttribute('aria-hidden', 'true');
+  }
+  FAB.addEventListener('click', openChat);
+  CLOSE.addEventListener('click', closeChat);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && W.getAttribute('data-open') === '1') closeChat();
+  });
+
+  // ---------- UI helpers ----------
+  function scrollToBottom(){ BOX.scrollTop = BOX.scrollHeight; }
+  function timeNow(){
+    const d=new Date();
+    return d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
+  }
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
+  }
+  function appendMe(text){
+    BOX.insertAdjacentHTML('beforeend', `
+      <div class="chat-msg me">
+        <div class="chat-bubble me">${escapeHtml(text)}</div>
+        <div class="chat-meta">${timeNow()}</div>
+      </div>
+    `);
+    scrollToBottom();
+  }
+  function appendBot(text){
+    BOX.insertAdjacentHTML('beforeend', `
+      <div class="chat-msg ai">
+        <div class="chat-bubble">${text}</div>
+        <div class="chat-meta">${timeNow()}</div>
+      </div>
+    `);
+    scrollToBottom();
+  }
+  function appendThinking(){
+    const id = `thinking-${Date.now()}`;
+    BOX.insertAdjacentHTML('beforeend', `
+      <div class="chat-msg ai" id="${id}">
+        <div class="chat-bubble"><em>${BOT_NAME} přemýšlí…</em></div>
+        <div class="chat-meta">${timeNow()}</div>
+      </div>
+    `);
+    scrollToBottom();
+    return id;
+  }
+  function replaceThinking(id, text){
+    const node = document.getElementById(id);
+    if (!node) return appendBot(text);
+    node.querySelector('.chat-bubble').innerHTML = text;
+  }
+
+  // ---------- Načtení znalostní báze ----------
+  async function loadKB(){
+    if (KB) return KB;
+    const r = await fetch(KB_URL, { cache: 'no-store' });
+    KB = await r.json();
+    return KB;
+  }
+
+  // ---------- Normalizace + skórování shody ----------
+  function norm(s){
+    return (s || "")
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // bez diakritiky
+      .replace(/[^a-z0-9á-ž\s]/gi,' ') // odstranění symbolů
+      .replace(/\s+/g,' ')
+      .trim();
+  }
+  function tokens(s){ return norm(s).split(' ').filter(Boolean); }
+  function jaccard(a,b){
+    const A = new Set(a), B = new Set(b);
+    const inter = [...A].filter(x => B.has(x)).length;
+    const uni = new Set([...A, ...B]).size || 1;
+    return inter / uni;
+  }
+  function scoreQuery(query, key){
+    // bonus: přesná/částečná shoda
+    const nq = norm(query), nk = norm(key);
+    let score = 0;
+    if (nq.includes(nk) || nk.includes(nq)) score += 0.55;
+    // jaccard na tokenech
+    score += jaccard(tokens(nq), tokens(nk)) * 0.7;
+    // délkový bonus pro kratší klíče (aby „cenik“ vyhrál nad dlouhými větami)
+    score += Math.max(0, 0.15 - Math.min(nk.length, 40)/400);
+    return score;
+  }
+
+  async function askFromJSON(userText){
+    const db = await loadKB();
+    const input = userText || '';
+    const keys = Object.keys(db).filter(k => k !== 'default');
+    if (!keys.length) return "Databáze odpovědí je prázdná.";
+
+    // najdi nejlepší shodu
+    let bestKey = null, bestScore = -1;
+    for (const k of keys){
+      const s = scoreQuery(input, k);
+      if (s > bestScore){ bestScore = s; bestKey = k; }
+    }
+    // threshold (když je dotaz úplně mimo)
+    if (bestScore < 0.18){
+      return db.default || "Promiň, nerozumím. Zkus to říct jinak 🙂";
+    }
+    return db[bestKey] || db.default || "Promiň, nerozumím. Zkus to říct jinak 🙂";
+  }
+
+  // ---------- Odesílání ----------
+
+  FORM.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = (INPUT.value || '').trim();
+    if (!msg) return;
+    appendMe(msg);
+    INPUT.value = '';
+    const thinkingId = appendThinking();
+    try{
+      const reply = await askFromJSON(msg);
+      replaceThinking(thinkingId, reply);
+    }catch(err){
+      replaceThinking(thinkingId, `⚠️ Chyba: ${escapeHtml(err.message || String(err))}`);
+    }
+  });
+})();
