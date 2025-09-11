@@ -570,3 +570,66 @@ a.link-underline:hover::after{ right:0; }
   font-weight:800;
   color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
 }
+/* === FIX: Ceník vedle sebe, bez puntíků, symetrie === */
+#cenik .grid.grid-2{
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+}
+
+/* každá karta dostane „slot“ cca půlky řádku, ale je responzivní */
+#cenik .grid.grid-2 > .card{
+  flex: 1 1 clamp(320px, 48%, 560px);
+  max-width: 560px;
+  margin: 0;                 /* zruší auto-centrování, které to mohlo rozhazovat */
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* podnadpisy v kartě – decentní */
+#cenik .grid.grid-2 > .card h5{
+  margin: .35rem 0 .8rem;
+  color: color-mix(in oklab, var(--text) 60%, var(--muted) 40%);
+  font-weight: 800;
+}
+
+/* seznam cen – bez odrážek, cena vpravo */
+#cenik .grid.grid-2 > .card .list{
+  list-style: none !important;
+  padding: 0; margin: .2rem 0 0 0;
+  font-variant-numeric: tabular-nums;
+}
+#cenik .grid.grid-2 > .card .list li{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 8px;
+  border-bottom: 1px dashed var(--hair);
+}
+#cenik .grid.grid-2 > .card .list li:last-child{ border-bottom: none; }
+#cenik .grid.grid-2 > .card .list li span:last-child{
+  font-weight: 900;
+  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
+}
+
+/* bezpečnostní síť – i kdyby někdo omylem nepoužil .list */
+#cenik ul{ list-style: none; padding-left: 0; margin: 0; }
+#cenik ul li{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px dashed var(--hair);
+  padding: 12px 6px;
+}
+#cenik ul li:last-child{ border-bottom: none; }
+#cenik ul li > *:last-child{
+  justify-self: end;
+  font-weight: 800;
+  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
+}
+
