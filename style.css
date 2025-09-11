@@ -161,7 +161,7 @@ a:focus-visible{outline:none; box-shadow:var(--ring); border-radius:10px}
   box-shadow:0 10px 28px rgba(0,0,0,.42), 0 0 24px rgba(var(--brand-rgb),.22);
 }
 
-/* ---------- LIST (ceník) ---------- */
+/* list (ceník) */
 .list{ list-style:none; padding:0; margin:0; font-variant-numeric:tabular-nums }
 .list li{
   display:flex; align-items:center; justify-content:space-between;
@@ -346,7 +346,7 @@ a.link-underline:hover::after{ right:0; }
   opacity:.5; filter: blur(8px);
 }
 
-/* ---  C) Nadpis s noblesním gradientem --- */
+/* ---  C) Nadpis s noblesním gradientem (plynulý, ne „gaming“) --- */
 .h1.h-accent{
   background: linear-gradient(90deg,
     color-mix(in oklab, var(--accent) 92%, #fff 6%),
@@ -360,7 +360,7 @@ a.link-underline:hover::after{ right:0; }
   0%{ background-position: 0% 50% } 100%{ background-position: 200% 50% }
 }
 
-/* ---  D) Karty – glass + outline --- */
+/* ---  D) Karty – glass + subtilní outline + měkčí stíny --- */
 .card{
   border: 1px solid var(--hair);
   box-shadow:
@@ -376,7 +376,7 @@ a.link-underline:hover::after{ right:0; }
     0 0 20px rgba(var(--brand-rgb), .18);
 }
 
-/* ---  E) CTA sheen --- */
+/* ---  E) CTA „sheen“ – tiché světlo projede přes button --- */
 .btn-sheen{
   position:relative; overflow:hidden; isolation:isolate;
 }
@@ -392,7 +392,7 @@ a.link-underline:hover::after{ right:0; }
   100%{ transform: translateX(260%) rotate(18deg); }
 }
 
-/* ---  F) Kontakty --- */
+/* ---  F) Kontakty – řádky s ikon-pill a čistými dividers --- */
 .contact-card{ padding: 6px; }
 .contact-list{ list-style:none; padding:0; margin:0; }
 .contact-row{
@@ -414,7 +414,7 @@ a.link-underline:hover::after{ right:0; }
 .contact-row a{ color: inherit; text-decoration: none; }
 .contact-row a.link-underline{ color: inherit; }
 
-/* ---  G) Map link --- */
+/* ---  G) Sekce „Kde nás najdeš“ – krásný map link --- */
 .map-link{
   display:inline-flex; align-items:center; gap:.55rem; font-weight:800;
   color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
@@ -422,7 +422,7 @@ a.link-underline:hover::after{ right:0; }
 }
 .map-link:hover{ text-decoration:underline; }
 
-/* ---  H) Footer --- */
+/* ---  H) Footer – decentní zlato, ne kýč --- */
 .footer{
   border-top: 1px solid var(--hair);
   background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--surface) 86%, transparent));
@@ -435,15 +435,16 @@ a.link-underline:hover::after{ right:0; }
   color: var(--muted);
 }
 
-/* ---  I) Responzivně --- */
+/* ---  I) Responzivně jemněji --- */
 @media (max-width: 840px){
   .contact-row{ grid-template-columns:34px 1fr; padding:12px 14px; }
   .contact-ico{ width:34px; height:34px; border-radius:10px; font-size:16px; }
 }
 
-/* === CENÍK — centrování + pevný grid ( původní ADD-ON ) === */
+/* === CENÍK — centrování + pevný grid (ADD-ON) === */
 #cenik .h2 { text-align:center; }
 
+/* 2 karty vycentrované uprostřed, auto-fit pro responsivitu */
 #cenik .grid.grid-2{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
@@ -452,6 +453,7 @@ a.link-underline:hover::after{ right:0; }
   gap:24px;
 }
 
+/* karta ceniku – plná výška, hezčí vnitřní layout */
 #cenik .card{
   max-width:420px;
   margin:0 auto;                /* jistota centrování, když je jen 1 sloupec */
@@ -460,12 +462,14 @@ a.link-underline:hover::after{ right:0; }
   text-align:center;
 }
 
+/* podnadpis (specifikace strojů) – jemně utlumený, ale čitelný */
 #cenik h5{
   margin:.2rem 0 .6rem;
   color: color-mix(in oklab, var(--text) 60%, var(--muted) 40%);
   font-weight:800;
 }
 
+/* seznam cen – hezky čitelný i na mobilu */
 #cenik .list li{
   padding:14px 8px;
   border-bottom:1px dashed var(--hair);
@@ -475,13 +479,15 @@ a.link-underline:hover::after{ right:0; }
   color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
 }
 
+/* drobný responsivní dotek */
 @media (max-width: 420px){
   #cenik .grid.grid-2{ gap:18px; }
   #cenik .card{ border-radius:16px; }
 }
-
 /* === CHAT: Messenger-style === */
 #chat-widget { position: fixed; right: 20px; bottom: 20px; z-index: 10000; }
+
+/* FAB (floating bubble) */
 .chat-fab{
   width: 56px; height: 56px; border-radius: 999px; border: 1px solid var(--border);
   display: grid; place-items: center; font-size: 22px; cursor: pointer;
@@ -493,6 +499,7 @@ a.link-underline:hover::after{ right:0; }
 .chat-fab:hover{ transform: translateY(-1px); box-shadow: var(--shadow-2); }
 .chat-fab:active{ transform: translateY(0) scale(.98); }
 
+/* Panel */
 .chat-panel{
   position: absolute; right: 0; bottom: 72px;
   width: min(92vw, 360px); max-height: 70vh;
@@ -504,11 +511,14 @@ a.link-underline:hover::after{ right:0; }
   opacity: 0; pointer-events: none; transform: translateY(8px) scale(.98);
   transition: opacity .18s ease, transform .18s ease;
 }
+
+/* open state */
 #chat-widget[data-open="1"] .chat-panel{
   opacity: 1; pointer-events: auto; transform: translateY(0) scale(1);
 }
 #chat-widget[data-open="1"] .chat-fab{ box-shadow: var(--shadow-1); }
 
+/* Header */
 .chat-header{
   display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center;
   padding: 10px 12px; border-bottom: 1px solid var(--border);
@@ -522,6 +532,7 @@ a.link-underline:hover::after{ right:0; }
 }
 .chat-title span{ display:block; font-size: 12px; }
 
+/* Messages */
 .chat-box{
   padding: 12px; overflow-y: auto; background: var(--surface-2);
 }
@@ -539,6 +550,7 @@ a.link-underline:hover::after{ right:0; }
 }
 .chat-meta{ font-size: 11px; color: var(--muted); }
 
+/* Input row */
 .chat-input-row{
   display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;
   padding: 10px; border-top: 1px solid var(--border); background: var(--surface);
@@ -547,89 +559,3 @@ a.link-underline:hover::after{ right:0; }
   height: 42px; border-radius: 10px; border: 1px solid var(--border);
   padding: 0 12px; background: var(--surface-2); color: var(--text);
 }
-
-/* ===== OVERRIDES PRO CENÍK – aby se to nikdy „nerozbilo“ ===== */
-/* 1) Kdyby někde chyběla class="list", stejně vypnout puntíky a odsazení */
-#cenik ul{ list-style:none; padding-left:0; margin:0; }
-#cenik ul li::marker{ content:""; }
-
-/* 2) Řádky jako grid: text vlevo, cena vpravo – i kdyby nebyla class .list */
-#cenik ul li{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:12px;
-  align-items:center;
-  border-bottom:1px dashed var(--hair);
-  padding:12px 6px;
-}
-#cenik ul li:last-child{ border-bottom:none; }
-
-/* 3) Cena doprava tučně (funguje i bez .list span) */
-#cenik ul li > *:last-child{
-  justify-self:end;
-  font-weight:800;
-  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
-}
-/* === FIX: Ceník vedle sebe, bez puntíků, symetrie === */
-#cenik .grid.grid-2{
-  display: flex !important;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
-  gap: 24px;
-}
-
-/* každá karta dostane „slot“ cca půlky řádku, ale je responzivní */
-#cenik .grid.grid-2 > .card{
-  flex: 1 1 clamp(320px, 48%, 560px);
-  max-width: 560px;
-  margin: 0;                 /* zruší auto-centrování, které to mohlo rozhazovat */
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-/* podnadpisy v kartě – decentní */
-#cenik .grid.grid-2 > .card h5{
-  margin: .35rem 0 .8rem;
-  color: color-mix(in oklab, var(--text) 60%, var(--muted) 40%);
-  font-weight: 800;
-}
-
-/* seznam cen – bez odrážek, cena vpravo */
-#cenik .grid.grid-2 > .card .list{
-  list-style: none !important;
-  padding: 0; margin: .2rem 0 0 0;
-  font-variant-numeric: tabular-nums;
-}
-#cenik .grid.grid-2 > .card .list li{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 8px;
-  border-bottom: 1px dashed var(--hair);
-}
-#cenik .grid.grid-2 > .card .list li:last-child{ border-bottom: none; }
-#cenik .grid.grid-2 > .card .list li span:last-child{
-  font-weight: 900;
-  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
-}
-
-/* bezpečnostní síť – i kdyby někdo omylem nepoužil .list */
-#cenik ul{ list-style: none; padding-left: 0; margin: 0; }
-#cenik ul li{
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: center;
-  border-bottom: 1px dashed var(--hair);
-  padding: 12px 6px;
-}
-#cenik ul li:last-child{ border-bottom: none; }
-#cenik ul li > *:last-child{
-  justify-self: end;
-  font-weight: 800;
-  color: color-mix(in oklab, var(--text) 70%, var(--accent) 30%);
-}
-
