@@ -3,26 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Solárium Hranice — Jednoduše a srozumitelně</title>
-  <meta name="description" content="Solárium Hranice v Koloseu. Jasné ceny, jednoduché informace, telefon na jedno kliknutí." />
+  <title>Solárium Hranice — Peak Experience</title>
+  <meta name="description" content="Futuristické opálení s maximálním komfortem. Jasný ceník. Rychlý kontakt. Koloseum, Hranice." />
   <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Pár jemných „senior-friendly“ úprav bez zásahu do tvého style.css -->
-  <style>
-    :root { font-size: 18px; }                 /* větší základní písmo */
-    .btn { min-width: 48px; min-height: 48px;} /* větší tap-targets */
-    .lead { font-size: clamp(18px, 2.4vw, 20px); }
-    .h4 { font-size: clamp(18px, 2.6vw, 22px); }
-    /* Ceník: jistota, že jsou karty vedle sebe a obsah čitelný */
-    #cenik .card h5{ margin: .4rem 0 1rem; }
-    #cenik .list li{ padding: 16px 10px; }
-  </style>
 </head>
-
 <body>
   <a class="skip" href="#main">Přeskočit na obsah</a>
 
@@ -35,14 +23,14 @@
     <div class="container nav-row">
       <a class="brand" href="#top">☀ Solárium Hranice</a>
       <nav class="nav" aria-label="Hlavní navigace">
-        <a href="#onas">Proč my</a>
+        <a href="#onas">O&nbsp;nás</a>
         <a href="#sluzby">Služby</a>
         <a href="#cenik">Ceník</a>
-        <a href="#faq">Časté dotazy</a>
+        <a href="#faq">FAQ</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
       <div class="nav-actions">
-        <button id="theme-toggle" class="btn btn-icon" aria-label="Přepnout světlé/tmavé zobrazení">🌓</button>
+        <button id="theme-toggle" class="btn btn-icon" aria-label="Přepnout téma">🌓</button>
       </div>
     </div>
   </header>
@@ -51,32 +39,56 @@
     <!-- HERO -->
     <section id="top" class="section hero">
       <div class="container ta-center">
-        <h1 class="h1 h-accent glow-reveal">Opalování jednoduše a bezpečně</h1>
-        <p class="lead reveal">Jsme v Koloseu v Hranicích. Přijďte bez objednání. Rádi poradíme, kolik minut je pro vás vhodné.</p>
+        <h1 class="h1 h-accent glow-reveal">Moderní opálení. Peak zážitek.</h1>
+        <p class="lead reveal">Luxusní prostředí, férové ceny a dokonalý výsledek.</p>
         <div class="actions reveal">
           <a class="btn btn-primary" href="#cenik">💳 Zobrazit ceník</a>
-          <a class="btn btn-ghost" href="tel:+420736701777" aria-label="Zavolat na číslo 736 701 777">📞 Zavolat</a>
-          <a class="btn btn-ghost" href="https://www.google.com/maps/place/Solárium+Hranice/" target="_blank" rel="noopener">🧭 Navigovat</a>
+          <a class="btn btn-ghost" href="tel:+420123456789">📞 Zavolat</a>
         </div>
       </div>
     </section>
+    <!-- MEGA SOUTĚŽ 2025 – SECTION -->
+<section class="promo-section">
+  <div class="promo-container">
 
-    <!-- PROČ MY -->
+    <h2 class="promo-title">🔥 MEGA SOUTĚŽ O PERMANENTKU – PROSINEC 2025 🔥</h2>
+
+    <p class="promo-lead">
+      ⭐ Vyhraj <strong>100 minut opalování ZDARMA</strong>
+    </p>
+
+    <p class="promo-text">
+      Kup si v prosinci <strong>permanentku 100 minut za 1250 Kč</strong>
+      a automaticky tě zařadíme do soutěže o dalších 100 minut opalování zdarma.
+    </p>
+
+    <div class="promo-info">
+      <p>📅 Platí: <strong>1.–23. 12. 2025</strong></p>
+      <p>🎥 Živé losování: <strong>23. 12. 2025</strong> na našem profilu</p>
+    </div>
+
+    <a href="#cenik" class="promo-button btn-sheen">Koupit permanentku</a>
+
+  </div>
+</section>
+
+
+    <!-- O NÁS -->
     <section id="onas" class="section">
       <div class="container">
-        <h2 class="h2 ta-center reveal">Proč nás lidé volí</h2>
+        <h2 class="h2 ta-center reveal">Proč my?</h2>
         <div class="grid grid-3">
           <article class="card reveal">
-            <h3 class="h3">🧼 Čistota</h3>
-            <p>Po každém klientovi dezinfikujeme. Kabiny jsou vždy připravené.</p>
+            <h3 class="h3">✨ Upřímně</h3>
+            <p>Lokální vibe bez marketingových triků. Jen férový servis.</p>
           </article>
           <article class="card reveal">
-            <h3 class="h3">🛡 Bezpečí</h3>
-            <p>Doporučíme délku podle vaší pokožky. Začínáme opatrně.</p>
+            <h3 class="h3">🛡 Bezpečně</h3>
+            <p>Doporučení podle fototypu a stavu pokožky. Kůže je priorita.</p>
           </article>
           <article class="card reveal">
-            <h3 class="h3">📞 Jednoduše</h3>
-            <p>Bez složitostí. Jasné ceny, telefon a mapa na jedno klepnutí.</p>
+            <h3 class="h3">🧼 Čistě</h3>
+            <p>Dezinfekce a hygienické standardy na top úrovni.</p>
           </article>
         </div>
       </div>
@@ -88,61 +100,50 @@
         <h2 class="h2 ta-center reveal">Služby</h2>
         <div class="grid grid-2">
           <article class="card reveal glass">
-            <h3 class="h3">🌙 Vleže (horizontální)</h3>
-            <p>Pohodlné opalování vleže. Doporučeno pro delší odpočinek.</p>
+            <h3 class="h3">🌞 Ve stoje</h3>
+            <p>Rovnoměrné, rychlé a ideální pro express návštěvy.</p>
           </article>
           <article class="card reveal glass">
-            <h3 class="h3">🌞 Ve stoje (vertikální)</h3>
-            <p>Rychlé a rovnoměrné. Vhodné, když spěcháte.</p>
+            <h3 class="h3">🌙 Vleže</h3>
+            <p>Relax, komfort a možnost jemného ladění odstínu.</p>
           </article>
         </div>
       </div>
     </section>
 
     <!-- CENÍK -->
-    <section id="cenik" class="section" aria-labelledby="cenik-title">
+    <section id="cenik" class="section">
       <div class="container">
-        <h2 id="cenik-title" class="h2 ta-center reveal">Ceník</h2>
-
-        <!-- DŮLEŽITÉ: obě karty jsou SOUROZENCI uvnitř jednoho .grid.grid-2 -->
+        <h2 class="h2 ta-center reveal">Ceník</h2>
         <div class="grid grid-2">
-          <!-- VLEŽE -->
-          <article class="card reveal" aria-labelledby="c-vleze-title">
-            <h3 id="c-vleze-title" class="h4 ta-center">Vleže (horizontální)</h3>
-            <h5>19&nbsp;Kč / minuta &nbsp;•&nbsp; Turbo Power: 51× 160&nbsp;W, 4× 520&nbsp;W, 13× 25&nbsp;W</h5>
-            <ul class="list" aria-label="Ceník vleže">
-              <li><span>1 minuta</span><span>19&nbsp;Kč</span></li>
-              <li><span>20 minut</span><span>380&nbsp;Kč</span></li>
-              <li><span>100&nbsp;+&nbsp;20 minut zdarma</span><span>1&nbsp;500&nbsp;Kč</span></li>
+          <article class="card reveal">
+            <h3 class="h4 ta-center">Horizontální solárium (19 Kč / minuta)</h3>
+                <h5> Turbo Power: 51× Tan Tube 160 W, 4× 520 W, 13× 25 W</h5>
+            <ul class="list">
+              <li><span>1 min</span><span>18 Kč</span></li>
+              <li><span>20 min</span><span>360 Kč</span></li>
+              <li><span>100 + 20 min zdarma</span><span>1250 Kč</span></li>
             </ul>
           </article>
-
-          <!-- VE STOJE -->
-          <article class="card reveal" aria-labelledby="c-vestoje-title">
-            <h3 id="c-vestoje-title" class="h4 ta-center">Ve stoje (vertikální)</h3>
-            <h5>18&nbsp;Kč / minuta &nbsp;•&nbsp; Turbo Power: 50× 180&nbsp;W</h5>
-            <ul class="list" aria-label="Ceník ve stoje">
-              <li><span>1 minuta</span><span>18&nbsp;Kč</span></li>
-              <li><span>20 minut</span><span>360&nbsp;Kč</span></li>
-              <li><span>100&nbsp;+&nbsp;20 minut zdarma    </span><span>1&nbsp;500&nbsp;Kč</span></li>
+          <article class="card reveal">
+            <h3 class="h4 ta-center">Vertikální solárium (18 Kč / minuta)</h3>
+              <h5> Turbo Power: 51× Tan Tube 160 W, 4× 520 W, 13× 25 W</h5>
+            <ul class="list">
+              <li><span>1 min</span><span>19 Kč</span></li>
+              <li><span>20 min</span><span>380 Kč</span></li>
+              <li><span>100 + 20 min zdarma</span><span>1250 Kč</span></li>
             </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ČASTÉ DOTAZY -->
+    <!-- FAQ -->
     <section id="faq" class="section">
       <div class="container">
-        <h2 class="h2 ta-center reveal">Časté dotazy</h2>
-        <details class="faq reveal">
-          <summary>Jdu poprvé. Kolik minut?</summary>
-          <div class="faq-a">Začínáme 3–5 minut. Podle vaší pokožky případně přidáme.</div>
-        </details>
-        <details class="faq reveal">
-          <summary>Musím se objednat?</summary>
-          <div class="faq-a">Ne. Klidně přijďte. Když chcete mít jistotu, zavolejte.</div>
-        </details>
+        <h2 class="h2 ta-center reveal">FAQ</h2>
+        <details class="faq reveal"><summary>Kolik minut je ideál?</summary><div class="faq-a">Začínáme opatrně, podle fototypu. Na místě nastavíme přesně.</div></details>
+        <details class="faq reveal"><summary>Musím se objednávat?</summary><div class="faq-a">Není nutné, ale zavolej pro jistotu.</div></details>
       </div>
     </section>
 
@@ -151,15 +152,13 @@
       <div class="container ta-center">
         <h2 class="h2 reveal">Kontakt</h2>
         <article class="card reveal">
-          <p><strong>Adresa:</strong> Koloseum, Třída 1. máje 1901, Hranice</p>
-          <p>
-            🧭 <a class="link-underline" href="https://www.google.com/maps/place/Solárium+Hranice/" target="_blank" rel="noopener">Otevřít mapu</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            📞 <a class="link-underline" href="tel:+420736701777">+420&nbsp;736&nbsp;701&nbsp;777</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            ✉ <a class="link-underline" href="mailto:solariumhranice@gmail.com">solariumhranice@gmail.com</a>
+          <p>📍 
+            <a href="https://www.google.com/maps/place/Solárium+Hranice/@49.5529561,17.6537169,12z/data=!4m6!3m5!1s0xa60c4a425a21ee0f:0xa59329dceac15ee2!8m2!3d49.5529854!4d17.7361173!16s%2Fg%2F11xfsm8sby" target="_blank" rel="noopener noreferrer">
+              Koloseum, Hranice
+            </a>
           </p>
-          <p class="muted">Jsme v 1. patře Kolosea. Parkování je u budovy.</p>
+          <p>📞 <a href="tel:+420123456789">+420 736 701 777</a></p>
+          <p>✉ <a href="mailto:info@solariumhranice.com">info@solariumhranice.com</a></p>
         </article>
       </div>
     </section>
@@ -170,35 +169,37 @@
     <p>&copy; 2025 Solárium Hranice</p>
     <div class="business-info">
       <p><strong>Podnikatel:</strong> František Kuča</p>
-      <p><strong>Sídlo:</strong> Třída 1. máje 1901, Hranice</p>
+      <p><strong>Sídlo:</strong> Třída 1. Máje 1901 Hranice</p>
       <p><strong>IČO:</strong> 22601121</p>
       <p><em>Zapsán v živnostenském rejstříku vedeném Městským úřadem Hranice.</em></p>
     </div>
   </footer>
+  <!-- CHAT WIDGET (Messenger-style) -->
+<div id="chat-widget" aria-live="polite">
+  <!-- Floating bubble button -->
+  <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s Katkou" aria-expanded="false">
+    💬
+  </button>
 
-  <!-- CHAT WIDGET (Messenger-style) – jméno změněno na František -->
-  <div id="chat-widget" aria-live="polite">
-    <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s Františkem" aria-expanded="false">💬</button>
+  <!-- Slide-up panel -->
+  <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s Katkou">
+    <header class="chat-header">
+      <div class="chat-avatar">K</div>
+      <div class="chat-title">
+        <strong>Katka</strong>
+        <span class="muted">Virtuální asistentka</span>
+      </div>
+      <button id="chat-close" class="btn btn-icon" aria-label="Zavřít chat">✕</button>
+    </header>
 
-    <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s Františkem">
-      <header class="chat-header">
-        <div class="chat-avatar">F</div>
-        <div class="chat-title">
-          <strong>František</strong>
-          <span class="muted">Virtuální asistent</span>
-        </div>
-        <button id="chat-close" class="btn btn-icon" aria-label="Zavřít chat">✕</button>
-      </header>
+    <div id="chat-box" class="chat-box"></div>
 
-      <div id="chat-box" class="chat-box"></div>
-
-      <form id="chat-form" class="chat-input-row" autocomplete="off">
-        <input id="chat-input" type="text" placeholder="Napište dotaz (např. Ceník, Otevírací doba…)" aria-label="Zpráva pro Františka" />
-        <button type="submit" class="btn btn-primary btn-sheen">Odeslat</button>
-      </form>
-    </section>
-  </div>
-
-  <script src="js/script.js" defer></script>
+    <form id="chat-form" class="chat-input-row" autocomplete="off">
+      <input id="chat-input" type="text" placeholder="Napiš zprávu…" aria-label="Zpráva pro Katku" />
+      <button type="submit" class="btn btn-primary btn-sheen">Odeslat</button>
+    </form>
+  </section>
+</div>
+ <script src="app.js" defer></script>
 </body>
 </html>
