@@ -1,680 +1,102 @@
 {
-  "intents": [
-    {
-      "id": "open_hours",
-      "all": ["otev"],
-      "any": ["hodin", "provozn", "kdy", "dnes", "dneska", "vikend", "sobot", "nede", "otevir", "otevren"],
-      "not": [],
-      "answer": "Jsme otevřeni od pondělí do pátku 8:00–18:00, v sobotu 8:00–12:00. V neděli zavřeno."
-    },
-    {
-      "id": "close_time",
-      "all": ["zavir"],
-      "any": ["kdy", "kolik", "cas", "hodin"],
-      "not": [],
-      "answer": "V pracovní dny zavíráme v 18:00, v sobotu ve 12:00. Neděle je zavřeno."
-    },
-    {
-      "id": "hours_variants",
-      "all": ["provozn"],
-      "any": ["doba", "hodin", "otev", "otevir", "otevren"],
-      "not": [],
-      "answer": "Provozní doba: Po–Pá 8:00–18:00, So 8:00–12:00, Ne zavřeno."
-    },
-
-    {
-      "id": "pricing_minute",
-      "all": ["cen"],
-      "any": ["minut", "cena", "stoj"],
-      "not": [],
-      "answer": "Horizontální solárium: 19 Kč/min. Vertikální solárium: 18 Kč/min."
-    },
-    {
-      "id": "pricing_10",
-      "all": ["10"],
-      "any": ["kolik", "stoj", "minut"],
-      "not": [],
-      "answer": "10 minut: Horizontální 190 Kč, Vertikální 180 Kč."
-    },
-    {
-      "id": "pricing_20",
-      "all": ["20"],
-      "any": ["kolik", "stoj", "minut"],
-      "not": [],
-      "answer": "20 minut: Horizontální 380 Kč, Vertikální 360 Kč."
-    },
-    {
-      "id": "pricing_30",
-      "all": ["30"],
-      "any": ["kolik", "stoj", "minut"],
-      "not": [],
-      "answer": "30 minut: Horizontální 570 Kč, Vertikální 540 Kč."
-    },
-    {
-      "id": "pricing_60",
-      "all": ["60"],
-      "any": ["kolik", "stoj", "minut"],
-      "not": [],
-      "answer": "60 minut: Horizontální 1140 Kč, Vertikální 1080 Kč."
-    },
-    {
-      "id": "pricing_100",
-      "all": ["100"],
-      "any": ["kolik", "stoj", "minut", "permanent"],
-      "not": [],
-      "answer": "100 minut: Horizontální 1900 Kč, Vertikální 1800 Kč. Akce 100+20 zdarma: 1500 Kč."
-    },
-    {
-      "id": "pricing_bundle",
-      "all": ["permanent"],
-      "any": ["akce", "balick", "zvyhod"],
-      "not": [],
-      "answer": "Permanentka 100+20 minut zdarma stojí 1500 Kč (platnost 12 měsíců)."
-    },
-
-    {
-      "id": "contact",
-      "all": ["kontakt"],
-      "any": ["telefon", "email", "adresa", "cislo", "mail"],
-      "not": [],
-      "answer": "Adresa: Koloseum, Třída 1. Máje 1901, Hranice • 📞 +420 736 701 777 • ✉ info@solariumhranice.com"
-    },
-    {
-      "id": "location",
-      "all": [],
-      "any": ["kde", "najd", "adresa", "poloha", "map", "mapa", "dostan", "kudy", "koloseum", "hranice", "trida", "maje", "sidl", "sidlo", "sidlite", "ulic"],
-      "not": [],
-      "answer": "Najdete nás v Koloseu, Třída 1. Máje 1901, Hranice. Mapa: https://www.google.com/maps/place/Solárium+Hranice/"
-    },
-    {
-      "id": "how_to_get",
-      "all": ["dostan"],
-      "any": ["jak", "cest", "kudy", "najd"],
-      "not": [],
-      "answer": "Jsme v budově Koloseum v Hranicích, nedaleko centra. Parkování je u budovy."
-    },
-
-    {
-      "id": "services",
-      "all": ["sluzb"],
-      "any": ["co", "nabiz", "typ"],
-      "not": [],
-      "answer": "Nabízíme horizontální i vertikální solárium, odborné doporučení a doplňkovou kosmetiku."
-    },
-    {
-      "id": "hygiene",
-      "all": ["hygien"],
-      "any": ["cistot", "dezinf", "uklid"],
-      "not": [],
-      "answer": "Po každém zákazníkovi dezinfikujeme kabinu i vybavení. Dodržujeme vysoké hygienické standardy."
-    },
-    {
-      "id": "safety",
-      "all": ["bezpec"],
-      "any": ["doporu", "fototyp", "kuze", "pokozk"],
-      "not": [],
-      "answer": "Doporučenou délku nastavíme podle fototypu a stavu pokožky. Bezpečnost je pro nás prioritou."
-    },
-    {
-      "id": "promo",
-      "all": ["akce"],
-      "any": ["zdarma", "minut", "permanent"],
-      "not": [],
-      "answer": "Při koupi 100 minut získáte 20 minut zdarma. Cena 1500 Kč."
-    },
-    {
-      "id": "permanent_validity",
-      "all": ["permanent"],
-      "any": ["platn", "doba"],
-      "not": [],
-      "answer": "Permanentka je platná 12 měsíců od zakoupení."
-    },
-
-    {
-      "id": "payment_card",
-      "all": ["platb"],
-      "any": ["kart"],
-      "not": [],
-      "answer": "Platba kartou je možná."
-    },
-    {
-      "id": "payment_cash",
-      "all": ["platb"],
-      "any": ["hotov"],
-      "not": [],
-      "answer": "Platba v hotovosti je možná."
-    },
-    {
-      "id": "payment_transfer",
-      "all": ["platb", "prevod"],
-      "any": [],
-      "not": [],
-      "answer": "Platby převodem nenabízíme. Přijímáme karty a hotovost."
-    },
-
-    {
-      "id": "students_discount",
-      "all": ["student"],
-      "any": ["sleva"],
-      "not": [],
-      "answer": "V současnosti neposkytujeme speciální studentské slevy."
-    },
-    {
-      "id": "seniors_discount",
-      "all": ["senior"],
-      "any": ["sleva"],
-      "not": [],
-      "answer": "Momentálně neposkytujeme speciální slevy pro seniory."
-    },
-
-    {
-      "id": "first_time",
-      "all": ["poprv"],
-      "any": ["kolik", "minut", "zac"],
-      "not": [],
-      "answer": "Pokud jdete poprvé, doporučujeme 3–5 minut a následně upravíme podle reakce pokožky."
-    },
-    {
-      "id": "sensitive_skin",
-      "all": ["citliv"],
-      "any": ["kuze", "pokozk", "minut"],
-      "not": [],
-      "answer": "Pro citlivou pokožku doporučujeme při první návštěvě maximálně 5 minut."
-    },
-    {
-      "id": "acne",
-      "all": ["akne"],
-      "any": ["pomoh", "vliv", "kuze"],
-      "not": [],
-      "answer": "Suché teplo v soláriu může působit příznivě na akné. Délku nastavíme opatrně."
-    },
-    {
-      "id": "vitamin_d",
-      "all": ["vitamin"],
-      "any": ["d"],
-      "not": [],
-      "answer": "Solárium může přispět k tvorbě vitaminu D. Doporučujeme krátké a rozumné dávky."
-    },
-    {
-      "id": "how_many_minutes",
-      "all": ["kolik", "minut"],
-      "any": ["doporu", "ideal", "doporucit"],
-      "not": [],
-      "answer": "Délku pobytu doporučíme na místě podle fototypu a aktuálního stavu pokožky."
-    },
-
-    {
-      "id": "reservation",
-      "all": ["rezerv"],
-      "any": ["objed", "nutn", "musim"],
-      "not": [],
-      "answer": "Rezervace není nutná. Pro jistotu si můžete předem zavolat."
-    },
-    {
-      "id": "capacity",
-      "all": ["voln"],
-      "any": ["mate", "je"],
-      "not": [],
-      "answer": "Kapacitu obvykle máme, doporučujeme ověřit telefonicky."
-    },
-
-    {
-      "id": "ventilation",
-      "all": ["vetr"],
-      "any": ["syst", "komfort"],
-      "not": [],
-      "answer": "Kabiny mají účinné větrání pro maximální komfort."
-    },
-    {
-      "id": "turbo_power",
-      "all": ["turbo"],
-      "any": ["power", "trubic"],
-      "not": [],
-      "answer": "Naše přístroje využívají technologii Turbo Power s pravidelnou výměnou trubic."
-    },
-    {
-      "id": "machine_types",
-      "all": ["typ", "stroj"],
-      "any": ["ergoline", "model"],
-      "not": [],
-      "answer": "Horizontální Ergoline Excellence 800 a vertikální Ergoline Lounge."
-    },
-    {
-      "id": "horizontal_info",
-      "all": ["horizont"],
-      "any": ["lez", "komfort", "minut", "cena"],
-      "not": [],
-      "answer": "Horizontální solárium nabízí pohodlí vleže. Cena 19 Kč/min."
-    },
-    {
-      "id": "vertical_info",
-      "all": ["vertik"],
-      "any": ["stoj", "rychl", "rovnom", "cena"],
-      "not": [],
-      "answer": "Vertikální solárium je rychlé a rovnoměrné. Cena 18 Kč/min."
-    },
-    {
-      "id": "visit_duration",
-      "all": ["doba", "navstev"],
-      "any": ["jak", "dlouh", "typick", "obvykl"],
-      "not": [],
-      "answer": "Jedna návštěva obvykle trvá 5–15 minut dle fototypu."
-    },
-
-    {
-      "id": "age_limit",
-      "all": ["vek"],
-      "any": ["omezen", "hranice", "18"],
-      "not": [],
-      "answer": "Opalování doporučujeme osobám starším 18 let."
-    },
-    {
-      "id": "children",
-      "all": ["det"],
-      "any": ["muze", "mohou", "solar"],
-      "not": [],
-      "answer": "Dětem solárium nedoporučujeme."
-    },
-    {
-      "id": "pregnancy",
-      "all": ["tehot"],
-      "any": ["mohu", "bezpec", "doporu"],
-      "not": [],
-      "answer": "Těhotným ženám návštěvu solária nedoporučujeme."
-    },
-    {
-      "id": "moles",
-      "all": ["zname", "mate"],
-      "any": ["prekryt", "nalep"],
-      "not": [],
-      "answer": "Mateřská znaménka doporučujeme zakrýt ochrannou nálepkou."
-    },
-    {
-      "id": "eye_protection",
-      "all": ["bryl"],
-      "any": ["ochran", "oci", "povinn"],
-      "not": [],
-      "answer": "Ochranné brýle jsou povinné a zapůjčíme je zdarma."
-    },
-
-    {
-      "id": "creams",
-      "all": ["krem"],
-      "any": ["opalovac", "pred", "po"],
-      "not": [],
-      "answer": "Nabízíme speciální krémy pro použití před opalováním i po něm."
-    },
-    {
-      "id": "brands",
-      "all": ["znack"],
-      "any": ["kosmetik"],
-      "not": [],
-      "answer": "Držíme ověřené značky kosmetiky pro solária."
-    },
-    {
-      "id": "lotion",
-      "all": ["mlek"],
-      "any": ["opalov"],
-      "not": [],
-      "answer": "Ano, máme opalovací mléka vhodná do solárií."
-    },
-    {
-      "id": "after_sun",
-      "all": ["after", "sun"],
-      "any": ["gel", "mlek", "po", "opal"],
-      "not": [],
-      "answer": "Po opalování doporučujeme gely a mléka After Sun."
-    },
-    {
-      "id": "dry_skin",
-      "all": ["such"],
-      "any": ["kuze", "pokozk", "hydrat"],
-      "not": [],
-      "answer": "U suché pokožky doporučujeme důslednou hydrataci po opalování."
-    },
-    {
-      "id": "oily_skin",
-      "all": ["mastn"],
-      "any": ["kuze", "pokozk", "interval"],
-      "not": [],
-      "answer": "Pro mastnou pokožku doporučujeme kratší intervaly pobytu."
-    },
-    {
-      "id": "burned_skin",
-      "all": ["spalen"],
-      "any": ["kuze", "pokozk"],
-      "not": [],
-      "answer": "Pokud je pokožka spálená, návštěvu odložte, dokud se nezhojí."
-    },
-    {
-      "id": "phototype",
-      "all": ["fototyp"],
-      "any": ["dopor", "nastav"],
-      "not": [],
-      "answer": "Délku nastavíme individuálně podle vašeho fototypu."
-    },
-
-    {
-      "id": "walk_in",
-      "all": ["objed", "rezerv"],
-      "any": ["nutn", "bez"],
-      "not": [],
-      "answer": "Rezervace není nutná, můžete přijít i bez ní."
-    },
-    {
-      "id": "promo_duration",
-      "all": ["akce"],
-      "any": ["trva", "celorocn", "doba"],
-      "not": [],
-      "answer": "Akce 100+20 minut zdarma platí celoročně."
-    },
-    {
-      "id": "voucher",
-      "all": ["darkov", "pouk"],
-      "any": ["koupit", "darovat"],
-      "not": [],
-      "answer": "Nabízíme dárkové poukazy v různých hodnotách."
-    },
-
-    {
-      "id": "min_time",
-      "all": ["minimal"],
-      "any": ["doba", "minut"],
-      "not": [],
-      "answer": "Minimální délka je 1 minuta."
-    },
-    {
-      "id": "max_time",
-      "all": ["maximal"],
-      "any": ["doba", "minut"],
-      "not": [],
-      "answer": "Maximální délka je 20 minut na jednu návštěvu."
-    },
-    {
-      "id": "intervals",
-      "all": ["interval"],
-      "any": ["jak", "casto", "tydn"],
-      "not": [],
-      "answer": "Doporučujeme 1–2 návštěvy týdně podle reakce pokožky."
-    },
-
-    {
-      "id": "with_friend",
-      "all": ["kamar"],
-      "any": ["spolec", "dohrom"],
-      "not": [],
-      "answer": "Můžete přijít spolu, opaluje se však vždy jednotlivě (máme více kabin)."
-    },
-    {
-      "id": "wifi",
-      "all": ["wifi"],
-      "any": [],
-      "not": [],
-      "answer": "V budově je k dispozici Wi-Fi."
-    },
-    {
-      "id": "air_condition",
-      "all": ["klimat"],
-      "any": [],
-      "not": [],
-      "answer": "Prostory jsou klimatizovány a dobře větrané."
-    },
-    {
-      "id": "waiting_room",
-      "all": ["cekar"],
-      "any": ["posezen", "cekani"],
-      "not": [],
-      "answer": "K dispozici je pohodlná čekárna."
-    },
-    {
-      "id": "meal_vouchers",
-      "all": ["straven"],
-      "any": ["beret", "prijim"],
-      "not": [],
-      "answer": "Stravenky nepřijímáme."
-    },
-    {
-      "id": "solar_cosmetics",
-      "all": ["solar", "kosmetik"],
-      "any": [],
-      "not": [],
-      "answer": "Ano, nabízíme kosmetiku určenou přímo do solárií."
-    },
-
-    {
-      "id": "who_are_you",
-      "all": ["kdo", "jste"],
-      "any": ["asistent", "frantisek"],
-      "not": [],
-      "answer": "Jsem František, virtuální asistent Solária Hranice."
-    },
-    {
-      "id": "your_name",
-      "all": ["jak", "jmenu"],
-      "any": ["frantisek"],
-      "not": [],
-      "answer": "Jmenuji se František."
-    },
-    {
-      "id": "why_name",
-      "all": ["proc", "frantisek"],
-      "any": ["jmeno", "pojmen"],
-      "not": [],
-      "answer": "Jméno mi dal majitel. Rád vám pomohu s informacemi."
-    },
-    {
-      "id": "what_can_you",
-      "all": ["co", "umis"],
-      "any": ["pomoc", "inform"],
-      "not": [],
-      "answer": "Zodpovídám dotazy k otevírací době, ceníku, bezpečnosti a službám."
-    },
-    {
-      "id": "what_cant_you",
-      "all": ["co", "neumis"],
-      "any": ["rezerv", "objed"],
-      "not": [],
-      "answer": "Nemohu provést rezervaci, ale rád poradím a dám informace."
-    },
-
-    {
-      "id": "website",
-      "all": ["web"],
-      "any": ["strank", "www", "url"],
-      "not": [],
-      "answer": "Web: https://solariumhranice.com"
-    },
-    {
-      "id": "instagram",
-      "all": ["instagram"],
-      "any": ["profil", "ucet"],
-      "not": [],
-      "answer": "Instagram: @solariumhranice"
-    },
-    {
-      "id": "facebook",
-      "all": ["facebook"],
-      "any": ["strank", "profil"],
-      "not": [],
-      "answer": "Najdete nás také na Facebooku."
-    },
-    {
-      "id": "phone",
-      "all": ["telefon"],
-      "any": ["cislo", "volat", "zavolat"],
-      "not": [],
-      "answer": "Telefon: +420 736 701 777."
-    },
-    {
-      "id": "email",
-      "all": ["email"],
-      "any": ["adresa", "kontakt", "mail"],
-      "not": [],
-      "answer": "E-mail: info@solariumhranice.com."
-    },
-
-    {
-      "id": "massages",
-      "all": ["masaz"],
-      "any": [],
-      "not": [],
-      "answer": "Masáže neposkytujeme."
-    },
-    {
-      "id": "beauty_cosmetics",
-      "all": ["kosmetik"],
-      "any": ["pred", "po", "pece"],
-      "not": [],
-      "answer": "Máme kosmetiku pro péči před i po opalování."
-    },
-    {
-      "id": "nails",
-      "all": ["neht"],
-      "any": ["manikur"],
-      "not": [],
-      "answer": "Nehtové služby neposkytujeme."
-    },
-    {
-      "id": "hair_salon_neighbor",
-      "all": ["kader"],
-      "any": ["vedle", "blizk"],
-      "not": [],
-      "answer": "V sousedství je Kadeřnictví Diana Kučová."
-    },
-    {
-      "id": "smoking",
-      "all": ["kour"],
-      "any": ["zakaz", "povol"],
-      "not": [],
-      "answer": "Kouření v prostorách není dovoleno."
-    },
-    {
-      "id": "alcohol",
-      "all": ["alkohol"],
-      "any": ["opil", "vliv"],
-      "not": [],
-      "answer": "Nedoporučujeme návštěvu solária pod vlivem alkoholu."
-    },
-    {
-      "id": "what_to_bring",
-      "all": ["co", "vz"],
-      "any": ["sebou", "potreb"],
-      "not": [],
-      "answer": "Stačí osobní věci; ochranné brýle zapůjčíme."
-    },
-    {
-      "id": "clothing",
-      "all": ["oblec"],
-      "any": ["opaluje", "jak"],
-      "not": [],
-      "answer": "Opalování probíhá bez oblečení, dle vašeho pohodlí."
-    },
-    {
-      "id": "towel",
-      "all": ["rucn"],
-      "any": ["potreb"],
-      "not": [],
-      "answer": "Ručník není nutný, kabiny jsou vybaveny."
-    },
-    {
-      "id": "shower",
-      "all": ["sprch"],
-      "any": ["je", "mate"],
-      "not": [],
-      "answer": "Sprcha v prostorách není k dispozici."
-    },
-
-    {
-      "id": "pros",
-      "all": ["vyhod"],
-      "any": ["proc", "plus"],
-      "not": [],
-      "answer": "Výhody: rovnoměrné opálení, vitamin D, relax."
-    },
-    {
-      "id": "cons",
-      "all": ["nevyhod", "rizik"],
-      "any": ["minus", "skodl"],
-      "not": [],
-      "answer": "Rizika: spálení, vysušení, stárnutí pokožky při nadměrném užívání."
-    },
-    {
-      "id": "healthy",
-      "all": ["zdrav"],
-      "any": ["je", "neni"],
-      "not": [],
-      "answer": "Při rozumném, krátkém používání může být solárium prospěšné."
-    },
-    {
-      "id": "harmful",
-      "all": ["skodl"],
-      "any": ["je", "neni"],
-      "not": [],
-      "answer": "Nadměrné používání je škodlivé — hrozí spálení a poškození kůže."
-    },
-    {
-      "id": "visit_price_generic",
-      "all": ["kolik", "stoj"],
-      "any": ["navstev", "cenik", "cena"],
-      "not": [],
-      "answer": "Cena závisí na minutách (Horizontální 19 Kč/min, Vertikální 18 Kč/min)."
-    },
-    {
-      "id": "first_visit_free",
-      "all": ["prvn"],
-      "any": ["zdarma"],
-      "not": [],
-      "answer": "První návštěva zdarma není, ale máme zvýhodněné permanentky."
-    },
-    {
-      "id": "loyalty",
-      "all": ["vernost"],
-      "any": ["program", "sleva"],
-      "not": [],
-      "answer": "Připravujeme věrnostní program pro stálé klienty."
-    },
-    {
-      "id": "cleanliness",
-      "all": ["cistot"],
-      "any": ["hygien", "uklid"],
-      "not": [],
-      "answer": "Čistota je pro nás absolutní priorita; kabiny jsou vždy dezinfikovány."
-    },
-    {
-      "id": "tan_duration",
-      "all": ["vydrz"],
-      "any": ["opal", "jak", "dlouh"],
-      "not": [],
-      "answer": "Opálení obvykle vydrží 2–4 týdny dle péče o pokožku."
-    },
-    {
-      "id": "aftercare",
-      "all": ["po", "opal"],
-      "any": ["pece", "co", "delat", "krem"],
-      "not": [],
-      "answer": "Po opalování doporučujeme hydratační péči (After Sun)."
-    },
-    {
-      "id": "drink_before",
-      "all": ["pit"],
-      "any": ["pred", "mohu"],
-      "not": [],
-      "answer": "Před opalováním pijte dostatek vody; hydratace je důležitá."
-    },
-    {
-      "id": "drink_after",
-      "all": ["pit"],
-      "any": ["po", "mohu"],
-      "not": [],
-      "answer": "Po opalování doplňte tekutiny."
-    },
-    {
-      "id": "exercise_after",
-      "all": ["cvicit"],
-      "any": ["po", "kdy"],
-      "not": [],
-      "answer": "Cvičit můžete, doporučujeme pauzu alespoň 1 hodinu po opalování."
-    }
-  ],
-  "default": "Omlouvám se, nerozumím. Zeptejte se prosím na otevírací dobu, ceník, permanentky, typy solárií, hygienu nebo kontakt."
+  "otevírací doba": "Naše otevírací doba je od pondělí do pátku 8:00–18:00, v sobotu 8:00–12:00. V neděli máme zavřeno.",
+  "kdy máte otevřeno": "Jsme otevřeni od pondělí do pátku od 8:00 do 18:00, v sobotu od 8:00 do 12:00. Neděle je zavírací den.",
+  "v kolik zavíráte": "Zavíráme každý pracovní den v 18:00 a v sobotu ve 12:00.",
+  "ceník": "Cena za minutu v ležícím soláriu je 19 Kč. Cena za minutu ve stojícím soláriu je 18 Kč. Nabízíme také zvýhodněné permanentky.",
+  "kolik stojí minuta": "Ležící solárium stojí 19 Kč za minutu, stojací solárium 18 Kč za minutu.",
+  "kontakt": "Adresa: Koloseum Hranice, Třída 1. máje 1901. Telefon: +420 736 701 777. Email: info@solariumhranice.com.",
+  "jak se k vám dostanu": "Najdete nás v budově Koloseum v Hranicích, nedaleko centra města.",
+  "služby": "Nabízíme ležící i stojací solárium, odborné poradenství a doplňkovou kosmetiku.",
+  "hygiena": "Po každém zákazníkovi dezinfikujeme kabinu i vybavení. Dodržujeme vysoké hygienické standardy.",
+  "bezpečnost": "Doporučenou dobu opalování přizpůsobujeme fototypu pokožky a individuálním potřebám klienta.",
+  "akce": "Aktuálně nabízíme akci: při koupi 100 minut získáte 20 minut zdarma.",
+  "permanentka": "Permanentka je cenově výhodná a platí po dobu 12 měsíců od zakoupení.",
+  "platba kartou": "Platba kartou je možná.",
+  "platba hotově": "Samozřejmě je možná také platba v hotovosti.",
+  "studenti sleva": "V současnosti neposkytujeme speciální studentské slevy.",
+  "senioři sleva": "Momentálně neposkytujeme speciální slevy pro seniory.",
+  "opalování poprvé": "Pokud jdete do solária poprvé, doporučujeme pouze krátkou návštěvu v délce 3–5 minut.",
+  "opalování citlivá pokožka": "Pro citlivou pokožku doporučujeme maximálně 5 minut při první návštěvě.",
+  "opalování akné": "Pobyt v soláriu může příznivě působit na akné díky suchému teplu.",
+  "opalování vitamin d": "Solárium může přispět k tvorbě vitaminu D.",
+  "kolik minut doporučujete": "Délku pobytu doporučíme na místě podle typu pokožky a vašich potřeb.",
+  "rezervace": "Rezervace není nutná. Pro jistotu si můžete předem zavolat.",
+  "máte volno": "Většinou máme volné kapacity, doporučujeme ale ověřit telefonicky.",
+  "kolik stojí 20 minut": "Ležící solárium: 380 Kč. Stojací solárium: 360 Kč.",
+  "kolik stojí 10 minut": "Ležící solárium: 190 Kč. Stojací solárium: 180 Kč.",
+  "kolik stojí 30 minut": "Ležící solárium: 570 Kč. Stojací solárium: 540 Kč.",
+  "kolik stojí 60 minut": "Ležící solárium: 1140 Kč. Stojací solárium: 1080 Kč.",
+  "kolik stojí 100 minut": "Ležící solárium: 1900 Kč. Stojací solárium: 1800 Kč.",
+  "máte akci zdarma minuty": "Ano, při zakoupení 100 minut získáte dalších 20 minut zdarma.",
+  "adresa": "Naše adresa je Třída 1. máje 1901, Hranice.",
+  "parkování": "Parkovat můžete přímo u budovy Koloseum.",
+  "větrání": "Kabiny mají moderní systém větrání pro váš komfort.",
+  "turbo power": "Naše přístroje jsou vybaveny technologií Turbo Power pro vyšší účinnost.",
+  "typy strojů": "Máme k dispozici Ergoline Excellence 800 (ležící) a Ergoline Lounge (stojací).",
+  "ležící solárium": "Ležící solárium je pohodlné a vybavené 51 trubicemi 160 W.",
+  "stojací solárium": "Stojací solárium je ideální pro rychlé a rovnoměrné opálení.",
+  "doba jedné návštěvy": "Jedna návštěva obvykle trvá 5–15 minut.",
+  "věkové omezení": "Solárium je doporučeno osobám starším 18 let.",
+  "děti solárium": "Dětem solárium nedoporučujeme.",
+  "těhotenství": "Těhotným ženám návštěvu solária nedoporučujeme.",
+  "mateřská znaménka": "Mateřská znaménka doporučujeme zakrýt ochrannou nálepkou.",
+  "ochrana očí": "Vždy používejte ochranné brýle, které vám rádi zapůjčíme.",
+  "opalovací krémy": "Nabízíme speciální krémy určené pro použití v soláriu.",
+  "značky kosmetiky": "Máme v nabídce kvalitní kosmetiku různých značek.",
+  "opalovací mléko": "Ano, nabízíme také opalovací mléka.",
+  "after sun": "Po opalování doporučujeme použít naše gely a mléka After Sun.",
+  "suchá kůže": "Doporučujeme použít hydratační péči po opalování.",
+  "mastná kůže": "Pro mastnou pokožku doporučujeme kratší intervaly.",
+  "citlivá kůže": "U citlivé kůže je vhodné začít na 3–5 minutách.",
+  "spálení": "Pokud jste spáleni, doporučujeme návštěvu odložit, dokud se pokožka nezhojí.",
+  "doporučení fototyp": "Doporučení vždy přizpůsobujeme fototypu pokožky.",
+  "můžu přijít bez objednání": "Ano, rezervace není nutná.",
+  "doba akce 100+20": "Tato akce platí celoročně.",
+  "permanentky platnost": "Permanentka je platná po dobu 12 měsíců.",
+  "kolik stojí permanentka": "Permanentka stojí 1500 Kč (100 minut) a obsahuje 20 minut zdarma.",
+  "můžu platit převodem": "Platby převodem nenabízíme. Platit lze kartou nebo hotově.",
+  "dárkový poukaz": "Ano, prodáváme také dárkové poukazy.",
+  "minimální doba": "Minimální délka pobytu je 1 minuta.",
+  "maximální doba": "Maximální délka pobytu je 20 minut.",
+  "opalování intervaly": "Doporučujeme 1–2 návštěvy týdně.",
+  "můžu přijít s kamarádem": "Ano, máme k dispozici více kabin.",
+  "wifi": "V budově je k dispozici Wi-Fi.",
+  "klimatizace": "Prostory jsou klimatizovány.",
+  "čekárna": "Máme k dispozici pohodlnou čekárnu.",
+  "přijímáte stravenky": "Stravenky bohužel nepřijímáme.",
+  "solární kosmetika": "Ano, nabízíme solární kosmetiku.",
+  "kdo jste": "Jsem František, virtuální asistent Solária Hranice.",
+  "jak se jmenuješ": "Jmenuji se František.",
+  "proč františek": "Jsem pojmenován po majiteli. Je mi ctí vás obsluhovat.",
+  "co umíš": "Odpovídám na otázky ohledně Solária Hranice a pomáhám vám s informacemi.",
+  "co neumíš": "Nemohu provádět rezervace, ale mohu vám poradit.",
+  "máte web": "Ano, náš web je www.solariumhranice.com.",
+  "instagram": "Najdete nás na Instagramu pod @solariumhranice.",
+  "facebook": "Ano, máme také Facebook stránku.",
+  "telefon": "Telefonní číslo: +420 736 701 777.",
+  "email": "Emailová adresa: info@solariumhranice.com.",
+  "masáže": "Masáže neposkytujeme.",
+  "kosmetika": "Ano, nabízíme kosmetiku pro péči o pokožku před i po opalování.",
+  "nails": "Manikúru ani nehtové služby neposkytujeme.",
+  "kadeřnictví": "Vedle našeho solária najdete Kadeřnictví Diana Kučová.",
+  "cigarety": "Kouření v prostorách solária není dovoleno.",
+  "alkohol": "Nedoporučujeme návštěvu solária pod vlivem alkoholu.",
+  "co si vzít": "Nepotřebujete nic zvláštního, brýle vám zapůjčíme.",
+  "oblečení": "Opalování probíhá bez oblečení.",
+  "ručník": "Ručník není potřeba, kabiny jsou vybaveny.",
+  "sprcha": "Sprcha v našich prostorách není k dispozici.",
+  "výhody solária": "Výhody zahrnují opálení, tvorbu vitaminu D a zlepšení nálady.",
+  "nevýhody solária": "Nevýhody mohou být riziko spálení, vysušení a stárnutí pokožky.",
+  "je solárium zdravé": "Při rozumném a krátkodobém používání může být solárium prospěšné.",
+  "je solárium škodlivé": "Při nadměrném používání může být solárium škodlivé.",
+  "kolik stojí návštěva": "Cena závisí na délce pobytu, od 18 Kč za minutu.",
+  "první návštěva zdarma": "První návštěva není zdarma, ale nabízíme zvýhodněné permanentky.",
+  "věrnostní program": "Připravujeme věrnostní program pro stálé klienty.",
+  "čistota": "Čistota je pro nás absolutní prioritou.",
+  "jak dlouho vydrží opálení": "Opálení obvykle vydrží 2–4 týdny.",
+  "co dělat po opalování": "Po opalování doporučujeme použít hydratační krém.",
+  "můžu pít před opalováním": "Ano, hydratace je před opalováním důležitá.",
+  "můžu pít po opalování": "Ano, doporučujeme pít hodně vody.",
+  "můžu cvičit po opalování": "Ano, ale doporučujeme počkat alespoň hodinu.",
+  "default": "Omlouvám se, této otázce nerozumím. Můžete se prosím zeptat například na otevírací dobu, ceník, služby nebo hygienu."
 }
