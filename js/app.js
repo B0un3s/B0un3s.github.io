@@ -160,14 +160,14 @@
 })();
 
 
-// ====== CHAT „FRANTIŠEK“ — Messenger bublina + JSON znalostní báze ======
+// ====== CHAT KATKA — Messenger bublina v jednom JS ======
 (() => {
-  // ---------- Nastavení ----------
-  const BOT_NAME = "František";
-  const GREETING = "Dobrý den, jmenuji se František. Jsem virtuální asistent Solária Hranice. S čím vám mohu pomoci?";
-  const KB_URL = "js/frantisek.json"; // cesta k databázi Q&A
+  // ------- CONFIG -------
+  const OPENAI_API_KEY = "sk-PASTE_YOUR_KEY_HERE"; // ⚠️ vlož svůj klíč (veřejné!)
+  const MODEL = "gpt-4o";                            // model
+  const GREETING = "Dobrý den, jmenuji se Katka. Jsem virtuální asistentka Solária Hranice. S čím vám mohu pomoci?";
 
-  // ---------- Injekt CSS (když by nebylo v hlavním CSS) ----------
+  // ------- Inject CSS (bez úprav existujícího style.css) -------
   const css = `
   #chat-widget{position:fixed;right:20px;bottom:20px;z-index:10000}
   .chat-fab{
@@ -179,7 +179,7 @@
   .chat-fab:hover{transform:translateY(-1px)}
   .chat-panel{
     position:absolute;right:0;bottom:72px;width:min(92vw,360px);max-height:70vh;
-    display:grid;grid-template-rows:auto 1fr auto;border-radius:18px;
+    display:grid;grid-template-rows:auto 1fr auto;border-radius:var(--radius);
     overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-2);
     opacity:0;pointer-events:none;transform:translateY(8px) scale(.98);transition:opacity .18s,transform .18s
   }
@@ -213,26 +213,27 @@
   style.textContent = css;
   document.head.appendChild(style);
 
-  // ---------- Sestavení DOM widgetu ----------
+  // ------- Build DOM -------
   const wrap = document.createElement('div');
   wrap.id = 'chat-widget';
   wrap.innerHTML = `
-    <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s ${BOT_NAME}" aria-expanded="false">💬</button>
-    <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s ${BOT_NAME}">
+    <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s Katkou" aria-expanded="false">💬</button>
+    <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s Katkou">
       <header class="chat-header">
-        <div class="chat-avatar">F</div>
-        <div class="chat-title"><strong>${BOT_NAME}</strong><span>Virtuální asistent</span></div>
+        <div class="chat-avatar">K</div>
+        <div class="chat-title"><strong>Katka</strong><span>Virtuální asistentka</span></div>
         <button id="chat-close" class="btn btn-icon" aria-label="Zavřít chat">✕</button>
       </header>
       <div id="chat-box" class="chat-box"></div>
       <form id="chat-form" class="chat-input-row" autocomplete="off">
-        <input id="chat-input" type="text" placeholder="Napište zprávu…" aria-label="Zpráva pro ${BOT_NAME}" />
+        <input id="chat-input" type="text" placeholder="Napiš zprávu…" aria-label="Zpráva pro Katku" />
         <button type="submit" class="btn btn-primary btn-sheen">Odeslat</button>
       </form>
     </section>
   `;
   document.body.appendChild(wrap);
 
+  // ------- Refs -------
   const W = wrap;
   const FAB = wrap.querySelector('#chat-fab');
   const PANEL = wrap.querySelector('#chat-panel');
@@ -242,9 +243,7 @@
   const INPUT = wrap.querySelector('#chat-input');
 
   let greeted = false;
-  let KB = null; // cache JSON
 
-  // ---------- Ovládání ----------
   function openChat() {
     W.setAttribute('data-open', '1');
     FAB.setAttribute('aria-expanded', 'true');
@@ -252,7 +251,7 @@
     INPUT?.focus();
     if (!greeted) {
       greeted = true;
-      appendBot(GREETING);
+      appendKatka(GREETING);
     }
   }
   function closeChat() {
@@ -260,22 +259,23 @@
     FAB.setAttribute('aria-expanded', 'false');
     PANEL.setAttribute('aria-hidden', 'true');
   }
+
   FAB.addEventListener('click', openChat);
   CLOSE.addEventListener('click', closeChat);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && W.getAttribute('data-open') === '1') closeChat();
   });
 
-  // ---------- UI helpers ----------
-  function scrollToBottom(){ BOX.scrollTop = BOX.scrollHeight; }
-  function timeNow(){
-    const d=new Date();
-    return d.toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'});
+  // ------- UI helpers -------
+  function scrollToBottom() { BOX.scrollTop = BOX.scrollHeight; }
+  function timeNow() {
+    const d = new Date();
+    return d.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
   }
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
   }
-  function appendMe(text){
+  function appendMe(text) {
     BOX.insertAdjacentHTML('beforeend', `
       <div class="chat-msg me">
         <div class="chat-bubble me">${escapeHtml(text)}</div>
@@ -284,7 +284,7 @@
     `);
     scrollToBottom();
   }
-  function appendBot(text){
+  function appendKatka(text) {
     BOX.insertAdjacentHTML('beforeend', `
       <div class="chat-msg ai">
         <div class="chat-bubble">${text}</div>
@@ -293,96 +293,49 @@
     `);
     scrollToBottom();
   }
-  function appendThinking(){
+  function appendThinking() {
     const id = `thinking-${Date.now()}`;
     BOX.insertAdjacentHTML('beforeend', `
       <div class="chat-msg ai" id="${id}">
-        <div class="chat-bubble"><em>${BOT_NAME} přemýšlí…</em></div>
+        <div class="chat-bubble"><em>Katka přemýšlí…</em></div>
         <div class="chat-meta">${timeNow()}</div>
       </div>
     `);
     scrollToBottom();
     return id;
   }
-  function replaceThinking(id, text){
+  function replaceThinking(id, text) {
     const node = document.getElementById(id);
-    if (!node) return appendBot(text);
+    if (!node) return appendKatka(text);
     node.querySelector('.chat-bubble').innerHTML = text;
   }
 
-  // ---------- Načtení znalostní báze ----------
-  async function loadKB(){
-    if (KB) return KB;
-    const r = await fetch(KB_URL, { cache: 'no-store' });
-    if (!r.ok) throw new Error(`Nelze načíst ${KB_URL} (${r.status})`);
-    KB = await r.json();
-    // validace minimální struktury
-    if (!KB || !Array.isArray(KB.intents)) {
-      throw new Error("Neočekávaný formát frantisek.json (chybí pole 'intents').");
-    }
-    return KB;
-  }
-
-  // ---------- Normalizace (bez diakritiky) + tokenizace ----------
-  function norm(s){
-    return String(s || "")
-      .toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // bez diakritiky
-      .replace(/[^a-z0-9\s]/g,' ') // jen písmena/čísla/mezery
-      .replace(/\s+/g,' ')
-      .trim();
-  }
-  function tokens(s){ return norm(s).split(' ').filter(Boolean); }
-
-  // ---------- Intent matcher (all/any/not) ----------
-  function matchIntent(intents, userText){
-    const input = norm(userText || "");
-    const words = tokens(input);
-
-    // Pomocná funkce „obsahuje stem“
-    const hasStem = (stem) => words.some(w => w.includes(stem));
-
-    // 1) přesná pravidla (all/any/not)
-    const exact = intents.find(intent => {
-      const ALL = intent.all || [];
-      const ANY = intent.any || [];
-      const NOT = intent.not || [];
-      const okAll = ALL.every(stem => hasStem(stem));
-      const okAny = ANY.length === 0 || ANY.some(stem => hasStem(stem));
-      const okNot = NOT.some(stem => hasStem(stem));
-      return okAll && okAny && !okNot;
+  // ------- OpenAI call -------
+  async function askOpenAI(userText) {
+    const r = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [
+          { role: 'system', content: 'Jsi přátelská a profesionální asistentka jménem Katka. Odpovídej česky, stručně a srozumitelně. Znáš ceník, otevírací dobu a služby Solária Hranice.' },
+          { role: 'user', content: userText }
+        ],
+        temperature: 0.7
+      })
     });
-    if (exact) return exact;
-
-    // 2) lehký fallback — skórování podle podílu shod (když nic přesného nepadne)
-    let best = null, bestScore = 0;
-    for (const intent of intents){
-      const ALL = intent.all || [];
-      const ANY = intent.any || [];
-      const NOT = intent.not || [];
-      if (NOT.some(stem => hasStem(stem))) continue;
-
-      let score = 0;
-      const allHits = ALL.filter(stem => hasStem(stem)).length;
-      const anyHits = ANY.filter(stem => hasStem(stem)).length;
-
-      if (ALL.length) score += allHits / ALL.length * 0.7;
-      if (ANY.length) score += Math.min(1, anyHits / Math.max(1, Math.ceil(ANY.length * 0.4))) * 0.5;
-
-      if (score > bestScore){ bestScore = score; best = intent; }
+    if (!r.ok) {
+      const t = await r.text().catch(()=>r.statusText);
+      throw new Error(`HTTP ${r.status}: ${t}`);
     }
-    if (bestScore >= 0.6) return best; // jen když to dává smysl
-    return null;
+    const data = await r.json();
+    return data?.choices?.[0]?.message?.content?.trim() || 'Omlouvám se, zkuste to prosím ještě jednou.';
   }
 
-  async function askFromJSON(userText){
-    const db = await loadKB();
-    const intent = matchIntent(db.intents, userText);
-    if (intent) return intent.answer;
-    return db.default || "Omlouvám se, nerozumím otázce.";
-  }
-
-  // ---------- Odesílání ----------
+  // ------- Submit handler -------
   FORM.addEventListener('submit', async (e) => {
     e.preventDefault();
     const msg = (INPUT.value || '').trim();
@@ -390,14 +343,131 @@
     appendMe(msg);
     INPUT.value = '';
     const thinkingId = appendThinking();
-    try{
-      const reply = await askFromJSON(msg);
+    try {
+      const reply = await askOpenAI(msg);
       replaceThinking(thinkingId, reply);
-    }catch(err){
+    } catch (err) {
       replaceThinking(thinkingId, `⚠️ Chyba: ${escapeHtml(err.message || String(err))}`);
     }
   });
-
-  // (Volitelné) Otevřít chat automaticky po 6s návštěvy – zakomentováno:
-  // setTimeout(() => { if (!greeted) openChat(); }, 6000);
 })();
+// ===== Czech-friendly text utils =====
+const PRICE = { H: 19, V: 18 }; // Kč/min – horizontální / vertikální
+
+function normalize(str) {
+  return (str || "")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // bez diakritiky
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+function bigrams(s) {
+  const t = normalize(s).replace(/\s+/g, " ");
+  const grams = [];
+  for (let i = 0; i < t.length - 1; i++) {
+    grams.push(t.slice(i, i + 2));
+  }
+  return grams;
+}
+function diceSim(a, b) {
+  // Sørensen–Dice na bigramech (robustní pro češtinu a překlepy)
+  const A = bigrams(a), B = bigrams(b);
+  if (!A.length || !B.length) return 0;
+  const map = new Map();
+  for (const g of A) map.set(g, (map.get(g) || 0) + 1);
+  let inter = 0;
+  for (const g of B) {
+    const c = map.get(g) || 0;
+    if (c > 0) { inter++; map.set(g, c - 1); }
+  }
+  return (2 * inter) / (A.length + B.length);
+}
+function containsStemFuzzy(text, stem, thr = 0.62) {
+  // rychlá cesta: podřetězec kořene
+  if (normalize(text).includes(normalize(stem))) return true;
+  // fuzzy: porovnej stem s každým slovem textu
+  const tokens = normalize(text).split(" ");
+  return tokens.some(tok => diceSim(tok, stem) >= thr);
+}
+
+// Dynamická cena typu „kolik stojí 12 minut“
+function tryDynamicPrice(text) {
+  const t = normalize(text);
+  const hasPriceVerb = /(kolik|stoj|cena|cenik)/.test(t);
+  const unitMention = /(min|minut|minuty|minuta)/.test(t);
+  const m = t.match(/\b(\d{1,3})\b/);
+  if (hasPriceVerb && unitMention && m) {
+    const minutes = parseInt(m[1], 10);
+    if (minutes > 0 && minutes <= 300) {
+      const h = minutes * PRICE.H;
+      const v = minutes * PRICE.V;
+      return `${minutes} minut: Horizontální ${h} Kč, Vertikální ${v} Kč.`;
+    }
+  }
+  return null;
+}
+
+// Hlavní matcher – funguje s libovolným počtem intentů
+async function answerFromKB(userText) {
+  // načti znalosti
+  if (!window.__KB) {
+    try {
+      const res = await fetch("frantisek.json", { cache: "no-store" });
+      window.__KB = await res.json();
+    } catch (err) {
+      return "⚠️ Nepodařilo se načíst znalostní bázi.";
+    }
+  }
+  const kb = window.__KB;
+  const t = userText || "";
+
+  // 1) zkus dynamickou cenu
+  const dyn = tryDynamicPrice(t);
+  if (dyn) return dyn;
+
+  // 2) skórování intentů
+  let best = null, bestScore = -Infinity;
+
+  for (const intent of kb.intents || []) {
+    const all = intent.all || [];
+    const any = intent.any || [];
+    const not = intent.not || [];
+
+    // NOT – když něco zakážeme, vypadává
+    if (not.some(stem => containsStemFuzzy(t, stem))) continue;
+
+    // ALL – všechna musí projít
+    const allOk = all.every(stem => containsStemFuzzy(t, stem));
+    if (!allOk) continue;
+
+    // ANY – prázdné = OK, jinak aspoň jedno
+    const anyHits = any.filter(stem => containsStemFuzzy(t, stem));
+    const anyOk = any.length === 0 || anyHits.length > 0;
+    if (!anyOk) continue;
+
+    // skóre: počet zásahů + bonus za krátké dotazy + „přesná fráze“
+    let score = 0;
+    score += anyHits.length * 1.0;
+    score += Math.max(0, 0.6 - normalize(t).length / 120); // kratší dotaz, vyšší bonus
+    if (intent.phrases) {
+      // nepovinné: přesné fráze zvyšují skóre
+      for (const ph of intent.phrases) {
+        if (normalize(t).includes(normalize(ph))) score += 0.8;
+      }
+    }
+    if (score > bestScore) { bestScore = score; best = intent; }
+  }
+
+  // 3) threshold: když nic moc nerezonuje, hoď default
+  if (!best || bestScore < 0.2) return kb.default || "Omlouvám se, nerozumím dotazu.";
+
+  // 4) šablona s {{dynamic_price}} apod.
+  let ans = best.answer || kb.default || "Děkuji, ale nerozumím.";
+  if (ans.includes("{{dynamic_price}}")) {
+    const dyn2 = tryDynamicPrice(t);
+    ans = dyn2 || "Pro upřesnění prosím napište počet minut (např. 12 minut).";
+  }
+  return ans;
+}
+
