@@ -1,4 +1,4 @@
-// ====== PEAK SCRIPTS — Solárium Hranice (bez chatu) — FIX ======
+// ====== PEAK SCRIPTS — Solárium Hranice (WITH CHAT FIX) ======
 (() => {
   const root = document.documentElement;
   const btnTheme = document.getElementById('theme-toggle');
@@ -19,17 +19,12 @@
       /* FX vrstvy nesmí blokovat klikání */
       .fx-spot, .scrollbar, .ripple { pointer-events: none !important; }
 
-      /* Chat bublina musí být vždy navrchu a klikací
-         (pokryje nejčastější id/class názvy; klidně rozšiř podle svého HTML) */
-      #chatbot, .chatbot, .chat-bubble, #chat-toggle, .chat-toggle, .chat-widget, .chat-launcher {
-        pointer-events: auto !important;
-        position: fixed !important;
-        z-index: 2147483647 !important;
-      }
+      /* Chat widget musí být vždy navrchu a klikací */
+      #chat-widget { pointer-events: auto !important; position: fixed !important; z-index: 2147483000 !important; }
+      #chat-fab, #chat-panel, #chat-close, #chat-form, #chat-input { pointer-events: auto !important; }
     `;
     document.head.appendChild(style);
   }
-
   injectFixStyles();
 
   // Extra jistota i inline (kdyby někdo přepisoval CSS)
@@ -42,14 +37,11 @@
     metaTheme?.setAttribute('content', t === 'dark' ? '#0b0e13' : '#ffffff');
     localStorage.setItem('theme', t);
   }
+
   const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    setTheme(savedTheme);
-  } else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
-    setTheme('dark');
-  } else {
-    setTheme('light');
-  }
+  if (savedTheme) setTheme(savedTheme);
+  else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) setTheme('dark');
+  else setTheme('light');
 
   // ---------- Brand cycle ----------
   const BRANDS = ['sunrise', 'bronze', 'tan', 'uv'];
@@ -57,6 +49,7 @@
     root.setAttribute('data-brand', name);
     localStorage.setItem('brand', name);
   }
+
   const savedBrand = localStorage.getItem('brand') || 'sunrise';
   setBrand(savedBrand);
 
@@ -173,7 +166,6 @@
       const btn = e.target.closest('.btn');
       if (!btn || prefersReduce) return;
 
-      // FIX: ripple span nikdy nesmí chytat kliky
       const r = document.createElement('span');
       r.className = 'ripple';
       r.style.pointerEvents = 'none';
@@ -190,9 +182,7 @@
 
   // ---------- Spotlight ----------
   if (spot && matchMedia('(pointer:fine)').matches && !prefersReduce) {
-    // FIX: spotlight overlay nesmí blokovat UI
     spot.style.pointerEvents = 'none';
-
     addEventListener(
       'pointermove',
       (e) => {
@@ -202,5 +192,102 @@
       { passive: true }
     );
   }
-})();
 
+  // =====================================================================
+  // ============================ CHAT FIX ===============================
+  // =====================================================================
+  const chatWidget = document.getElementById('chat-widget');
+  const chatFab = document.getElementById('chat-fab');
+  const chatPanel = document.getElementById('chat-panel');
+  const chatClose = document.getElementById('chat-close');
+  const chatForm = document.getElementById('chat-form');
+  const chatInput = document.getElementById('chat-input');
+  const chatBox = document.getElementById('chat-box');
+
+  if (chatWidget && chatFab && chatPanel) {
+    // default state
+    if (!chatWidget.hasAttribute('data-open')) chatWidget.setAttribute('data-open', '0');
+    chatPanel.setAttribute('aria-hidden', chatWidget.getAttribute('data-open') === '1' ? 'false' : 'true');
+    chatFab.setAttribute('aria-expanded', chatWidget.getAttribute('data-open') === '1' ? 'true' : 'false');
+
+    function setChatOpen(open) {
+      chatWidget.setAttribute('data-open', open ? '1' : '0');
+      chatPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+      chatFab.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open && chatInput) setTimeout(() => chatInput.focus(), prefersReduce ? 0 : 80);
+    }
+
+    function toggleChat() {
+      const open = chatWidget.getAttribute('data-open') === '1';
+      setChatOpen(!open);
+    }
+
+    function addMsg(text, mine = false) {
+      if (!chatBox) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'chat-msg';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble' + (mine ? ' me' : '');
+      bubble.textContent = text;
+
+      wrap.appendChild(bubble);
+      chatBox.appendChild(wrap);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Open/close
+    chatFab.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleChat();
+    });
+
+    chatClose?.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setChatOpen(false);
+    });
+
+    // Click outside closes (when open)
+    document.addEventListener(
+      'pointerdown',
+      (e) => {
+        if (chatWidget.getAttribute('data-open') !== '1') return;
+        const t = e.target;
+        if (!(t instanceof Element)) return;
+        if (chatWidget.contains(t)) return;
+        setChatOpen(false);
+      },
+      { passive: true }
+    );
+
+    // ESC closes
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setChatOpen(false);
+    });
+
+    // Send message
+    chatForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = (chatInput?.value || '').trim();
+      if (!text) return;
+
+      addMsg(text, true);
+      if (chatInput) chatInput.value = '';
+
+      // placeholder reply (bez backendu)
+      setTimeout(() => {
+        addMsg('Ahoj, jsem Katka. Napiš prosím: "ceník", "objednání", nebo "kolik minut".', false);
+      }, prefersReduce ? 0 : 220);
+    });
+
+    // optional: greet once
+    if (chatBox && chatBox.childElementCount === 0) {
+      addMsg('Ahoj, jsem Katka. S čím pomoct?', false);
+    }
+  } else {
+    // nech to tichý, jen debug pokud bys chtěl:
+    // console.warn('[chat] Missing elements - check ids: chat-widget, chat-fab, chat-panel...');
+  }
+})();
