@@ -1,4 +1,4 @@
-// ====== PEAK SCRIPTS — Solárium Hranice (WITH CHAT FIX) ======
+// ====== PEAK SCRIPTS — Solárium Hranice (FULL FIX) ======
 (() => {
   const root = document.documentElement;
   const btnTheme = document.getElementById('theme-toggle');
@@ -8,26 +8,20 @@
   const spot = document.querySelector('.fx-spot');
   const prefersReduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
-  // ---------- FIX: Inject CSS to prevent overlays blocking clicks ----------
-  function injectFixStyles() {
-    const id = 'peak-fix-noclick-overlay';
+  // ---------- Prevent FX overlays from blocking clicks + keep chat on top ----------
+  (function injectFixStyles() {
+    const id = 'peak-fix-clicks';
     if (document.getElementById(id)) return;
-
     const style = document.createElement('style');
     style.id = id;
     style.textContent = `
-      /* FX vrstvy nesmí blokovat klikání */
-      .fx-spot, .scrollbar, .ripple { pointer-events: none !important; }
-
-      /* Chat widget musí být vždy navrchu a klikací */
-      #chat-widget { pointer-events: auto !important; position: fixed !important; z-index: 2147483000 !important; }
-      #chat-fab, #chat-panel, #chat-close, #chat-form, #chat-input { pointer-events: auto !important; }
+      .fx-spot, .scrollbar, .ripple { pointer-events:none !important; }
+      #chat-widget { z-index:2147483000 !important; pointer-events:auto !important; }
+      #chat-fab, #chat-panel, #chat-close, #chat-form, #chat-input { pointer-events:auto !important; }
     `;
     document.head.appendChild(style);
-  }
-  injectFixStyles();
+  })();
 
-  // Extra jistota i inline (kdyby někdo přepisoval CSS)
   if (spot) spot.style.pointerEvents = 'none';
   if (scrollbar) scrollbar.style.pointerEvents = 'none';
 
@@ -37,7 +31,6 @@
     metaTheme?.setAttribute('content', t === 'dark' ? '#0b0e13' : '#ffffff');
     localStorage.setItem('theme', t);
   }
-
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) setTheme(savedTheme);
   else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) setTheme('dark');
@@ -49,25 +42,20 @@
     root.setAttribute('data-brand', name);
     localStorage.setItem('brand', name);
   }
-
-  const savedBrand = localStorage.getItem('brand') || 'sunrise';
-  setBrand(savedBrand);
+  setBrand(localStorage.getItem('brand') || 'sunrise');
 
   function cycleBrand() {
     const current = root.getAttribute('data-brand');
     const i = BRANDS.indexOf(current);
-    const next = (i + 1) % BRANDS.length;
-    setBrand(BRANDS[next]);
+    setBrand(BRANDS[(i + 1) % BRANDS.length]);
   }
 
-  // Theme button
   btnTheme?.addEventListener('click', (e) => {
     if (e.altKey) return cycleBrand();
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     setTheme(next);
   });
 
-  // Shortcut B = change brand
   document.addEventListener('keydown', (e) => {
     if ((e.key || '').toLowerCase() === 'b') cycleBrand();
   });
@@ -102,8 +90,8 @@
 
   const ioNav = new IntersectionObserver(
     (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) setActive(e.target.id);
+      entries.forEach((en) => {
+        if (en.isIntersecting) setActive(en.target.id);
       });
     },
     { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 }
@@ -115,10 +103,10 @@
     const revTargets = [...document.querySelectorAll('.reveal')];
     const ioRev = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            ioRev.unobserve(e.target);
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            ioRev.unobserve(en.target);
           }
         });
       },
@@ -194,7 +182,7 @@
   }
 
   // =====================================================================
-  // ============================ CHAT FIX ===============================
+  // ============================== CHAT ================================
   // =====================================================================
   const chatWidget = document.getElementById('chat-widget');
   const chatFab = document.getElementById('chat-fab');
@@ -205,69 +193,70 @@
   const chatBox = document.getElementById('chat-box');
 
   if (chatWidget && chatFab && chatPanel) {
-    // default state
     if (!chatWidget.hasAttribute('data-open')) chatWidget.setAttribute('data-open', '0');
-    chatPanel.setAttribute('aria-hidden', chatWidget.getAttribute('data-open') === '1' ? 'false' : 'true');
-    chatFab.setAttribute('aria-expanded', chatWidget.getAttribute('data-open') === '1' ? 'true' : 'false');
 
-    function setChatOpen(open) {
+    function isOpen() {
+      return chatWidget.getAttribute('data-open') === '1';
+    }
+
+    function setOpen(open) {
       chatWidget.setAttribute('data-open', open ? '1' : '0');
       chatPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
       chatFab.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open && chatInput) setTimeout(() => chatInput.focus(), prefersReduce ? 0 : 80);
-    }
-
-    function toggleChat() {
-      const open = chatWidget.getAttribute('data-open') === '1';
-      setChatOpen(!open);
+      if (open && chatInput) setTimeout(() => chatInput.focus(), prefersReduce ? 0 : 60);
     }
 
     function addMsg(text, mine = false) {
       if (!chatBox) return;
-      const wrap = document.createElement('div');
-      wrap.className = 'chat-msg';
+      const row = document.createElement('div');
+      row.className = 'chat-msg';
 
       const bubble = document.createElement('div');
       bubble.className = 'chat-bubble' + (mine ? ' me' : '');
       bubble.textContent = text;
 
-      wrap.appendChild(bubble);
-      chatBox.appendChild(wrap);
+      row.appendChild(bubble);
+      chatBox.appendChild(row);
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Open/close
+    if (chatBox && chatBox.childElementCount === 0) {
+      addMsg('Dobrý den, jsem Katka. Napište „ceník“, „objednání“ nebo „kolik minut“.', false);
+    }
+
+    // FAB toggle
     chatFab.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      toggleChat();
+      setOpen(!isOpen());
     });
 
+    // close button
     chatClose?.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      setChatOpen(false);
+      setOpen(false);
     });
 
-    // Click outside closes (when open)
+    // click outside closes
     document.addEventListener(
       'pointerdown',
       (e) => {
-        if (chatWidget.getAttribute('data-open') !== '1') return;
+        if (!isOpen()) return;
         const t = e.target;
         if (!(t instanceof Element)) return;
         if (chatWidget.contains(t)) return;
-        setChatOpen(false);
+        setOpen(false);
       },
       { passive: true }
     );
 
     // ESC closes
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setChatOpen(false);
+      if (e.key === 'Escape') setOpen(false);
     });
 
-    // Send message
+    // send
     chatForm?.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = (chatInput?.value || '').trim();
@@ -276,18 +265,21 @@
       addMsg(text, true);
       if (chatInput) chatInput.value = '';
 
-      // placeholder reply (bez backendu)
+      const t = text.toLowerCase();
       setTimeout(() => {
-        addMsg('Ahoj, jsem Katka. Napiš prosím: "ceník", "objednání", nebo "kolik minut".', false);
-      }, prefersReduce ? 0 : 220);
+        if (t.includes('cen')) {
+          addMsg('Ceník najdete v sekci „Ceník“. Pokud chcete, napište, zda máte zájem o solárium ve stoje nebo vleže.', false);
+        } else if (t.includes('obj') || t.includes('rez') || t.includes('term')) {
+          addMsg('Pro objednání prosím zavolejte na +420 736 701 777. Rádi vám doporučíme i vhodný počet minut.', false);
+        } else if (t.includes('min') || t.includes('kolik') || t.includes('fototyp')) {
+          addMsg('Napište prosím fototyp (I–VI) a zda jste letos solárium již navštívili. Doporučím vhodný počet minut.', false);
+        } else {
+          addMsg('Děkuji. Můžete napsat „ceník“, „objednání“ nebo „kolik minut“.', false);
+        }
+      }, prefersReduce ? 0 : 180);
     });
 
-    // optional: greet once
-    if (chatBox && chatBox.childElementCount === 0) {
-      addMsg('Ahoj, jsem Katka. S čím pomoct?', false);
-    }
-  } else {
-    // nech to tichý, jen debug pokud bys chtěl:
-    // console.warn('[chat] Missing elements - check ids: chat-widget, chat-fab, chat-panel...');
+    // initial ARIA sync
+    setOpen(isOpen());
   }
 })();
