@@ -1,4 +1,4 @@
-// ====== PEAK SCRIPTS — Solárium Hranice (bez chatu) ======
+// ====== PEAK SCRIPTS — Solárium Hranice (bez chatu) — FIX ======
 (() => {
   const root = document.documentElement;
   const btnTheme = document.getElementById('theme-toggle');
@@ -7,6 +7,34 @@
   const scrollbar = document.querySelector('.scrollbar');
   const spot = document.querySelector('.fx-spot');
   const prefersReduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+
+  // ---------- FIX: Inject CSS to prevent overlays blocking clicks ----------
+  function injectFixStyles() {
+    const id = 'peak-fix-noclick-overlay';
+    if (document.getElementById(id)) return;
+
+    const style = document.createElement('style');
+    style.id = id;
+    style.textContent = `
+      /* FX vrstvy nesmí blokovat klikání */
+      .fx-spot, .scrollbar, .ripple { pointer-events: none !important; }
+
+      /* Chat bublina musí být vždy navrchu a klikací
+         (pokryje nejčastější id/class názvy; klidně rozšiř podle svého HTML) */
+      #chatbot, .chatbot, .chat-bubble, #chat-toggle, .chat-toggle, .chat-widget, .chat-launcher {
+        pointer-events: auto !important;
+        position: fixed !important;
+        z-index: 2147483647 !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  injectFixStyles();
+
+  // Extra jistota i inline (kdyby někdo přepisoval CSS)
+  if (spot) spot.style.pointerEvents = 'none';
+  if (scrollbar) scrollbar.style.pointerEvents = 'none';
 
   // ---------- Theme ----------
   function setTheme(t) {
@@ -145,8 +173,10 @@
       const btn = e.target.closest('.btn');
       if (!btn || prefersReduce) return;
 
+      // FIX: ripple span nikdy nesmí chytat kliky
       const r = document.createElement('span');
       r.className = 'ripple';
+      r.style.pointerEvents = 'none';
 
       const rect = btn.getBoundingClientRect();
       r.style.setProperty('--x', `${e.clientX - rect.left}px`);
@@ -160,6 +190,9 @@
 
   // ---------- Spotlight ----------
   if (spot && matchMedia('(pointer:fine)').matches && !prefersReduce) {
+    // FIX: spotlight overlay nesmí blokovat UI
+    spot.style.pointerEvents = 'none';
+
     addEventListener(
       'pointermove',
       (e) => {
