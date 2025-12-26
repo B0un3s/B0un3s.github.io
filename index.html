@@ -49,6 +49,43 @@
       </div>
     </section>
 
+    <!-- NOVINKA (vibe fit) -->
+    <section id="novinky" class="section">
+      <div class="container">
+        <h2 class="h2 ta-center reveal">Novinka od nového roku</h2>
+
+        <div class="grid grid-2">
+          <article class="card reveal glass">
+            <h3 class="h3">Kosmetická péče</h3>
+            <p>
+              Od nového roku rozšiřujeme nabídku o profesionální kosmetickou péči.
+              Ošetření je šetrné, individuálně nastavené a zaměřené na zdravý vzhled pleti.
+            </p>
+            <p class="mt-2">
+              Cílem je spojit kvalitní péči s pohodlím a přirozeným výsledkem.
+            </p>
+
+            <div class="actions mt-3">
+              <a class="btn btn-primary btn-sheen" href="tel:+420736701777">📞 Objednat se telefonicky</a>
+              <a class="btn btn-ghost" href="#kontakt">Kontakt</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="h3">Co můžete očekávat</h3>
+            <ul class="list">
+              <li><span>Individuální posouzení pleti</span><span>✔</span></li>
+              <li><span>Šetrné ošetření a hydratace</span><span>✔</span></li>
+              <li><span>Doporučení domácí péče</span><span>✔</span></li>
+            </ul>
+            <p class="mt-2" style="color: var(--muted);">
+              Konkrétní postup vám doporučíme podle typu pleti na místě.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- O NÁS -->
     <section id="onas" class="section">
       <div class="container">
@@ -159,11 +196,9 @@
     </div>
   </footer>
 
-  <!-- CHAT WIDGET (Messenger-style) -->
+  <!-- CHAT WIDGET -->
   <div id="chat-widget" aria-live="polite" data-open="0">
-    <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s Katkou" aria-expanded="false">
-      💬
-    </button>
+    <button id="chat-fab" class="chat-fab" aria-label="Otevřít chat s Katkou" aria-expanded="false">💬</button>
 
     <section id="chat-panel" class="chat-panel card glass" aria-hidden="true" role="dialog" aria-label="Chat s Katkou">
       <header class="chat-header">
@@ -184,6 +219,7 @@
     </section>
   </div>
 
-  <script src="js/app.js" defer></script>
+  <!-- IMPORTANT: path must match your repo -->
+  <script src="app.js" defer></script>
 </body>
 </html>
