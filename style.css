@@ -489,3 +489,145 @@ a:focus-visible{outline:none; box-shadow:var(--ring); border-radius:10px}
   height: 42px; border-radius: 10px; border: 1px solid var(--border);
   padding: 0 12px; background: var(--surface-2); color: var(--text);
 }
+/* =====================================================
+   PREMIUM ENHANCEMENT ADD-ON
+   (Paste at bottom of your existing CSS)
+   ===================================================== */
+
+
+/* ---------- Ambient Background Depth ---------- */
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(900px 600px at 15% 20%, rgb(var(--brand-rgb)/.06), transparent 65%),
+    radial-gradient(800px 600px at 85% 80%, rgb(var(--brand-rgb)/.05), transparent 70%);
+  opacity:.6;
+}
+
+
+/* ---------- Smooth Theme Transition ---------- */
+
+html{
+  transition: background .35s ease, color .35s ease;
+}
+
+
+/* ---------- Premium Nav Underline ---------- */
+
+.nav a{
+  position:relative;
+}
+
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:4px;
+  height:2px;
+  background:rgb(var(--brand-rgb)/.8);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .25s ease;
+  border-radius:2px;
+}
+
+.nav a:hover::after,
+.nav a.active::after{
+  transform:scaleX(1);
+}
+
+
+/* ---------- Soft Card Edge Glow ---------- */
+
+.card{
+  position:relative;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(
+    140deg,
+    rgb(var(--brand-rgb)/.25),
+    transparent 40%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  pointer-events:none;
+  opacity:.45;
+}
+
+
+/* ---------- Stronger Button Elevation ---------- */
+
+.btn{
+  transition:
+    transform .15s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 14px 34px rgb(var(--brand-rgb)/.22),
+    var(--shadow-2);
+}
+
+
+/* ---------- Reveal Stagger Support ---------- */
+
+.reveal{
+  transition-delay: calc(var(--reveal-order, 0) * 60ms);
+}
+
+
+/* ---------- Dark Mode Glass Boost ---------- */
+
+:root[data-theme="dark"] .card{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.02)
+    );
+}
+
+
+/* ---------- Premium Scrollbar (Desktop) ---------- */
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background:rgb(var(--brand-rgb)/.35);
+  border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:rgb(var(--brand-rgb)/.55);
+}
+
+
+/* ---------- Slight Hero Glow Boost ---------- */
+
+.h1{
+  text-shadow:0 12px 40px rgb(var(--brand-rgb)/.28);
+}
