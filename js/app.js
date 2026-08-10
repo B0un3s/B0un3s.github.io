@@ -42,11 +42,10 @@
     document.head.appendChild(style);
   }
 
-  // THEME + BRAND
+  // THEME
   function ThemeBrand() {
     const btnTheme = $('#theme-toggle');
     const metaTheme = $('meta[name="theme-color"]');
-    const BRANDS = ['sunrise', 'bronze', 'tan', 'uv'];
 
     const setTheme = (t) => {
       state.root.setAttribute('data-theme', t);
@@ -54,19 +53,6 @@
       try { localStorage.setItem('theme', t); } catch {}
     };
     const getTheme = () => state.root.getAttribute('data-theme') || 'light';
-
-    const setBrand = (b) => {
-      state.root.setAttribute('data-brand', b);
-      try { localStorage.setItem('brand', b); } catch {}
-    };
-    const getBrand = () => state.root.getAttribute('data-brand') || 'sunrise';
-
-    const cycleBrand = () => {
-      const cur = getBrand();
-      const i = BRANDS.indexOf(cur);
-      const next = BRANDS[(i + 1 + BRANDS.length) % BRANDS.length];
-      setBrand(next);
-    };
 
     safe('theme:init', () => {
       let saved = null;
@@ -76,20 +62,7 @@
       else setTheme('light');
     });
 
-    safe('brand:init', () => {
-      let saved = null;
-      try { saved = localStorage.getItem('brand'); } catch {}
-      setBrand(saved && BRANDS.includes(saved) ? saved : 'sunrise');
-    });
-
-    on(btnTheme, 'click', (e) => {
-      if (e.altKey) return cycleBrand();
-      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
-    });
-
-    on(document, 'keydown', (e) => {
-      if ((e.key || '').toLowerCase() === 'b') cycleBrand();
-    });
+    on(btnTheme, 'click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
   }
 
   // NAVBAR + SCROLLBAR
