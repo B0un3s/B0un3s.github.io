@@ -411,25 +411,15 @@
       if (!popup) return;
       const closeButton = popup.querySelector('.promo-close');
       const closePopup = () => { popup.hidden = true; document.body.style.overflow = ''; };
-      if (!sessionStorage.getItem('solariumPromoClosed')) {
-        popup.hidden = false;
-        document.body.style.overflow = 'hidden';
-      }
-      closeButton.addEventListener('click', () => {
-        sessionStorage.setItem('solariumPromoClosed', '1');
-        closePopup();
-      });
+      // Zobrazit popup při každém načtení stránky, včetně každého refreshu.
+      popup.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeButton.addEventListener('click', closePopup);
       popup.addEventListener('click', event => {
-        if (event.target === popup) {
-          sessionStorage.setItem('solariumPromoClosed', '1');
-          closePopup();
-        }
+        if (event.target === popup) closePopup();
       });
       document.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && !popup.hidden) {
-          sessionStorage.setItem('solariumPromoClosed', '1');
-          closePopup();
-        }
+        if (event.key === 'Escape' && !popup.hidden) closePopup();
       });
       popup.querySelector('.promo-cta').addEventListener('click', closePopup);
     })();
