@@ -1,34 +1,76 @@
 <!DOCTYPE html>
-<html lang="cs" data-theme="light">
+<html lang="cs">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Solárium Hranice</title>
-  <meta name="description" content="Moderní opalování s maximálním komfortem. Jasný ceník. Rychlý kontakt. Koloseum, Hranice." />
+  <title>Solárium Hranice | Koloseum</title>
+  <meta name="description" content="Solárium Hranice v Koloseu: horizontální i vertikální solárium, přehledný ceník a rychlý kontakt. Na jedné adrese také kadeřnictví, kosmetika a masáže." />
   <meta name="theme-color" content="#ffffff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:title" content="Solárium Hranice" />
+  <meta property="og:description" content="Moderní opalování, jasný ceník a rychlý kontakt. Koloseum, Hranice." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☀️%3C/text%3E%3C/svg%3E" />
+  <script>
+    /* Apply theme before first paint to avoid a flash; mark JS-enabled for reveal effects */
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try {
+        var t = localStorage.getItem('theme');
+        if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        d.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Solárium Hranice",
+    "telephone": "+420736701777",
+    "email": "solariumhranice@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Tř. 1. máje 1901",
+      "addressLocality": "Hranice",
+      "postalCode": "753 01",
+      "addressCountry": "CZ"
+    }
+  }
+  </script>
 </head>
 
 <body>
-  <a class="skip" href="#main">Přeskočit na obsah</a>
+  <!-- Icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  </svg>
 
+  <a class="skip" href="#main">Přeskočit na obsah</a>
   <div class="fx-spot" aria-hidden="true"></div>
   <div class="scrollbar" aria-hidden="true"></div>
 
-  <!-- NAV -->
   <header class="navbar">
     <div class="container nav-row">
-      <a class="brand" href="#top">☀ Solárium Hranice</a>
+      <a class="brand" href="#top"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg> Solárium Hranice</a>
       <nav class="nav" aria-label="Hlavní navigace">
         <a href="#onas">O&nbsp;nás</a>
         <a href="#firmy">Firmy</a>
         <a href="#cenik">Ceník</a>
-        <a href="#faq">FAQ</a>
+        <a href="#faq">Časté dotazy</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
-      <div class="nav-actions">
-        <button id="theme-toggle" class="btn btn-icon" aria-label="Přepnout téma">🌓</button>
-      </div>
+      <button id="theme-toggle" class="btn btn-icon" type="button" aria-label="Přepnout na tmavý režim" aria-pressed="false">
+        <svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
     </div>
   </header>
 
@@ -37,11 +79,11 @@
     <!-- HERO -->
     <section id="top" class="section hero">
       <div class="container ta-center">
-        <h1 class="h1 h-accent glow-reveal">Moderní opalování. Špičkový výsledek.</h1>
-        <p class="lead reveal">Kvalitní prostředí, férové ceny a profesionální přístup.</p>
-        <div class="actions reveal">
-          <a class="btn btn-primary btn-sheen" href="#cenik">💳 Zobrazit ceník</a>
-          <a class="btn btn-ghost btn-sheen" href="tel:+420736701777">📞 Zavolat Solárium</a>
+        <h1 class="h1 h-accent">Moderní opalování. Špičkový výsledek.</h1>
+        <p class="lead">Kvalitní prostředí, férové ceny a profesionální přístup v Koloseu v Hranicích.</p>
+        <div class="actions">
+          <a class="btn btn-primary btn-sheen" href="#cenik">Zobrazit ceník</a>
+          <a class="btn btn-ghost btn-sheen" href="tel:+420736701777"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> Zavolat do solária</a>
         </div>
       </div>
     </section>
@@ -52,15 +94,15 @@
         <h2 class="h2 ta-center reveal">Proč si vybrat nás</h2>
         <div class="grid grid-3">
           <article class="card reveal">
-            <h3 class="h3">✨ Férový přístup</h3>
+            <h3 class="h3">Férový přístup</h3>
             <p>Jasná komunikace a služby bez zbytečných slibů.</p>
           </article>
           <article class="card reveal">
-            <h3 class="h3">🛡 Bezpečnost</h3>
+            <h3 class="h3">Bezpečnost</h3>
             <p>Doporučení podle fototypu a stavu pokožky. Zdraví pokožky je priorita.</p>
           </article>
           <article class="card reveal">
-            <h3 class="h3">🧼 Hygiena</h3>
+            <h3 class="h3">Hygiena</h3>
             <p>Pravidelná dezinfekce a vysoký hygienický standard.</p>
           </article>
         </div>
@@ -71,167 +113,129 @@
     <section id="firmy" class="section">
       <div class="container">
         <h2 class="h2 ta-center reveal">Firmy v Koloseu</h2>
-        <p class="ta-center muted reveal">Jedna adresa. Více služeb. Každý má svůj tým a svoje číslo.</p>
+        <p class="ta-center muted reveal">Jedna adresa, více služeb. Každá firma má svůj tým a vlastní telefonní číslo.</p>
 
-        <!-- Tabs (with numbers inside) -->
-        <div class="tabs reveal" role="tablist" aria-label="Firmy">
-
-          <div class="tab is-active"
-               role="tab"
-               tabindex="0"
-               aria-selected="true"
-               aria-controls="panel-solarium"
-               id="tab-solarium"
-               data-tab="solarium">
-            <span class="tab-label">☀ Solárium</span>
-            <a class="tab-num" href="tel:+420736701777" data-no-tab>+420 736 701 777</a>
+        <div class="tabs reveal" role="tablist" aria-label="Firmy v Koloseu">
+          <div class="tab-item is-active" role="presentation" data-name="Solárium">
+            <button class="tab" type="button" role="tab" id="tab-solarium" aria-selected="true" aria-controls="panel-solarium" data-tab="solarium">Solárium</button>
+            <a class="tab-num" href="tel:+420736701777" aria-label="Zavolat Solárium"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+420 736 701 777</a>
           </div>
-
-          <div class="tab"
-               role="tab"
-               tabindex="-1"
-               aria-selected="false"
-               aria-controls="panel-diana"
-               id="tab-diana"
-               data-tab="diana">
-            <span class="tab-label">💇‍♀️ Diana Kučová</span>
-            <a class="tab-num" href="tel:+420732612227" data-no-tab>+420 732 612 227</a>
+          <div class="tab-item" role="presentation" data-name="Diana Kučová">
+            <button class="tab" type="button" role="tab" id="tab-diana" aria-selected="false" tabindex="-1" aria-controls="panel-diana" data-tab="diana">Diana Kučová</button>
+            <a class="tab-num" href="tel:+420732612227" aria-label="Zavolat Dianě Kučové"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+420 732 612 227</a>
           </div>
-
-          <div class="tab"
-               role="tab"
-               tabindex="-1"
-               aria-selected="false"
-               aria-controls="panel-tereza"
-               id="tab-tereza"
-               data-tab="tereza">
-            <span class="tab-label">✂️ Tereza Hostýnková</span>
-            <a class="tab-num" href="tel:+420776350069" data-no-tab>+420 776 350 069</a>
+          <div class="tab-item" role="presentation" data-name="Tereza Hostýnková">
+            <button class="tab" type="button" role="tab" id="tab-tereza" aria-selected="false" tabindex="-1" aria-controls="panel-tereza" data-tab="tereza">Tereza Hostýnková</button>
+            <a class="tab-num" href="tel:+420776350069" aria-label="Zavolat Tereze Hostýnkové"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+420 776 350 069</a>
           </div>
-
-          <div class="tab"
-               role="tab"
-               tabindex="-1"
-               aria-selected="false"
-               aria-controls="panel-lucie"
-               id="tab-lucie"
-               data-tab="lucie">
-            <span class="tab-label">💆‍♀️ Lucie Palová</span>
-            <a class="tab-num" href="tel:+420775149228" data-no-tab>+420 775 149 228</a>
+          <div class="tab-item" role="presentation" data-name="Lucie Palová">
+            <button class="tab" type="button" role="tab" id="tab-lucie" aria-selected="false" tabindex="-1" aria-controls="panel-lucie" data-tab="lucie">Lucie Palová</button>
+            <a class="tab-num" href="tel:+420775149228" aria-label="Zavolat Lucii Palové"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+420 775 149 228</a>
           </div>
-
         </div>
 
         <div class="tab-panels">
 
           <!-- SOLÁRIUM -->
-          <div class="tab-panel is-active reveal" role="tabpanel" id="panel-solarium" aria-labelledby="tab-solarium">
+          <div class="tab-panel is-active" role="tabpanel" id="panel-solarium" aria-labelledby="tab-solarium" tabindex="0">
             <div class="grid grid-2">
-              <article class="card glass">
-                <h3 class="h3">☀ Solárium Hranice</h3>
-                <p>Moderní opalování ve stoje i vleže. Poradíme čas podle fototypu. Čistota a pohodlí jsou standard.</p>
-
+              <article class="card featured">
+                <h3 class="h3">Solárium Hranice</h3>
+                <p>Moderní opalování ve stoje i vleže. Čas opalování poradíme podle fototypu. Čistota a pohodlí jsou standard.</p>
                 <div class="grid grid-2 mt-2">
                   <div class="card mini">
-                    <h4 class="h4">🌞 Ve stoje</h4>
+                    <h4 class="h4">Ve stoje</h4>
                     <p class="muted">Rychlé a rovnoměrné opalování.</p>
                   </div>
                   <div class="card mini">
-                    <h4 class="h4">🌙 Vleže</h4>
-                    <p class="muted">Komfortní relax a opálení.</p>
+                    <h4 class="h4">Vleže</h4>
+                    <p class="muted">Pohodlný relax a opálení.</p>
                   </div>
                 </div>
-
                 <div class="actions mt-3">
-                  <a class="btn btn-primary btn-sheen" href="#cenik">💳 Ceník</a>
-                  <a class="btn btn-ghost btn-sheen" href="#kontakt" data-call="solarium">📞 Kontakt</a>
+                  <a class="btn btn-primary btn-sheen" href="#cenik">Ceník</a>
+                  <a class="btn btn-ghost btn-sheen" href="tel:+420736701777"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> Zavolat</a>
                 </div>
               </article>
 
               <article class="card">
                 <h3 class="h3">Rychlé info</h3>
                 <ul class="list">
-                  <li><span>Doporučení podle fototypu</span><span>✔</span></li>
-                  <li><span>Dezinfekce po každém použití</span><span>✔</span></li>
-                  <li><span>Jasné ceny bez keců</span><span>✔</span></li>
+                  <li><span>Doporučení podle fototypu</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Dezinfekce po každém použití</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Jasné ceny bez skrytých poplatků</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
                 </ul>
-                <p class="mt-3 muted">📍 Koloseum, Hranice</p>
+                <p class="mt-3 muted"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Koloseum, Hranice</p>
               </article>
             </div>
           </div>
 
           <!-- DIANA -->
-          <div class="tab-panel reveal" role="tabpanel" id="panel-diana" aria-labelledby="tab-diana" hidden>
+          <div class="tab-panel" role="tabpanel" id="panel-diana" aria-labelledby="tab-diana" tabindex="0" hidden>
             <div class="grid grid-2">
-              <article class="card glass">
-                <h3 class="h3">💇‍♀️ Kadeřnictví Diana Kučová</h3>
-                <p>Střihy, barvení, melíry, regenerace. Individuální přístup podle stavu vlasů.</p>
+              <article class="card featured">
+                <h3 class="h3">Kadeřnictví Diana Kučová</h3>
+                <p>Střihy, barvení, melíry a regenerace. Individuální přístup podle stavu vlasů.</p>
                 <ul class="list mt-2">
-                  <li><span>Dámské i pánské střihy</span><span>✔</span></li>
-                  <li><span>Barvení / melír / blond</span><span>✔</span></li>
-                  <li><span>Vlasová péče + doporučení</span><span>✔</span></li>
+                  <li><span>Dámské i pánské střihy</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Barvení, melír, blond</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Vlasová péče a doporučení</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
                 </ul>
                 <div class="actions mt-3">
-                  <a class="btn btn-primary btn-sheen" href="#kontakt" data-call="diana">📞 Kontakt</a>
-                  <a class="btn btn-ghost btn-sheen" href="#kontakt">Detail v kontaktu</a>
+                  <a class="btn btn-primary btn-sheen" href="tel:+420732612227"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> Zavolat</a>
                 </div>
               </article>
-
               <article class="card">
                 <h3 class="h3">Objednání</h3>
-                <p class="muted">Nejrychlejší je zavolat – hned víte termín a co je reálně možné.</p>
+                <p class="muted">Nejrychlejší je zavolat. Hned znáte termín a víte, co je reálně možné.</p>
                 <details class="faq mt-2">
                   <summary>Co říct do telefonu?</summary>
-                  <div class="faq-a">„Diana, chci (střih/barva/melír), a ideálně kdy.“</div>
+                  <div class="faq-a">„Dobrý den, chtěla bych se objednat na střih, barvení nebo melír, nejlépe v tomto termínu.“</div>
                 </details>
               </article>
             </div>
           </div>
 
           <!-- TEREZA -->
-          <div class="tab-panel reveal" role="tabpanel" id="panel-tereza" aria-labelledby="tab-tereza" hidden>
+          <div class="tab-panel" role="tabpanel" id="panel-tereza" aria-labelledby="tab-tereza" tabindex="0" hidden>
             <div class="grid grid-2">
-              <article class="card glass">
-                <h3 class="h3">✂️ Kadeřnictví Tereza Hostýnková</h3>
-                <p>Dámské i pánské střihy, moderní styling a účesy na eventy.</p>
+              <article class="card featured">
+                <h3 class="h3">Kadeřnictví Tereza Hostýnková</h3>
+                <p>Dámské i pánské střihy, moderní styling a účesy na společenské akce.</p>
                 <ul class="list mt-2">
-                  <li><span>Střih + styling</span><span>✔</span></li>
-                  <li><span>Účesy (ples / svatby)</span><span>✔</span></li>
-                  <li><span>Poradenství k úpravě</span><span>✔</span></li>
+                  <li><span>Střih a styling</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Účesy na plesy a svatby</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Poradenství k úpravě vlasů</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
                 </ul>
                 <div class="actions mt-3">
-                  <a class="btn btn-primary btn-sheen" href="#kontakt" data-call="tereza">📞 Kontakt</a>
-                  <a class="btn btn-ghost btn-sheen" href="#kontakt">Detail v kontaktu</a>
+                  <a class="btn btn-primary btn-sheen" href="tel:+420776350069"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> Zavolat</a>
                 </div>
               </article>
-
               <article class="card">
                 <h3 class="h3">Tip</h3>
-                <p class="muted">Pokud jdete na akci, napište datum/čas – ať to trefíme bez stresu.</p>
+                <p class="muted">Pokud se chystáte na akci, sdělte při objednání datum a čas. Termín tak zvládneme bez stresu.</p>
               </article>
             </div>
           </div>
 
           <!-- LUCIE -->
-          <div class="tab-panel reveal" role="tabpanel" id="panel-lucie" aria-labelledby="tab-lucie" hidden>
+          <div class="tab-panel" role="tabpanel" id="panel-lucie" aria-labelledby="tab-lucie" tabindex="0" hidden>
             <div class="grid grid-2">
-              <article class="card glass">
-                <h3 class="h3">💆‍♀️ Lucie Palová — Kosmetika & Masáže</h3>
-                <p>Relaxační i regenerační masáže + kosmetická péče. Ideální restart pro tělo i pleť.</p>
+              <article class="card featured">
+                <h3 class="h3">Lucie Palová – kosmetika a masáže</h3>
+                <p>Relaxační i regenerační masáže a kosmetická péče. Ideální odpočinek pro tělo i pleť.</p>
                 <ul class="list mt-2">
-                  <li><span>Relaxační / regenerační masáže</span><span>✔</span></li>
-                  <li><span>Šíje, záda, uvolnění</span><span>✔</span></li>
-                  <li><span>Kosmetická péče dle pleti</span><span>✔</span></li>
+                  <li><span>Relaxační a regenerační masáže</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Šíje, záda, uvolnění</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
+                  <li><span>Kosmetická péče podle typu pleti</span><svg class="ic tick" aria-label="Ano" role="img"><use href="#i-check"/></svg></li>
                 </ul>
                 <div class="actions mt-3">
-                  <a class="btn btn-primary btn-sheen" href="#kontakt" data-call="lucie">📞 Kontakt</a>
-                  <a class="btn btn-ghost btn-sheen" href="#kontakt">Detail v kontaktu</a>
+                  <a class="btn btn-primary btn-sheen" href="tel:+420775149228"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> Zavolat</a>
                 </div>
               </article>
-
               <article class="card">
                 <h3 class="h3">Pro koho</h3>
-                <p class="muted">Sedavá práce, stres, sport… tohle je clean win.</p>
+                <p class="muted">Pro všechny, kdo tráví hodně času vsedě, zažívají stres nebo sportují.</p>
               </article>
             </div>
           </div>
@@ -247,20 +251,20 @@
 
         <div class="grid grid-2">
           <article class="card reveal">
-            <h3 class="h4 ta-center">Horizontální solárium (19 Kč / minuta)</h3>
-            <h5 class="muted ta-center">Turbo Power: 51× Tan Tube 160 W, 4× 520 W, 13× 25 W</h5>
+            <h3 class="h4 ta-center">Horizontální solárium</h3>
+            <p class="muted ta-center spec">Turbo Power: 51× Tan Tube 160&nbsp;W, 4× 520&nbsp;W, 13× 25&nbsp;W</p>
             <ul class="list mt-2">
-              <li><span>1 min</span><span>19 Kč</span></li>
-              <li><span>100 minut</span><span>1370 Kč</span></li>
+              <li><span>1 minuta</span><span>19&nbsp;Kč</span></li>
+              <li><span>100 minut</span><span>1&nbsp;370&nbsp;Kč</span></li>
             </ul>
           </article>
 
           <article class="card reveal">
-            <h3 class="h4 ta-center">Vertikální solárium (18 Kč / minuta)</h3>
-            <h5 class="muted ta-center">Turbo Power: 50× Tan Tube 180 W</h5>
+            <h3 class="h4 ta-center">Vertikální solárium</h3>
+            <p class="muted ta-center spec">Turbo Power: 50× Tan Tube 180&nbsp;W</p>
             <ul class="list mt-2">
-              <li><span>1 min</span><span>18 Kč</span></li>
-              <li><span>100 min</span><span>1370 Kč</span></li>
+              <li><span>1 minuta</span><span>18&nbsp;Kč</span></li>
+              <li><span>100 minut</span><span>1&nbsp;370&nbsp;Kč</span></li>
             </ul>
           </article>
         </div>
@@ -274,92 +278,84 @@
 
         <details class="faq reveal">
           <summary>Kolik minut je vhodných?</summary>
-          <div class="faq-a">Začínáme opatrně podle fototypu. Na místě doporučíme konkrétní čas.</div>
+          <div class="faq-a">Začínáme opatrně podle fototypu. Konkrétní čas vám doporučíme na místě.</div>
         </details>
 
         <details class="faq reveal">
           <summary>Je nutné se objednávat?</summary>
-          <div class="faq-a">Objednání není nutné, ale doporučujeme předem zavolat.</div>
+          <div class="faq-a">Objednání není nutné, doporučujeme však předem zavolat.</div>
+        </details>
+
+        <details class="faq reveal">
+          <summary>Od kolika let je možné solárium navštívit?</summary>
+          <div class="faq-a">Solárium je určeno pouze osobám starším 18 let.</div>
         </details>
       </div>
     </section>
 
-    <!-- KONTAKT (compact + hidden list) -->
+    <!-- KONTAKT -->
     <section id="kontakt" class="section">
       <div class="container ta-center">
         <h2 class="h2 reveal">Kontakt</h2>
 
-        <!-- Quick call bar -->
         <div class="contact-quick reveal">
           <div class="cq-left">
-            <div class="cq-chip" id="cq-chip">☀ Solárium</div>
+            <div class="cq-chip" id="cq-chip">Solárium</div>
             <div class="cq-num" id="cq-num">+420 736 701 777</div>
           </div>
-
           <div class="cq-actions">
-            <a class="btn btn-primary btn-sheen" href="#" data-call-active id="cq-call">
-              📞 Zavolat vybranou službu
-            </a>
-            <button class="btn btn-ghost btn-sheen" type="button" id="kontakt-toggle" aria-expanded="false">
-              📇 Zobrazit všechny kontakty
-            </button>
+            <a class="btn btn-primary btn-sheen" href="tel:+420736701777" id="cq-call"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> <span id="cq-call-label">Zavolat: Solárium</span></a>
+            <button class="btn btn-ghost btn-sheen" type="button" id="kontakt-toggle" aria-expanded="false" aria-controls="kontakt-panel">Zobrazit všechny kontakty</button>
           </div>
         </div>
 
-        <!-- Hidden panel -->
-        <article class="card contact-card reveal contact-collapsed" id="kontakt-panel" aria-hidden="true">
+        <article class="card contact-card" id="kontakt-panel" hidden>
           <ul class="contact-list">
             <li class="contact-row">
-              <div class="contact-ico">☀</div>
+              <div class="contact-ico"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg></div>
               <div>
                 <div><strong>Solárium Hranice</strong></div>
                 <a href="tel:+420736701777">+420 736 701 777</a>
               </div>
             </li>
-
             <li class="contact-row">
-              <div class="contact-ico">💇‍♀️</div>
+              <div class="contact-ico"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></div>
               <div>
-                <div><strong>Diana Kučová</strong></div>
+                <div><strong>Diana Kučová</strong> <span class="muted">– kadeřnictví</span></div>
                 <a href="tel:+420732612227">+420 732 612 227</a>
               </div>
             </li>
-
             <li class="contact-row">
-              <div class="contact-ico">✂️</div>
+              <div class="contact-ico"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></div>
               <div>
-                <div><strong>Tereza Hostýnková</strong></div>
+                <div><strong>Tereza Hostýnková</strong> <span class="muted">– kadeřnictví</span></div>
                 <a href="tel:+420776350069">+420 776 350 069</a>
               </div>
             </li>
-
             <li class="contact-row">
-              <div class="contact-ico">💆‍♀️</div>
+              <div class="contact-ico"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></div>
               <div>
-                <div><strong>Lucie Palová — Kosmetika & Masáže</strong></div>
+                <div><strong>Lucie Palová</strong> <span class="muted">– kosmetika a masáže</span></div>
                 <a href="tel:+420775149228">+420 775 149 228</a>
               </div>
             </li>
-
             <li class="contact-row">
-              <div class="contact-ico">📍</div>
+              <div class="contact-ico"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg></div>
               <div>
                 <div><strong>Adresa</strong></div>
-                <div class="muted">Koloseum, Hranice</div>
+                <div class="muted">Koloseum, Tř. 1. máje 1901, 753 01 Hranice</div>
               </div>
             </li>
-
             <li class="contact-row">
-              <div class="contact-ico">✉</div>
+              <div class="contact-ico"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></div>
               <div>
                 <div><strong>E-mail</strong></div>
                 <a href="mailto:solariumhranice@gmail.com">solariumhranice@gmail.com</a>
               </div>
             </li>
           </ul>
-
           <div class="business-info">
-            <strong>Info:</strong> Kadeřnictví a masáže/kosmetika jsou samostatné firmy na stejné adrese.
+            <strong>Informace:</strong> Kadeřnictví a kosmetika s masážemi jsou samostatné firmy na stejné adrese.
           </div>
         </article>
       </div>
@@ -369,36 +365,41 @@
 
   <footer class="footer">
     <p class="footer-legal">
-      František Kuča — Solárium Hranice, IČO: 22601121<br />
+      František Kuča – Solárium Hranice, IČO: 22601121<br />
       Tř. 1. máje 1901, Hranice I-Město, 753 01 Hranice<br />
       Fyzická osoba podnikající dle živnostenského zákona, nezapsaná v obchodním rejstříku
     </p>
-    <p>
-      <a href="zasady-ochrany-osobnich-udaju.html">Zásady ochrany osobních údajů</a>
-    </p>
+    <p><a href="zasady-ochrany-osobnich-udaju.html">Zásady ochrany osobních údajů</a></p>
     <p>&copy; 2026 Solárium Hranice</p>
   </footer>
 
-  <!-- CHAT WIDGET -->
-  <div id="chat-widget" data-open="0" aria-live="polite">
-    <button id="chat-fab" class="chat-fab" aria-expanded="false" aria-controls="chat-panel" title="Chat">
-      💬
+  <!-- CHAT -->
+  <div id="chat-widget" data-open="0">
+    <button id="chat-fab" class="chat-fab" type="button" aria-expanded="false" aria-controls="chat-panel" aria-label="Otevřít chat s asistentem">
+      <svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg>
     </button>
 
-    <div id="chat-panel" class="chat-panel" aria-hidden="true">
+    <div id="chat-panel" class="chat-panel" role="dialog" aria-label="Asistent Solária Hranice">
       <div class="chat-header">
-        <div class="chat-avatar">K</div>
+        <div class="chat-avatar" aria-hidden="true">S</div>
         <div class="chat-title">
-          <strong>Katka</strong>
-          <span class="muted">Rychlá pomoc</span>
+          <strong>Asistent</strong>
+          <span class="muted">Automatické odpovědi</span>
         </div>
-        <button id="chat-close" class="btn btn-icon" aria-label="Zavřít chat">✕</button>
+        <button id="chat-close" class="btn btn-icon" type="button" aria-label="Zavřít chat">&#10005;</button>
       </div>
 
-      <div id="chat-box" class="chat-box"></div>
+      <div id="chat-box" class="chat-box" role="log" aria-live="polite"></div>
+
+      <div class="chat-chips" id="chat-chips">
+        <button type="button" class="chip" data-q="ceník">Ceník</button>
+        <button type="button" class="chip" data-q="objednání">Objednání</button>
+        <button type="button" class="chip" data-q="kolik minut">Kolik minut</button>
+        <button type="button" class="chip" data-q="adresa">Adresa</button>
+      </div>
 
       <form id="chat-form" class="chat-input-row">
-        <input id="chat-input" type="text" placeholder="Napište: ceník / objednání / kolik minut…" autocomplete="off" />
+        <input id="chat-input" type="text" placeholder="Napište dotaz…" aria-label="Váš dotaz" autocomplete="off" />
         <button class="btn btn-primary" type="submit">Odeslat</button>
       </form>
     </div>
