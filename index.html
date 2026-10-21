@@ -378,5 +378,62 @@
   </script>
 
   <script src="js/app.js" defer></script>
+
+  <!-- Akční popup: 15 minut za 199 Kč -->
+  <div id="promo-popup" class="promo-overlay" role="dialog" aria-modal="true" aria-labelledby="promo-title" aria-describedby="promo-description" hidden>
+    <section class="promo-modal">
+      <button class="promo-close" type="button" aria-label="Zavřít nabídku">&times;</button>
+      <p class="promo-eyebrow">AKČNÍ NABÍDKA</p>
+      <h2 id="promo-title">15 minut za <span>199 Kč</span></h2>
+      <p id="promo-description">Dopřejte si chvíli pro sebe v Soláriu Hranice.</p>
+      <a class="btn btn-primary btn-sheen promo-cta" href="#cenik">Zobrazit ceník</a>
+      <p class="promo-note">Solárium Hranice · OC Koloseum</p>
+    </section>
+  </div>
+  <style>
+    .promo-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(3,6,12,.78);backdrop-filter:blur(7px)}
+    .promo-overlay[hidden]{display:none}
+    .promo-modal{position:relative;width:min(100%,460px);padding:42px 28px 30px;text-align:center;color:#f5f7fb;background:linear-gradient(145deg,#171d28,#0b0e13 75%);border:1px solid rgba(213,170,91,.65);border-radius:22px;box-shadow:0 25px 90px rgba(0,0,0,.55);animation:promo-enter .28s ease-out}
+    .promo-close{position:absolute;top:10px;right:14px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.09);color:#fff;font-size:29px;line-height:1;cursor:pointer}
+    .promo-close:hover{background:rgba(255,255,255,.18)}
+    .promo-eyebrow{margin:0 0 12px;color:#d9b66e;font-size:.78rem;font-weight:800;letter-spacing:.2em}
+    .promo-modal h2{margin:0 0 14px;font-size:clamp(2rem,7vw,3rem);line-height:1.12}
+    .promo-modal h2 span{display:block;margin-top:7px;color:#e4bf72}
+    .promo-modal p:not(.promo-eyebrow):not(.promo-note){color:#c7ced8;line-height:1.6}
+    .promo-cta{display:inline-flex;justify-content:center;margin-top:12px}
+    .promo-note{margin:22px 0 0;color:#8f99a8;font-size:.8rem}
+    @keyframes promo-enter{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @media(prefers-reduced-motion:reduce){.promo-modal{animation:none}}
+  </style>
+  <script>
+    (() => {
+      const popup = document.getElementById('promo-popup');
+      if (!popup) return;
+      const closeButton = popup.querySelector('.promo-close');
+      const closePopup = () => { popup.hidden = true; document.body.style.overflow = ''; };
+      if (!sessionStorage.getItem('solariumPromoClosed')) {
+        popup.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+      closeButton.addEventListener('click', () => {
+        sessionStorage.setItem('solariumPromoClosed', '1');
+        closePopup();
+      });
+      popup.addEventListener('click', event => {
+        if (event.target === popup) {
+          sessionStorage.setItem('solariumPromoClosed', '1');
+          closePopup();
+        }
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !popup.hidden) {
+          sessionStorage.setItem('solariumPromoClosed', '1');
+          closePopup();
+        }
+      });
+      popup.querySelector('.promo-cta').addEventListener('click', closePopup);
+    })();
+  </script>
+
 </body>
 </html>
