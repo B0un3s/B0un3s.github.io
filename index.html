@@ -114,6 +114,38 @@
         <h2 class="h2 ta-center reveal">Firmy v Koloseu</h2>
         <p class="ta-center muted reveal">Jedna adresa, více služeb. Každá firma má svůj tým a vlastní telefonní číslo.</p>
 
+
+
+        <div class="business-directory reveal" aria-label="Přehled služeb v Koloseu">
+          <article class="business-card">
+            <div class="business-card-top"><span class="business-number">01</span><span class="business-category">KOSMETIKA &amp; MASÁŽE</span></div>
+            <h3>Lucie Palová</h3>
+            <p>Kosmetická péče, masáže, lymfatické masáže a relaxační procedury.</p>
+            <ul class="business-services">
+              <li>Kosmetika</li><li>Masáže</li><li>Lymfatické masáže</li><li>Péče o pleť</li>
+            </ul>
+            <a class="business-link" href="#panel-lucie" data-business-link="lucie">Zobrazit služby <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="business-card">
+            <div class="business-card-top"><span class="business-number">02</span><span class="business-category">KADEŘNICTVÍ</span></div>
+            <h3>Terezie Hostýnková</h3>
+            <p>Dámské i pánské kadeřnické služby, střihy, barvení a moderní vlasové techniky.</p>
+            <ul class="business-services">
+              <li>Kadeřnictví</li><li>Střihy</li><li>Barvení</li><li>Styling</li>
+            </ul>
+            <a class="business-link" href="#panel-tereza" data-business-link="tereza">Zobrazit služby <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="business-card">
+            <div class="business-card-top"><span class="business-number">03</span><span class="business-category">KADEŘNICTVÍ &amp; BARBER</span></div>
+            <h3>Diana Kučová</h3>
+            <p>Kadeřnictví Diana Kučová a barber služby Marka Porubského.</p>
+            <ul class="business-services">
+              <li>Kadeřnictví</li><li>Barvení &amp; blond techniky</li><li>Balayage &amp; AirTouch</li><li>Barber – Marek Porubský</li>
+            </ul>
+            <a class="business-link" href="#panel-diana" data-business-link="diana">Zobrazit služby <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+
         <div class="tabs reveal" role="tablist" aria-label="Firmy v Koloseu">
           <div class="tab-item is-active" role="presentation" data-name="Solárium">
             <button class="tab" type="button" role="tab" id="tab-solarium" aria-selected="true" aria-controls="panel-solarium" data-tab="solarium">Solárium</button>
@@ -403,6 +435,17 @@
       </form>
     </div>
   </div>
+
+
+  <script>
+    document.querySelectorAll("[data-business-link]").forEach(function (link) {
+      link.addEventListener("click", function () {
+        var name = link.getAttribute("data-business-link");
+        var tab = document.querySelector('[data-tab="' + name + '"]');
+        if (tab) tab.click();
+      });
+    });
+  </script>
 
   <script src="js/app.js" defer></script>
 </body>
