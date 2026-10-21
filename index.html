@@ -268,7 +268,7 @@
       <div class="container">
         <h2 class="h2 ta-center reveal">Ceník</h2>
 
-        <div class="grid grid-2">
+        <div class="grid grid-3">
           <article class="card reveal">
             <h3 class="h4 ta-center">Horizontální solárium</h3>
             <p class="muted ta-center spec">Turbo Power: 51× Tan Tube 160&nbsp;W, 4× 520&nbsp;W, 13× 25&nbsp;W</p>
@@ -285,6 +285,14 @@
               <li><span>1 minuta</span><span>18&nbsp;Kč</span></li>
               <li><span>100 minut</span><span>1&nbsp;370&nbsp;Kč</span></li>
             </ul>
+          </article>
+
+          <article class="card reveal promo-price-card">
+            <p class="promo-eyebrow">AKTUÁLNÍ AKCE</p>
+            <h3 class="h4 ta-center">15 minut za</h3>
+            <p class="promo-price">199&nbsp;Kč</p>
+            <p class="muted ta-center">Využijte naši momentální akční nabídku v Soláriu Hranice.</p>
+            <a class="btn btn-primary btn-sheen promo-price-cta" href="tel:+420736701777">Informace o akci</a>
           </article>
         </div>
       </div>
@@ -402,6 +410,11 @@
     .promo-modal p:not(.promo-eyebrow):not(.promo-note){color:#c7ced8;line-height:1.6}
     .promo-cta{display:inline-flex;justify-content:center;margin-top:12px}
     .promo-note{margin:22px 0 0;color:#8f99a8;font-size:.8rem}
+    .promo-price-card{border-color:rgba(213,170,91,.65);background:linear-gradient(145deg,rgba(213,170,91,.11),rgba(11,14,19,.98) 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+    .promo-price-card .promo-eyebrow{margin-top:0}
+    .promo-price{margin:4px 0 12px;color:#e4bf72;font-size:clamp(2.6rem,5vw,3.4rem);font-weight:800;line-height:1}
+    .promo-price-cta{margin-top:14px}
+    @media(max-width:800px){#cenik .grid-3{grid-template-columns:1fr}}
     @keyframes promo-enter{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
     @media(prefers-reduced-motion:reduce){.promo-modal{animation:none}}
   </style>
