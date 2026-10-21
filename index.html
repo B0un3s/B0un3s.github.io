@@ -124,7 +124,7 @@
           </article>
         </div>
 
-        <div class="tabs reveal" role="tablist" aria-label="Kontakty na kolegyně a solárium">        <div class="tab-panels">
+        <div class="tab-panels reveal" aria-label="Kontakty na kolegyně a solárium">
 
           <!-- SOLÁRIUM -->
           <div class="tab-panel is-active" role="tabpanel" id="panel-solarium" aria-labelledby="tab-solarium" tabindex="0">
@@ -353,10 +353,28 @@
 
   <script>
     document.querySelectorAll("[data-business-link]").forEach(function (link) {
-      link.addEventListener("click", function () {
-        var name = link.getAttribute("data-business-link");
-        var tab = document.querySelector('[data-tab="' + name + '"]');
-        if (tab) tab.click();
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        var panelId = link.getAttribute("href");
+        var selectedPanel = document.querySelector(panelId);
+        var panels = document.querySelectorAll(".tab-panel");
+
+        if (!selectedPanel) return;
+
+        panels.forEach(function (panel) {
+          var isSelected = panel === selectedPanel;
+          panel.hidden = !isSelected;
+          panel.classList.toggle("is-active", isSelected);
+        });
+
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, "", panelId);
+        }
+
+        selectedPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        selectedPanel.setAttribute("tabindex", "-1");
+        selectedPanel.focus({ preventScroll: true });
       });
     });
   </script>
