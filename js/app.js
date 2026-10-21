@@ -243,7 +243,7 @@
         return 'Horizontální solárium: 19 Kč/min, 100 minut za 1 370 Kč.\nVertikální solárium: 18 Kč/min, 100 minut za 1 370 Kč.';
       }
       if (has(t, ['obj', 'rezerv', 'termin', 'volat', 'telefon', 'kontakt'])) {
-        return 'Objednání není nutné, ale doporučujeme zavolat. Solárium: +420 736 701 777. Kadeřnictví, kosmetiku a masáže najdete v sekci „Kontakt“.';
+        return 'Objednání do solária není nutné, ale před návštěvou doporučujeme zavolat na +420 736 701 777. Informace o kadeřnictví, kosmetice a masážích najdete v přehledu služeb na této stránce.';
       }
       if (has(t, ['min', 'kolik', 'fototyp', 'opal', 'doba'])) {
         return 'Čas opalování závisí na fototypu a stavu pokožky. Začínáme opatrně a konkrétní čas vám doporučíme přímo na místě.';
