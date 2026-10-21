@@ -12,10 +12,7 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(pointer: fine)').matches;
 
-  const store = {
-    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch { /* storage unavailable */ } },
-  };
+  // Preferences remain in memory only; the site does not write browser storage.
 
   const safe = (name, fn) => {
     try { fn(); } catch (err) { console.error(`[app:${name}]`, err); }
@@ -41,7 +38,6 @@
     btn?.addEventListener('click', () => {
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       apply(next);
-      store.set('theme', next);
     });
   }
 
@@ -172,7 +168,6 @@
         if (panel) { panel.hidden = !on; panel.classList.toggle('is-active', on); }
         if (on) { syncContact(t); if (focus) t.focus(); }
       });
-      if (persist) store.set(storageKey, key);
     };
 
     tabs.forEach((t, i) => {
@@ -191,8 +186,7 @@
 
     // Initial tab: ?tab=… in URL, then remembered choice, then first
     const fromUrl = (new URLSearchParams(location.search).get('tab') || '').toLowerCase();
-    const saved = (store.get(storageKey) || '').toLowerCase();
-    activate(keys.includes(fromUrl) ? fromUrl : keys.includes(saved) ? saved : keys[0], { persist: false });
+    activate(keys.includes(fromUrl) ? fromUrl : keys[0], { persist: false });
 
     // Contact list toggle
     const toggle = $('#kontakt-toggle');
